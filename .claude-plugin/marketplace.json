@@ -6,20 +6,20 @@
     "url": "https://library.xrcvc.org"
   },
   "description": "Open-source XRCVC Library agent plugins.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "plugins": [
     {
       "name": "xrcvclibrary",
       "displayName": "XRCVC Library",
       "source": "./plugins/xrcvclibrary",
       "description": "Explore the catalog and review role-authorized XRCVC Library activity.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": {
         "name": "XRCVC Library",
         "email": "info@xrcvc.org",
         "url": "https://library.xrcvc.org"
       },
-      "homepage": "https://library.xrcvc.org",
+      "homepage": "https://console.library.xrcvc.org/plugin-support",
       "repository": "https://github.com/Varunmanoj/xrcvclibrary",
       "license": "MIT",
       "category": "Productivity",

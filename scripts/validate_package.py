@@ -17,6 +17,10 @@ EXPECTED_SKILLS = {
     "review-xrcvc-account",
 }
 MCP_URL = "https://mcp.library.xrcvc.org/mcp/authorize"
+WEBSITE_URL = "https://library.xrcvc.org"
+PRIVACY_URL = "https://console.library.xrcvc.org/privacy-policy"
+TERMS_URL = "https://console.library.xrcvc.org/terms-of-service"
+SUPPORT_URL = "https://console.library.xrcvc.org/plugin-support"
 
 
 def load_json(path: Path) -> dict:
@@ -75,10 +79,26 @@ def validate() -> None:
 
     manifests = (codex, portable, claude)
     assert all(item.get("name") == "xrcvclibrary" for item in manifests), "plugin name mismatch"
-    assert all(item.get("version") == "0.1.0" for item in manifests), "plugin version mismatch"
+    assert portable.get("version") == "0.1.1", "portable plugin version mismatch"
+    assert claude.get("version") == "0.1.1", "Claude plugin version mismatch"
+    assert re.fullmatch(r"0\.1\.1\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert portable_mcp.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
     assert set(portable).issubset({"$schema", "name", "version", "description", "author", "homepage", "repository", "license", "keywords", "extensions"})
+
+    codex_interface = codex.get("interface", {})
+    assert codex.get("homepage") == SUPPORT_URL
+    assert codex_interface.get("websiteURL") == WEBSITE_URL
+    assert codex_interface.get("privacyPolicyURL") == PRIVACY_URL
+    assert codex_interface.get("termsOfServiceURL") == TERMS_URL
+    assert portable.get("homepage") == SUPPORT_URL
+    assert portable.get("extensions", {}).get("org.xrcvc.library") == {
+        "websiteURL": WEBSITE_URL,
+        "privacyPolicyURL": PRIVACY_URL,
+        "termsOfServiceURL": TERMS_URL,
+        "supportURL": SUPPORT_URL,
+    }
+    assert claude.get("homepage") == SUPPORT_URL
 
     assert native_mcp["mcpServers"]["xrcvc-library"]["url"] == MCP_URL
     assert portable_mcp["mcpServers"]["xrcvc-library"] == {"type": "streamable-http", "url": MCP_URL}
@@ -100,6 +120,7 @@ def validate() -> None:
     assert claude_marketplace.get("name") == "xrcvc-library"
     assert claude_entry.get("name") == "xrcvclibrary"
     assert claude_entry.get("source") == "./plugins/xrcvclibrary"
+    assert claude_entry.get("homepage") == SUPPORT_URL
 
     app_manifest = PLUGIN_ROOT / ".app.json"
     if app_manifest.exists():

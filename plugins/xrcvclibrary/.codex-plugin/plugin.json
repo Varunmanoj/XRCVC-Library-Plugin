@@ -1,16 +1,22 @@
 {
   "name": "xrcvclibrary",
-  "version": "0.1.0",
+  "version": "0.1.1+codex.20260819060410",
   "description": "Explore the XRCVC Library catalog and review role-authorized carts, requests, orders, account activity, and reports.",
   "author": {
     "name": "XRCVC Library",
     "email": "info@xrcvc.org",
     "url": "https://library.xrcvc.org"
   },
-  "homepage": "https://library.xrcvc.org",
+  "homepage": "https://console.library.xrcvc.org/plugin-support",
   "repository": "https://github.com/Varunmanoj/xrcvclibrary",
   "license": "MIT",
-  "keywords": ["xrcvc", "library", "catalog", "accessibility", "mcp"],
+  "keywords": [
+    "xrcvc",
+    "library",
+    "catalog",
+    "accessibility",
+    "mcp"
+  ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
@@ -19,7 +25,10 @@
     "longDescription": "Search and analyze the public XRCVC catalog, then securely review role-authorized account information, carts, requests, orders, tasks, and reports through the XRCVC Library MCP server.",
     "developerName": "XRCVC Library",
     "category": "Productivity",
-    "capabilities": ["Search", "Read"],
+    "capabilities": [
+      "Search",
+      "Read"
+    ],
     "websiteURL": "https://library.xrcvc.org",
     "privacyPolicyURL": "https://console.library.xrcvc.org/privacy-policy",
     "termsOfServiceURL": "https://console.library.xrcvc.org/terms-of-service",

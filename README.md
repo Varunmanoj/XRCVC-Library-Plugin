@@ -121,6 +121,8 @@ The marketplace registration checklist and positive/negative review prompts are 
 - [Plugin Support](https://console.library.xrcvc.org/plugin-support)
 - Email: [info@xrcvc.org](mailto:info@xrcvc.org) or [books@xrcvc.org](mailto:books@xrcvc.org)
 
+The OpenAI manifest exposes the Terms URL through `interface.termsOfServiceURL` and uses the Plugin Support page as its documentation `homepage`; OpenAI's submission form receives the same Support URL from [SUBMISSION.md](SUBMISSION.md). The Claude manifest and marketplace entry use Plugin Support as their documented `homepage`. The portable Agent Plugins manifest records the website, privacy, terms, and support URLs under the permitted `org.xrcvc.library` extension namespace.
+
 ## License
 
 MIT. See [LICENSE](LICENSE).

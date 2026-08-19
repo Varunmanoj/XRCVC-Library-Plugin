@@ -15,6 +15,8 @@ Use this checklist after the canonical MCP deployment and public policy routes a
 
 Register the MCP server in ChatGPT Developer Mode, complete OAuth, copy the real `plugin_asdk_app…` identifier into `plugins/xrcvclibrary/.app.json`, reference it from `.codex-plugin/plugin.json`, and rerun `python3 scripts/validate_package.py`. Never submit a fabricated identifier.
 
+The distributable package carries these links in the locations supported by each format: OpenAI Terms in `interface.termsOfServiceURL`, OpenAI/Claude support documentation in `homepage`, and all four public listing links in the portable `org.xrcvc.library` extension. The OpenAI portal's separate **Support URL** field must use the Support value above.
+
 ## Positive test prompts
 
 1. Find Braille mathematics books in the XRCVC catalog and compare their formats and requestability.
