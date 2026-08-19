@@ -1,0 +1,35 @@
+{
+  "name": "xrcvclibrary",
+  "version": "0.1.0",
+  "description": "Explore the XRCVC Library catalog and review role-authorized carts, requests, orders, account activity, and reports.",
+  "author": {
+    "name": "XRCVC Library",
+    "email": "info@xrcvc.org",
+    "url": "https://library.xrcvc.org"
+  },
+  "homepage": "https://library.xrcvc.org",
+  "repository": "https://github.com/Varunmanoj/xrcvclibrary",
+  "license": "MIT",
+  "keywords": ["xrcvc", "library", "catalog", "accessibility", "mcp"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "XRCVC Library",
+    "shortDescription": "Explore accessible resources and library activity.",
+    "longDescription": "Search and analyze the public XRCVC catalog, then securely review role-authorized account information, carts, requests, orders, tasks, and reports through the XRCVC Library MCP server.",
+    "developerName": "XRCVC Library",
+    "category": "Productivity",
+    "capabilities": ["Search", "Read"],
+    "websiteURL": "https://library.xrcvc.org",
+    "privacyPolicyURL": "https://console.library.xrcvc.org/privacy-policy",
+    "termsOfServiceURL": "https://console.library.xrcvc.org/terms-of-service",
+    "defaultPrompt": [
+      "Find accessible resources in the XRCVC catalog.",
+      "Explain the items currently in my library cart.",
+      "Summarize my requests, orders, and next actions."
+    ],
+    "brandColor": "#E8601C",
+    "composerIcon": "./assets/xrcvc-library-icon.png",
+    "logo": "./assets/xrcvc-library-logo.png"
+  }
+}

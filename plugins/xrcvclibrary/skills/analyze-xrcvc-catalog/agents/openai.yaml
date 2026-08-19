@@ -1,0 +1,13 @@
+interface:
+  display_name: "Analyze XRCVC Catalog"
+  short_description: "Analyze XRCVC catalog items and taxonomy"
+  default_prompt: "Use $analyze-xrcvc-catalog to find and compare accessible resources in the XRCVC catalog."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "xrcvc-library"
+      description: "Public and role-authorized XRCVC Library data"
+      transport: "streamable_http"
+      url: "https://mcp.library.xrcvc.org/mcp/authorize"
+policy:
+  allow_implicit_invocation: true

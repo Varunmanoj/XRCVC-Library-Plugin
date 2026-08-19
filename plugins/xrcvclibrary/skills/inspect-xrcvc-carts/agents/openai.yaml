@@ -1,0 +1,13 @@
+interface:
+  display_name: "Inspect XRCVC Carts"
+  short_description: "Review role-authorized XRCVC library carts"
+  default_prompt: "Use $inspect-xrcvc-carts to explain the items in my XRCVC Library cart."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "xrcvc-library"
+      description: "Role-authorized XRCVC Library cart data"
+      transport: "streamable_http"
+      url: "https://mcp.library.xrcvc.org/mcp/authorize"
+policy:
+  allow_implicit_invocation: true

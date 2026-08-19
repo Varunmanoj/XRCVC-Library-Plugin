@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "xrcvc-library": {
+      "type": "http",
+      "url": "https://mcp.library.xrcvc.org/mcp/authorize",
+      "note": "XRCVC Library remote MCP server. OAuth 2.1 is discovered on first protected use; public catalog tools work without signing in."
+    }
+  }
+}

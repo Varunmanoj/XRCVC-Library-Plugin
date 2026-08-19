@@ -1,0 +1,20 @@
+{
+  "name": "xrcvc-library",
+  "interface": {
+    "displayName": "XRCVC Library"
+  },
+  "plugins": [
+    {
+      "name": "xrcvclibrary",
+      "source": {
+        "source": "local",
+        "path": "./plugins/xrcvclibrary"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

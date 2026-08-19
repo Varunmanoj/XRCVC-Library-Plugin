@@ -1,0 +1,13 @@
+interface:
+  display_name: "Review XRCVC Account"
+  short_description: "Review XRCVC requests, orders, and reports"
+  default_prompt: "Use $review-xrcvc-account to summarize my XRCVC account activity and next actions."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "xrcvc-library"
+      description: "Role-authorized XRCVC Library account and operational data"
+      transport: "streamable_http"
+      url: "https://mcp.library.xrcvc.org/mcp/authorize"
+policy:
+  allow_implicit_invocation: true

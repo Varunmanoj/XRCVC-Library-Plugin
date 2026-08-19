@@ -1,0 +1,29 @@
+{
+  "name": "xrcvc-library",
+  "owner": {
+    "name": "XRCVC Library",
+    "email": "info@xrcvc.org",
+    "url": "https://library.xrcvc.org"
+  },
+  "description": "Open-source XRCVC Library agent plugins.",
+  "version": "0.1.0",
+  "plugins": [
+    {
+      "name": "xrcvclibrary",
+      "displayName": "XRCVC Library",
+      "source": "./plugins/xrcvclibrary",
+      "description": "Explore the catalog and review role-authorized XRCVC Library activity.",
+      "version": "0.1.0",
+      "author": {
+        "name": "XRCVC Library",
+        "email": "info@xrcvc.org",
+        "url": "https://library.xrcvc.org"
+      },
+      "homepage": "https://library.xrcvc.org",
+      "repository": "https://github.com/Varunmanoj/xrcvclibrary",
+      "license": "MIT",
+      "category": "Productivity",
+      "tags": ["library", "catalog", "accessibility"]
+    }
+  ]
+}
