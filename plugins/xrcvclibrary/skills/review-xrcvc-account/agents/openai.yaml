@@ -1,7 +1,7 @@
 interface:
-  display_name: "Review XRCVC Account"
-  short_description: "Review XRCVC requests, orders, and reports"
-  default_prompt: "Use $review-xrcvc-account to summarize my XRCVC account activity and next actions."
+  display_name: "Review XRCVC Tasks and Activity"
+  short_description: "Explore tasks, recent activity, requests, and orders"
+  default_prompt: "Use $review-xrcvc-account to show my role-authorized XRCVC Tasks and Recent Activity from the complete Markdown tools."
 dependencies:
   tools:
     - type: "mcp"

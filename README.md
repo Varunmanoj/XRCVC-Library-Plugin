@@ -10,7 +10,7 @@
 - Agent Plugins 1.0 portable manifests.
 - Claude Code plugin and marketplace metadata.
 - One OAuth 2.1 Streamable HTTP MCP connection.
-- Three skills: `analyze-xrcvc-catalog`, `inspect-xrcvc-carts`, and `review-xrcvc-account`.
+- Three skills: `analyze-xrcvc-catalog`, `inspect-xrcvc-carts`, and `review-xrcvc-account`. The account skill covers the dedicated Member Tasks, Member Recent Activity, and Admin Tasks Markdown workflows.
 
 The plugin is read-only. It can search catalog data and retrieve data the signed-in XRCVC role is already allowed to see; it cannot add to carts, submit requests, place orders, or alter accounts.
 
@@ -94,14 +94,18 @@ The repository intentionally does not ship a fabricated `.app.json`. The technic
 
 ## Access model
 
-| Role | Own data | All carts/requests/orders | Tasks | Reports |
-|---|---:|---:|---:|---:|
-| Member | Yes | No | No | No |
-| Staff | Yes | Yes | Yes | No |
-| Admin | Yes | Yes | Yes | Yes |
-| Developer | Yes | Yes | Yes | Yes |
+| Role | Own data | All carts/requests/orders | Member Tasks | Admin Tasks | Reports |
+|---|---:|---:|---:|---:|---:|
+| Member | Yes | No | Yes | No | No |
+| Staff | Yes | Yes | Yes | Yes | No |
+| Admin | Yes | Yes | Yes | Yes | Yes |
+| Developer | Yes | Yes | Yes | Yes | Yes |
 
-The MCP server derives the effective role from current XRCVC account data. OAuth scopes never elevate a role.
+The MCP server derives the effective role from current XRCVC account data. OAuth scopes never elevate a role. Member Tasks and Member Recent Activity are self-scoped to the bearer Membership ID for every authenticated role. Admin Tasks remain an additional all-operator view for Staff, Admin, and Developer.
+
+## MCP Markdown output
+
+The packaged skills prefer the MCP server's Markdown output rather than its paginated JSON list tools. Named Markdown companions return complete, unpaginated Catalog, Requests, Orders, Member Recent Activity, Member Tasks, and Admin Tasks data. Cart, identity, detail, and report Markdown are requested through `get_api_output_as_markdown`. Catalog Markdown has no free-text search input, so the catalog skill uses resource-type or taxonomy filters when available and inspects the returned Markdown locally.
 
 ## Validation
 

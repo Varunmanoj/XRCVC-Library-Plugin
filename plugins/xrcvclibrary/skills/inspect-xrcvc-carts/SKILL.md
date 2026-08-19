@@ -7,13 +7,18 @@ description: Inspect and explain XRCVC Library carts with server-enforced Member
 
 Cart tools require an authenticated XRCVC Library MCP connection. Credentials remain with the MCP host; never ask the user to paste a Membership ID, bearer value, access token, or refresh token into chat.
 
+## MCP output format
+
+- Use `get_api_output_as_markdown` for authenticated cart output: `/cart` for the signed-in member, `/carts` for the authorized all-carts view, and `/carts/{membershipId}` for one authorized member cart.
+- Prefer these Markdown documents over the structured JSON cart tools. Markdown output is complete and unpaginated; do not send or describe `limit`, `cursor`, `pageInfo`, or partial-page coverage.
+- Keep the returned Markdown as the evidence source, then provide the user-facing explanation in Markdown.
+
 ## Workflow
 
-1. Call `get_authenticated_identity` first and use its effective role and capabilities. Never infer privilege from the user's wording.
-2. For a Member, use `get_own_cart`. Do not attempt `list_carts` or `get_member_cart`.
-3. For Staff, Admin, or Developer, use `list_carts` for cross-member questions and `get_member_cart` only when a specific Membership ID is supplied through the tool input or returned data.
-4. Follow `pageInfo.nextCursor` only as far as needed. Explain whether the summary covers one page or the complete result.
-5. Group items by resource type and include the server-provided resource ID, title, and direct URL when available. Flag duplicate references, missing titles, or resources that no longer resolve instead of inventing metadata.
+1. Request `/auth/me` through `get_api_output_as_markdown` and use its effective role and capabilities. Never infer privilege from the user's wording.
+2. For a Member, request `/cart`. Do not attempt `/carts` or another member's cart.
+3. For Staff, Admin, or Developer, request `/carts` for cross-member questions and `/carts/{membershipId}` only when a specific Membership ID is supplied through authorized context.
+4. Group items by resource type and include the server-provided resource ID, title, and direct URL when available. Flag duplicate references, missing titles, or resources that no longer resolve instead of inventing metadata.
 
 ## Authentication recovery
 

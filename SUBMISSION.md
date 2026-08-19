@@ -20,10 +20,10 @@ The distributable package carries these links in the locations supported by each
 ## Positive test prompts
 
 1. Find Braille mathematics books in the XRCVC catalog and compare their formats and requestability.
-2. Show the taxonomy and collection statistics for Teaching Learning Aids, using pagination only where necessary.
+2. Show the complete Teaching Learning Aid taxonomy and collection statistics using the MCP Markdown output, without pagination.
 3. Explain every item in my XRCVC cart, grouped by resource type, and flag anything that no longer resolves.
-4. Summarize my open requests and active orders, including the date range and next actions.
-5. As an Admin or Developer, summarize the available reports and open the most relevant report for request turnaround.
+4. As a Member, show my Member Tasks and summarize my complete Member Recent Activity window using the named MCP Markdown tools.
+5. As an Admin or Developer, summarize Admin Tasks and the available request-turnaround report from the MCP Markdown outputs.
 
 ## Negative and boundary test prompts
 

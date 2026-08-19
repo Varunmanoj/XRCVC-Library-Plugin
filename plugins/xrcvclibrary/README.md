@@ -1,6 +1,8 @@
 # XRCVC Library Plugin
 
-This distributable package connects supported AI clients to the XRCVC Library MCP server and includes three role-aware skills for catalog research, cart inspection, and account/activity review.
+This distributable package connects supported AI clients to the XRCVC Library MCP server and includes three role-aware skills for catalog research, cart inspection, and account/task/activity review.
+
+The skills use the server's Markdown output for both public and authenticated workflows. The named Markdown tools return complete, unpaginated Catalog, Requests, Orders, Member Recent Activity, Member Tasks, and Admin Tasks data; other authenticated Markdown operations use `get_api_output_as_markdown`. Member Tasks and Member Recent Activity are server-scoped to the bearer Membership ID for every authenticated role; Staff, Admin, and Developer may additionally use the separate `/tasks/admin` view.
 
 ## Public listing links
 
