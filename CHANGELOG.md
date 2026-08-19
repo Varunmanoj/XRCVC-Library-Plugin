@@ -4,6 +4,8 @@ All notable changes to this project will be documented here.
 
 ## 0.1.1 - 2026-08-19
 
+- Changed the plugin category from Productivity to Education across Codex, ChatGPT setup guidance, and Claude marketplace metadata.
+- Added explicit XRCVC small and large icon metadata to all three OpenAI/Codex skills so the app does not choose inconsistent fallback glyphs.
 - Updated all three skills to prefer complete MCP Markdown outputs over paginated JSON lists.
 - Switched the account skill to the deployed `list_member_tasks_as_markdown`, `list_admin_tasks_as_markdown`, and `get_member_recent_activity_as_markdown` tools and their explicit forward-only API routes.
 - Clarified that Member Tasks and Member Recent Activity are bearer-self-scoped views available to authenticated Developer, Admin, Staff, and Member roles; Admin Tasks remains the separate all-operator view.

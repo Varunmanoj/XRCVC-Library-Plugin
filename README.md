@@ -11,6 +11,7 @@
 - Claude Code plugin and marketplace metadata.
 - One OAuth 2.1 Streamable HTTP MCP connection.
 - Three skills: `analyze-xrcvc-catalog`, `inspect-xrcvc-carts`, and `review-xrcvc-account`. The account skill covers the dedicated Member Tasks, Member Recent Activity, and Admin Tasks Markdown workflows.
+- Explicit XRCVC icon and brand-color metadata for each OpenAI/Codex skill.
 
 The plugin is read-only. It can search catalog data and retrieve data the signed-in XRCVC role is already allowed to see; it cannot add to carts, submit requests, place orders, or alter accounts.
 
@@ -82,7 +83,7 @@ Run `/reload-plugins`, then `/mcp` and complete the XRCVC OAuth flow when a prot
   "apps": {
     "xrcvc-library": {
       "id": "plugin_asdk_app_REPLACE_WITH_REGISTERED_ID",
-      "category": "Productivity"
+      "category": "Education"
     }
   }
 }

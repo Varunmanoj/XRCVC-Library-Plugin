@@ -1,6 +1,9 @@
 interface:
   display_name: "Inspect XRCVC Carts"
   short_description: "Review role-authorized XRCVC library carts"
+  icon_small: "./assets/xrcvc-library-icon.png"
+  icon_large: "./assets/xrcvc-library-logo.png"
+  brand_color: "#E8601C"
   default_prompt: "Use $inspect-xrcvc-carts to explain the items in my XRCVC Library cart."
 dependencies:
   tools:

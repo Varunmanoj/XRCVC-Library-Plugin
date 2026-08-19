@@ -52,6 +52,13 @@ def validate_skill(skill_dir: Path) -> None:
     assert f"${skill_name}" in metadata_text, f"{skill_name} default prompt must name the skill"
     assert MCP_URL in metadata_text, f"{skill_name} dependency URL mismatch"
     assert 'value: "xrcvc-library"' in metadata_text, f"{skill_name} MCP dependency name mismatch"
+    assert 'icon_small: "./assets/xrcvc-library-icon.png"' in metadata_text, f"{skill_name} small icon mismatch"
+    assert 'icon_large: "./assets/xrcvc-library-logo.png"' in metadata_text, f"{skill_name} large icon mismatch"
+    assert 'brand_color: "#E8601C"' in metadata_text, f"{skill_name} brand color mismatch"
+    for asset_name in ("xrcvc-library-icon.png", "xrcvc-library-logo.png"):
+        asset = skill_dir / "assets" / asset_name
+        require_file(asset)
+        assert asset.read_bytes().startswith(b"\x89PNG\r\n\x1a\n"), f"{skill_name} {asset_name} is not a PNG"
 
 
 def validate() -> None:
@@ -83,11 +90,13 @@ def validate() -> None:
     assert claude.get("version") == "0.1.1", "Claude plugin version mismatch"
     assert re.fullmatch(r"0\.1\.1\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
+    assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert portable_mcp.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
     assert set(portable).issubset({"$schema", "name", "version", "description", "author", "homepage", "repository", "license", "keywords", "extensions"})
 
     codex_interface = codex.get("interface", {})
     assert codex.get("homepage") == SUPPORT_URL
+    assert codex_interface.get("category") == "Education"
     assert codex_interface.get("websiteURL") == WEBSITE_URL
     assert codex_interface.get("privacyPolicyURL") == PRIVACY_URL
     assert codex_interface.get("termsOfServiceURL") == TERMS_URL
@@ -115,12 +124,14 @@ def validate() -> None:
     assert codex_entry.get("name") == "xrcvclibrary"
     assert codex_entry.get("source", {}).get("path") == "./plugins/xrcvclibrary"
     assert codex_entry.get("policy") == {"installation": "AVAILABLE", "authentication": "ON_INSTALL"}
+    assert codex_entry.get("category") == "Education"
 
     claude_entry = claude_marketplace["plugins"][0]
     assert claude_marketplace.get("name") == "xrcvc-library"
     assert claude_entry.get("name") == "xrcvclibrary"
     assert claude_entry.get("source") == "./plugins/xrcvclibrary"
     assert claude_entry.get("homepage") == SUPPORT_URL
+    assert claude_entry.get("category") == "Education"
 
     app_manifest = PLUGIN_ROOT / ".app.json"
     if app_manifest.exists():
