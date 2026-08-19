@@ -4,7 +4,7 @@ Use this checklist after the canonical MCP deployment and public policy routes a
 
 ## Registration
 
-- Publisher: **XRCVC Library**
+- Publisher: **Xavier's Resource Center for Visually Challenged**
 - Product website: `https://library.xrcvc.org`
 - MCP server: `https://mcp.library.xrcvc.org/mcp/authorize`
 - Privacy policy: `https://console.library.xrcvc.org/privacy-policy`
@@ -24,7 +24,7 @@ The distributable package carries these links in the locations supported by each
 - Plugin: `xrcvclibrary@xrcvc-library`
 - Remote MCP connector: `https://mcp.library.xrcvc.org/mcp/authorize`
 - Category: **Education**
-- Connector icon source: the XRCVC favicon published by `mcp.library.xrcvc.org`
+- Connector icon source: the same-origin 192px and 512px XRCVC Library icons advertised by `mcp.library.xrcvc.org` through MCP `serverInfo.icons`
 
 For private testing, add the GitHub repository from **Claude → Customize → Plugins → Personal plugins → Add marketplace**, then install **XRCVC Library**. This route installs the three skills and the remote connector together. A connector-only test can instead be added through **Customize → Connectors → Add custom connector**, but it will not include the skills.
 

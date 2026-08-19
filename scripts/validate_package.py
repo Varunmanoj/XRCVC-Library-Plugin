@@ -21,6 +21,7 @@ WEBSITE_URL = "https://library.xrcvc.org"
 PRIVACY_URL = "https://console.library.xrcvc.org/privacy-policy"
 TERMS_URL = "https://console.library.xrcvc.org/terms-of-service"
 SUPPORT_URL = "https://console.library.xrcvc.org/plugin-support"
+DEVELOPER_NAME = "Xavier's Resource Center for Visually Challenged"
 
 
 def load_json(path: Path) -> dict:
@@ -86,17 +87,19 @@ def validate() -> None:
 
     manifests = (codex, portable, claude)
     assert all(item.get("name") == "xrcvclibrary" for item in manifests), "plugin name mismatch"
-    assert portable.get("version") == "0.1.3", "portable plugin version mismatch"
-    assert claude.get("version") == "0.1.3", "Claude plugin version mismatch"
-    assert re.fullmatch(r"0\.1\.3\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
+    assert portable.get("version") == "0.1.4", "portable plugin version mismatch"
+    assert claude.get("version") == "0.1.4", "Claude plugin version mismatch"
+    assert re.fullmatch(r"0\.1\.4\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
+    assert all(item.get("author", {}).get("name") == DEVELOPER_NAME for item in manifests), "developer name mismatch"
     assert portable_mcp.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
     assert set(portable).issubset({"$schema", "name", "version", "description", "author", "homepage", "repository", "license", "keywords", "extensions"})
 
     codex_interface = codex.get("interface", {})
     assert codex.get("homepage") == SUPPORT_URL
     assert codex_interface.get("category") == "Education"
+    assert codex_interface.get("developerName") == DEVELOPER_NAME
     assert codex_interface.get("websiteURL") == WEBSITE_URL
     assert codex_interface.get("privacyPolicyURL") == PRIVACY_URL
     assert codex_interface.get("termsOfServiceURL") == TERMS_URL
@@ -132,8 +135,10 @@ def validate() -> None:
     assert claude_entry.get("source") == "./plugins/xrcvclibrary"
     assert claude_entry.get("homepage") == SUPPORT_URL
     assert claude_entry.get("category") == "Education"
-    assert claude_marketplace.get("version") == "0.1.3"
-    assert claude_entry.get("version") == "0.1.3"
+    assert claude_marketplace.get("version") == "0.1.4"
+    assert claude_entry.get("version") == "0.1.4"
+    assert claude_marketplace.get("owner", {}).get("name") == DEVELOPER_NAME
+    assert claude_entry.get("author", {}).get("name") == DEVELOPER_NAME
     assert claude.get("repository") == claude_entry.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
 
     app_manifest = PLUGIN_ROOT / ".app.json"

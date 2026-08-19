@@ -1,6 +1,6 @@
 # XRCVC Library Agent Plugin
 
-`xrcvclibrary` is the open-source agent plugin for Xavier's Resource Centre for the Visually Challenged. It connects supported AI hosts to the read-only XRCVC Library MCP server and adds three focused skills for catalog analysis, cart inspection, and account/operational review.
+`xrcvclibrary` is the open-source agent plugin from Xavier's Resource Center for Visually Challenged. It connects supported AI hosts to the read-only XRCVC Library MCP server and adds three focused skills for catalog analysis, cart inspection, and account/operational review.
 
 ![XRCVC Library logo](plugins/xrcvclibrary/assets/xrcvc-library-logo.png)
 
@@ -26,6 +26,8 @@ https://mcp.library.xrcvc.org/mcp/authorize
 Public catalog and documentation tools work without authentication. Protected tools launch the host's OAuth flow. The server uses S256 PKCE, dynamic client registration, 15-minute access tokens, rotating 30-day refresh tokens, and the scopes `xrcvc.library offline_access`.
 
 The configured URL also returns RFC 9728 protected-resource metadata on `GET`/`HEAD`, allowing desktop hosts that probe the exact MCP URL before the well-known discovery paths to initialize the plugin consistently. MCP requests continue to use `POST` at the same URL.
+
+MCP initialization publishes the XRCVC Library website plus same-origin 192×192 and 512×512 compact launcher PNGs through `serverInfo.icons`. Compatible clients may display the established St. Xavier's crest and XRCVC eye artwork; the host application retains final control over whether and where it renders server-provided icons.
 
 The plugin never receives or stores access tokens, refresh tokens, or Membership IDs. Authentication state belongs to the host application. Installing the plugin does not itself sign a member in.
 
