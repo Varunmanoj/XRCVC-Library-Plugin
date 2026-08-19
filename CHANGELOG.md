@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented here.
 
+## 0.1.3 - 2026-08-19
+
+- Added Claude.ai cloud installation guidance for the GitHub marketplace plugin and the connector-only fallback.
+- Documented Anthropic community marketplace submission routes and the separate connector favicon/listing artwork behavior.
+- Corrected Claude repository metadata and bumped the pinned Claude plugin version so cloud clients refresh the package.
+
 ## 0.1.2 - 2026-08-19
 
 - Added the anonymous `get_public_api_output_as_markdown` workflow for public member-catalog detail, catalog statistics, taxonomy, manual, and MCP metadata paths.

@@ -17,6 +17,19 @@ Register the MCP server in ChatGPT Developer Mode, complete OAuth, copy the real
 
 The distributable package carries these links in the locations supported by each format: OpenAI Terms in `interface.termsOfServiceURL`, OpenAI/Claude support documentation in `homepage`, and all four public listing links in the portable `org.xrcvc.library` extension. The OpenAI portal's separate **Support URL** field must use the Support value above.
 
+## Claude.ai cloud and Anthropic submission
+
+- Marketplace repository: `https://github.com/Varunmanoj/XRCVC-Library-Plugin`
+- Marketplace file: `.claude-plugin/marketplace.json`
+- Plugin: `xrcvclibrary@xrcvc-library`
+- Remote MCP connector: `https://mcp.library.xrcvc.org/mcp/authorize`
+- Category: **Education**
+- Connector icon source: the XRCVC favicon published by `mcp.library.xrcvc.org`
+
+For private testing, add the GitHub repository from **Claude → Customize → Plugins → Personal plugins → Add marketplace**, then install **XRCVC Library**. This route installs the three skills and the remote connector together. A connector-only test can instead be added through **Customize → Connectors → Add custom connector**, but it will not include the skills.
+
+For Anthropic community-marketplace review, submit from `https://claude.ai/admin-settings/directory/submissions/plugins/new` when using an eligible Team or Enterprise organization, or from `https://platform.claude.com/plugins/submit` for an individual submission. Upload the bundled XRCVC icon/logo when the submission form requests listing artwork; do not add unsupported `icon` or `logo` fields to the Claude plugin manifest.
+
 ## Positive test prompts
 
 1. Find Braille mathematics books in the XRCVC catalog and compare their formats and requestability.

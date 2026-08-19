@@ -8,7 +8,7 @@
 
 - OpenAI/Codex plugin metadata and a repository-local marketplace.
 - Agent Plugins 1.0 portable manifests.
-- Claude Code plugin and marketplace metadata.
+- Claude plugin and marketplace metadata for Claude.ai, Claude Desktop, Cowork, and Claude Code.
 - One OAuth 2.1 Streamable HTTP MCP connection.
 - Three skills: `analyze-xrcvc-catalog`, `inspect-xrcvc-carts`, and `review-xrcvc-account`. The catalog skill uses the anonymous public Markdown tool for catalog detail and taxonomy paths; the account skill covers protected Member Tasks, Member Recent Activity, Admin Tasks, identity, cart, transaction, and report workflows.
 - Explicit XRCVC icon and brand-color metadata for each OpenAI/Codex skill.
@@ -63,6 +63,22 @@ codex plugin add xrcvclibrary@xrcvc-library
 ```
 
 Start a new task after installation so Codex loads the plugin and MCP tools.
+
+### Claude.ai cloud, Claude Desktop, and Cowork
+
+Install the complete plugin when you want both the three XRCVC skills and the remote MCP connector:
+
+1. In Claude, open **Customize → Plugins**.
+2. Under **Personal plugins**, select **+ → Add marketplace → Add from a repository**.
+3. Enter `https://github.com/Varunmanoj/XRCVC-Library-Plugin`.
+4. Open the **XRCVC Library** marketplace and install `xrcvclibrary`.
+5. Connect the bundled `xrcvc-library` service when Claude prompts for authorization. Enter the Membership ID only on the XRCVC authorization page.
+
+Because the bundled MCP server is remote and publicly reachable, the connector is available through the same Claude account on Claude.ai, Claude Desktop, Cowork, and supported mobile surfaces. The plugin skills are available in Claude chat and Cowork.
+
+If you want only the MCP tools without the packaged skills, use **Customize → Connectors → + → Add custom connector**, name it **XRCVC Library**, and enter `https://mcp.library.xrcvc.org/mcp/authorize`. Do not install this connector-only configuration alongside the complete plugin unless duplicate tools are acceptable.
+
+Claude's plugin manifest does not currently define a supported local logo field. The XRCVC icon files remain bundled for other plugin hosts and submission use; Claude connector-directory branding is supplied separately through the connector favicon or directory submission.
 
 ### Claude Code
 

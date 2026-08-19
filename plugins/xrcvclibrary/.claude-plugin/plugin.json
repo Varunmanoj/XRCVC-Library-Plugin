@@ -1,7 +1,7 @@
 {
   "name": "xrcvclibrary",
   "displayName": "XRCVC Library",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Explore the XRCVC Library catalog and review role-authorized carts, requests, orders, account activity, and reports.",
   "author": {
     "name": "XRCVC Library",
@@ -9,7 +9,7 @@
     "url": "https://library.xrcvc.org"
   },
   "homepage": "https://console.library.xrcvc.org/plugin-support",
-  "repository": "https://github.com/Varunmanoj/xrcvclibrary",
+  "repository": "https://github.com/Varunmanoj/XRCVC-Library-Plugin",
   "license": "MIT",
   "keywords": ["xrcvc", "library", "catalog", "accessibility", "mcp"],
   "skills": "./skills/",
