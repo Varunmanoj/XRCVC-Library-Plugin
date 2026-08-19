@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented here.
 
+## 0.1.2 - 2026-08-19
+
+- Added the anonymous `get_public_api_output_as_markdown` workflow for public member-catalog detail, catalog statistics, taxonomy, manual, and MCP metadata paths.
+- Kept `get_api_output_as_markdown` OAuth-only for identity, transaction, cart, task, administrative catalog, and report paths.
+- Updated the catalog skill so an unauthenticated public lookup no longer selects a tool descriptor that forces sign-in.
+
 ## 0.1.1 - 2026-08-19
 
 - Changed the plugin category from Productivity to Education across Codex, ChatGPT setup guidance, and Claude marketplace metadata.

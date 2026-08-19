@@ -86,9 +86,9 @@ def validate() -> None:
 
     manifests = (codex, portable, claude)
     assert all(item.get("name") == "xrcvclibrary" for item in manifests), "plugin name mismatch"
-    assert portable.get("version") == "0.1.1", "portable plugin version mismatch"
-    assert claude.get("version") == "0.1.1", "Claude plugin version mismatch"
-    assert re.fullmatch(r"0\.1\.1\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
+    assert portable.get("version") == "0.1.2", "portable plugin version mismatch"
+    assert claude.get("version") == "0.1.2", "Claude plugin version mismatch"
+    assert re.fullmatch(r"0\.1\.2\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert portable_mcp.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"

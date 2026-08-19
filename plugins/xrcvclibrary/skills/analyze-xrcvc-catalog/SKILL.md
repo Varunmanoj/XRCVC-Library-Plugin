@@ -13,7 +13,7 @@ Use the XRCVC Library MCP server as the source of truth. Catalog and taxonomy to
 - Use `list_member_catalog_as_markdown` for the complete member-safe catalog and `list_admin_catalog_as_markdown` only when role-authorized operational fields are required.
 - Markdown catalog output is complete and unpaginated. Do not send or describe `limit`, `cursor`, `page`, `pageInfo`, or page coverage.
 - The catalog endpoint has no free-text search parameter. Narrow the server response only with `resource_type` and, when known, the paired `taxonomy_type` and `taxonomy_id`; then inspect the returned Markdown locally for titles, authors, subjects, formats, descriptions, or other requested terms.
-- For another public catalog or taxonomy operation, use `get_api_output_as_markdown` with its API path, such as `/catalog/statistics` or a taxonomy collection/detail path.
+- For another public catalog, taxonomy, manual, or MCP metadata operation, use `get_public_api_output_as_markdown` with its API path, such as `/catalog/statistics`, a member catalog detail path, or a taxonomy collection/detail path. Do not use the OAuth-only `get_api_output_as_markdown` for these public routes.
 
 ## Workflow
 

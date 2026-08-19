@@ -6,14 +6,14 @@
     "url": "https://library.xrcvc.org"
   },
   "description": "Open-source XRCVC Library agent plugins.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "plugins": [
     {
       "name": "xrcvclibrary",
       "displayName": "XRCVC Library",
       "source": "./plugins/xrcvclibrary",
       "description": "Explore the catalog and review role-authorized XRCVC Library activity.",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "author": {
         "name": "XRCVC Library",
         "email": "info@xrcvc.org",

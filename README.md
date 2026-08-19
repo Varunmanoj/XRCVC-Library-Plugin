@@ -10,7 +10,7 @@
 - Agent Plugins 1.0 portable manifests.
 - Claude Code plugin and marketplace metadata.
 - One OAuth 2.1 Streamable HTTP MCP connection.
-- Three skills: `analyze-xrcvc-catalog`, `inspect-xrcvc-carts`, and `review-xrcvc-account`. The account skill covers the dedicated Member Tasks, Member Recent Activity, and Admin Tasks Markdown workflows.
+- Three skills: `analyze-xrcvc-catalog`, `inspect-xrcvc-carts`, and `review-xrcvc-account`. The catalog skill uses the anonymous public Markdown tool for catalog detail and taxonomy paths; the account skill covers protected Member Tasks, Member Recent Activity, Admin Tasks, identity, cart, transaction, and report workflows.
 - Explicit XRCVC icon and brand-color metadata for each OpenAI/Codex skill.
 
 The plugin is read-only. It can search catalog data and retrieve data the signed-in XRCVC role is already allowed to see; it cannot add to carts, submit requests, place orders, or alter accounts.
@@ -24,6 +24,8 @@ https://mcp.library.xrcvc.org/mcp/authorize
 ```
 
 Public catalog and documentation tools work without authentication. Protected tools launch the host's OAuth flow. The server uses S256 PKCE, dynamic client registration, 15-minute access tokens, rotating 30-day refresh tokens, and the scopes `xrcvc.library offline_access`.
+
+The configured URL also returns RFC 9728 protected-resource metadata on `GET`/`HEAD`, allowing desktop hosts that probe the exact MCP URL before the well-known discovery paths to initialize the plugin consistently. MCP requests continue to use `POST` at the same URL.
 
 The plugin never receives or stores access tokens, refresh tokens, or Membership IDs. Authentication state belongs to the host application. Installing the plugin does not itself sign a member in.
 
@@ -106,7 +108,7 @@ The MCP server derives the effective role from current XRCVC account data. OAuth
 
 ## MCP Markdown output
 
-The packaged skills prefer the MCP server's Markdown output rather than its paginated JSON list tools. Named Markdown companions return complete, unpaginated Catalog, Requests, Orders, Member Recent Activity, Member Tasks, and Admin Tasks data. Cart, identity, detail, and report Markdown are requested through `get_api_output_as_markdown`. Catalog Markdown has no free-text search input, so the catalog skill uses resource-type or taxonomy filters when available and inspects the returned Markdown locally.
+The packaged skills prefer the MCP server's Markdown output rather than its paginated JSON list tools. Named Markdown companions return complete, unpaginated Catalog, Requests, Orders, Member Recent Activity, Member Tasks, and Admin Tasks data. Public catalog detail, taxonomy, manual, and MCP metadata Markdown are requested through `get_public_api_output_as_markdown`; protected cart, identity, transaction detail, and report Markdown use `get_api_output_as_markdown`. Catalog Markdown has no free-text search input, so the catalog skill uses resource-type or taxonomy filters when available and inspects the returned Markdown locally.
 
 ## Validation
 
