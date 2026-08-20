@@ -233,7 +233,7 @@ def validate() -> None:
     if app_manifest.exists():
         app_payload = load_json(app_manifest)
         app = app_payload.get("apps", {}).get("xrcvc-library", {})
-        assert str(app.get("id", "")).startswith("asdk_app_"), ".app.json must contain the underlying registered ChatGPT app ID, not the plugin_asdk_app wrapper ID"
+        assert str(app.get("id", "")).startswith("plugin_asdk_app_"), ".app.json must contain the registered ChatGPT MCP connection ID"
         assert codex.get("apps") == "./.app.json", "Codex manifest must reference an existing .app.json"
     else:
         assert "apps" not in codex, "Codex manifest must not reference a missing .app.json"
