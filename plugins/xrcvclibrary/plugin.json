@@ -2,9 +2,9 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "xrcvclibrary",
   "version": "0.1.4",
-  "description": "Use XRCVC Library—X Real-time Communication Verification and Control—to explore catalog, documentation, and role-authorized library information.",
+  "description": "Use XRCVC Library to explore the accessible catalog, documentation, and role-authorized library information.",
   "author": {
-    "name": "Xavier's Resource Center for Visually Challenged",
+    "name": "Xavier's Resource Centre for the Visually Challenged",
     "email": "info@xrcvc.org",
     "url": "https://library.xrcvc.org"
   },

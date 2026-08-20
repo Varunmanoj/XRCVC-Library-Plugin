@@ -5,7 +5,7 @@ description: Introduce XRCVC Library, its accessible-resource features, and the 
 
 # Introduce XRCVC Library
 
-Give a clear, welcoming orientation to Xavier's Resource Center for Visually Challenged (XRCVC) Library. Explain capabilities without implying that the user is signed in or entitled to protected data.
+Give a clear, welcoming orientation to XRCVC Library, the accessible library service of Xavier's Resource Centre for the Visually Challenged at St. Xavier's College, Mumbai. Explain capabilities without implying that the user is signed in or entitled to protected data.
 
 ## Source and boundaries
 

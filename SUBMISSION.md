@@ -4,9 +4,8 @@ Use this checklist after the canonical MCP deployment and public policy routes a
 
 ## Registration
 
-- Publisher: **Xavier's Resource Center for Visually Challenged**
+- Publisher: **Xavier's Resource Centre for the Visually Challenged**
 - Product: **XRCVC Library**
-- Product expansion: **X Real-time Communication Verification and Control**
 - Product website: `https://library.xrcvc.org`
 - MCP server: `https://mcp.library.xrcvc.org/mcp/authorize`
 - MCP server URL type: **Universal**
@@ -33,11 +32,11 @@ Confirm these in the OpenAI Platform before selecting **Submit for Review**:
 5. Country or region availability is intentionally selected and supported by the publisher, support process, and legal terms.
 6. The final protected requests/cart test and the cross-conversation persistence matrix below pass with the registered mixed-auth app.
 
-The Marketplace product name is **XRCVC Library**, and XRCVC expands to **X Real-time Communication Verification and Control**. This product expansion is distinct from the verified legal publisher, **Xavier's Resource Center for Visually Challenged**; keep the publisher field aligned with the Platform verification and public legal/support surfaces.
+The Marketplace product name is **XRCVC Library**. XRCVC is the established acronym for **Xavier's Resource Centre for the Visually Challenged**, an integral department of St. Xavier's College, Mumbai. Keep the publisher field aligned with the verified identity and public legal/support surfaces.
 
 ## Initial release notes
 
-Initial submission of the read-only XRCVC Library app (X Real-time Communication Verification and Control). It provides public accessible-catalog discovery plus OAuth-protected, role-authorized carts, requests, orders, recent activity, tasks, and reports. Public catalog tools can be used without an account; protected tools use the XRCVC Membership ID authorization flow. Reviewers should use the dedicated demo Membership ID supplied privately in the portal.
+Initial submission of the read-only XRCVC Library app. It provides public accessible-catalog discovery plus OAuth-protected, role-authorized carts, requests, orders, recent activity, tasks, and reports. Public catalog tools can be used without an account; protected tools use the XRCVC Membership ID authorization flow. Reviewers should use the dedicated demo Membership ID supplied privately in the portal.
 
 ## Claude.ai cloud and Anthropic submission
 

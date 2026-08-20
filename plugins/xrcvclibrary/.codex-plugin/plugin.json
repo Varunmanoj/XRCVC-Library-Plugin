@@ -1,9 +1,9 @@
 {
   "name": "xrcvclibrary",
   "version": "0.1.4+codex.20260820081426",
-  "description": "Use XRCVC Library—X Real-time Communication Verification and Control—to explore the catalog and review role-authorized library activity.",
+  "description": "Use XRCVC Library to explore the accessible catalog and review role-authorized library activity.",
   "author": {
-    "name": "Xavier's Resource Center for Visually Challenged",
+    "name": "Xavier's Resource Centre for the Visually Challenged",
     "email": "info@xrcvc.org",
     "url": "https://library.xrcvc.org"
   },
@@ -23,8 +23,8 @@
   "interface": {
     "displayName": "XRCVC Library",
     "shortDescription": "Explore accessible resources and library activity.",
-    "longDescription": "XRCVC stands for X Real-time Communication Verification and Control. Search and analyze the public library catalog, then securely review role-authorized account information, carts, requests, orders, tasks, and reports through the XRCVC Library MCP server.",
-    "developerName": "Xavier's Resource Center for Visually Challenged",
+    "longDescription": "Explore the accessible public catalog from Xavier's Resource Centre for the Visually Challenged, then securely review role-authorized account information, carts, requests, orders, tasks, and reports through the XRCVC Library MCP server.",
+    "developerName": "Xavier's Resource Centre for the Visually Challenged",
     "category": "Education",
     "capabilities": [
       "Search",

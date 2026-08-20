@@ -79,8 +79,7 @@ WEBSITE_URL = "https://library.xrcvc.org"
 PRIVACY_URL = "https://console.library.xrcvc.org/privacy-policy"
 TERMS_URL = "https://console.library.xrcvc.org/terms-of-service"
 SUPPORT_URL = "https://console.library.xrcvc.org/plugin-support"
-DEVELOPER_NAME = "Xavier's Resource Center for Visually Challenged"
-PRODUCT_EXPANSION = "X Real-time Communication Verification and Control"
+DEVELOPER_NAME = "Xavier's Resource Centre for the Visually Challenged"
 
 
 def load_json(path: Path) -> dict:
@@ -133,7 +132,7 @@ def validate() -> None:
     assert chatgpt_submission.get("schema_version") == 1
     app_info = chatgpt_submission.get("app_info", {})
     assert app_info.get("display_name") == "XRCVC Library"
-    assert PRODUCT_EXPANSION in str(app_info.get("description", "")), "ChatGPT description must define XRCVC"
+    assert DEVELOPER_NAME in str(app_info.get("description", "")), "ChatGPT description must use the official XRCVC organization name"
     assert len(str(app_info.get("subtitle", ""))) <= 30, "ChatGPT subtitle must be at most 30 characters"
     assert app_info.get("category") == "EDUCATION"
     submission_tools = chatgpt_submission.get("tools", {})
@@ -181,9 +180,7 @@ def validate() -> None:
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert all(item.get("author", {}).get("name") == DEVELOPER_NAME for item in manifests), "developer name mismatch"
-    assert PRODUCT_EXPANSION in str(codex.get("description", "")), "Codex description must define XRCVC"
-    assert PRODUCT_EXPANSION in str(portable.get("description", "")), "portable description must define XRCVC"
-    assert PRODUCT_EXPANSION in submission_text, "submission materials must define XRCVC"
+    assert DEVELOPER_NAME in submission_text, "submission materials must use the official XRCVC organization name"
     assert portable_mcp.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
     assert set(portable).issubset({"$schema", "name", "version", "description", "author", "homepage", "repository", "license", "keywords", "extensions"})
 

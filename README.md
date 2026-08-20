@@ -1,6 +1,6 @@
 # XRCVC Library Agent Plugin
 
-`xrcvclibrary` is the open-source **XRCVC Library** agent plugin, where XRCVC stands for **X Real-time Communication Verification and Control**. It is published by Xavier's Resource Center for Visually Challenged, connects supported AI hosts to the read-only XRCVC Library MCP server, and adds seven focused skills for public catalog research, member transactions, Admin transactions, Admin/Developer reports, tasks/activity, library orientation, and documentation guidance.
+`xrcvclibrary` is the open-source **XRCVC Library** agent plugin. XRCVC is Xavier's Resource Centre for the Visually Challenged, an integral department of St. Xavier's College, Mumbai. The plugin connects supported AI hosts to the read-only XRCVC Library MCP server and adds seven focused skills for public catalog research, member transactions, Admin transactions, Admin/Developer reports, tasks/activity, library orientation, and documentation guidance.
 
 ![XRCVC Library logo](plugins/xrcvclibrary/assets/xrcvc-library-logo.png)
 

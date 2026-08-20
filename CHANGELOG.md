@@ -6,7 +6,7 @@ All notable changes to this project will be documented here.
 
 - Published same-origin 192px and 512px XRCVC Library MCP implementation icons for compatible connected-app clients.
 - Preserved the existing OAuth URL, tool names, three skills, role enforcement, and read-only behavior.
-- Standardized developer, author, owner, and publisher metadata as `Xavier's Resource Center for Visually Challenged` across OpenAI/Codex, portable Agent Plugins, and Claude packages.
+- Standardized developer, author, owner, and publisher metadata as `Xavier's Resource Centre for the Visually Challenged` across OpenAI/Codex, portable Agent Plugins, and Claude packages.
 
 ## 0.1.3 - 2026-08-19
 

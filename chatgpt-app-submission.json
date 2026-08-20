@@ -4,7 +4,7 @@
   "app_info": {
     "display_name": "XRCVC Library",
     "subtitle": "Explore library resources",
-    "description": "XRCVC Library—X Real-time Communication Verification and Control—helps users explore accessible catalog resources and securely review role-authorized carts, requests, orders, activity, tasks, and reports through ChatGPT.",
+    "description": "XRCVC Library helps users explore accessible catalog resources from Xavier's Resource Centre for the Visually Challenged and securely review role-authorized carts, requests, orders, activity, tasks, and reports through ChatGPT.",
     "category": "EDUCATION"
   },
   "tools": {
