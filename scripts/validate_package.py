@@ -12,9 +12,67 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PLUGIN_ROOT = REPO_ROOT / "plugins" / "xrcvclibrary"
 EXPECTED_SKILLS = {
-    "analyze-xrcvc-catalog",
-    "inspect-xrcvc-carts",
-    "review-xrcvc-account",
+    "public-catalog",
+    "member-transactions",
+    "admin-transactions",
+    "admin-reports",
+    "xrcvc-tasks-activity",
+    "xrcvc-library-introduction",
+    "xrcvc-library-documentation",
+}
+EXPECTED_CHATGPT_TOOLS = {
+    "get_admin_catalog_item",
+    "get_admin_manual_section",
+    "get_admin_sitemap",
+    "get_api_output_as_markdown",
+    "get_authenticated_identity",
+    "get_catalog_statistics",
+    "get_combined_reports",
+    "get_library_openapi_schema",
+    "get_llms_full_txt",
+    "get_llms_txt",
+    "get_member_cart",
+    "get_member_catalog_item",
+    "get_member_manual_section",
+    "get_member_recent_activity",
+    "get_member_recent_activity_as_markdown",
+    "get_member_sitemap",
+    "get_order",
+    "get_own_cart",
+    "get_public_api_output_as_markdown",
+    "get_report",
+    "get_report_table",
+    "get_request",
+    "get_taxonomy_item",
+    "list_admin_books",
+    "list_admin_catalog",
+    "list_admin_catalog_as_markdown",
+    "list_admin_manual_headings",
+    "list_admin_manual_sections",
+    "list_admin_tactile_diagrams",
+    "list_admin_tasks",
+    "list_admin_tasks_as_markdown",
+    "list_admin_teaching_learning_aids",
+    "list_all_taxonomies",
+    "list_carts",
+    "list_library_api_endpoints",
+    "list_member_books",
+    "list_member_catalog",
+    "list_member_catalog_as_markdown",
+    "list_member_manual_headings",
+    "list_member_manual_sections",
+    "list_member_tactile_diagrams",
+    "list_member_tasks",
+    "list_member_tasks_as_markdown",
+    "list_member_teaching_learning_aids",
+    "list_orders",
+    "list_orders_as_markdown",
+    "list_reports",
+    "list_requests",
+    "list_requests_as_markdown",
+    "list_taxonomy_collection",
+    "list_taxonomy_family",
+    "mcp_endpoint_mcp_get",
 }
 MCP_URL = "https://mcp.library.xrcvc.org/mcp/authorize"
 WEBSITE_URL = "https://library.xrcvc.org"
@@ -22,6 +80,7 @@ PRIVACY_URL = "https://console.library.xrcvc.org/privacy-policy"
 TERMS_URL = "https://console.library.xrcvc.org/terms-of-service"
 SUPPORT_URL = "https://console.library.xrcvc.org/plugin-support"
 DEVELOPER_NAME = "Xavier's Resource Center for Visually Challenged"
+PRODUCT_EXPANSION = "X Real-time Communication Verification and Control"
 
 
 def load_json(path: Path) -> dict:
@@ -69,6 +128,35 @@ def validate() -> None:
     positive_section = submission_text.split("## Positive test prompts", 1)[1].split("## Negative", 1)[0]
     assert len(re.findall(r"^\d+\. ", positive_section, re.MULTILINE)) >= 5, "submission needs five positive prompts"
 
+    chatgpt_submission = load_json(REPO_ROOT / "chatgpt-app-submission.json")
+    assert chatgpt_submission.get("$schema") == "https://developers.openai.com/apps-sdk/schemas/chatgpt-app-submission.v1.json"
+    assert chatgpt_submission.get("schema_version") == 1
+    app_info = chatgpt_submission.get("app_info", {})
+    assert app_info.get("display_name") == "XRCVC Library"
+    assert PRODUCT_EXPANSION in str(app_info.get("description", "")), "ChatGPT description must define XRCVC"
+    assert len(str(app_info.get("subtitle", ""))) <= 30, "ChatGPT subtitle must be at most 30 characters"
+    assert app_info.get("category") == "EDUCATION"
+    submission_tools = chatgpt_submission.get("tools", {})
+    assert set(submission_tools) == EXPECTED_CHATGPT_TOOLS, "ChatGPT submission tool inventory mismatch"
+    expected_annotations = {
+        "readOnlyHint": True,
+        "openWorldHint": False,
+        "destructiveHint": False,
+    }
+    for tool_name, tool in submission_tools.items():
+        assert tool.get("annotations") == expected_annotations, f"{tool_name} ChatGPT annotations mismatch"
+        justifications = tool.get("justifications", {})
+        assert all(
+            isinstance(justifications.get(key), str) and justifications[key].strip()
+            for key in (
+                "read_only_justification",
+                "open_world_justification",
+                "destructive_justification",
+            )
+        ), f"{tool_name} needs all ChatGPT hint justifications"
+    assert len(chatgpt_submission.get("test_cases", [])) == 5, "ChatGPT submission needs exactly five positive tests"
+    assert len(chatgpt_submission.get("negative_test_cases", [])) == 3, "ChatGPT submission needs exactly three negative tests"
+
     for asset in (
         PLUGIN_ROOT / "assets" / "xrcvc-library-icon.png",
         PLUGIN_ROOT / "assets" / "xrcvc-library-logo.png",
@@ -93,6 +181,9 @@ def validate() -> None:
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert all(item.get("author", {}).get("name") == DEVELOPER_NAME for item in manifests), "developer name mismatch"
+    assert PRODUCT_EXPANSION in str(codex.get("description", "")), "Codex description must define XRCVC"
+    assert PRODUCT_EXPANSION in str(portable.get("description", "")), "portable description must define XRCVC"
+    assert PRODUCT_EXPANSION in submission_text, "submission materials must define XRCVC"
     assert portable_mcp.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
     assert set(portable).issubset({"$schema", "name", "version", "description", "author", "homepage", "repository", "license", "keywords", "extensions"})
 
@@ -118,7 +209,7 @@ def validate() -> None:
     assert claude.get("mcpServers") == "./.mcp.json"
 
     skill_dirs = {path.name for path in (PLUGIN_ROOT / "skills").iterdir() if path.is_dir()}
-    assert skill_dirs == EXPECTED_SKILLS, f"expected exactly three skills, found {sorted(skill_dirs)}"
+    assert skill_dirs == EXPECTED_SKILLS, f"expected exactly seven skills, found {sorted(skill_dirs)}"
     for skill_name in sorted(EXPECTED_SKILLS):
         validate_skill(PLUGIN_ROOT / "skills" / skill_name)
 

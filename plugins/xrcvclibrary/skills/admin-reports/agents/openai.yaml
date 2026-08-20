@@ -1,0 +1,16 @@
+interface:
+  display_name: "Explain XRCVC Admin Reports"
+  short_description: "Analyze Admin and Developer reports"
+  icon_small: "./assets/xrcvc-library-icon.png"
+  icon_large: "./assets/xrcvc-library-logo.png"
+  brand_color: "#E8601C"
+  default_prompt: "Use $admin-reports to explain my role-authorized XRCVC Library reports."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "xrcvc-library"
+      description: "Admin and Developer XRCVC Library reporting data"
+      transport: "streamable_http"
+      url: "https://mcp.library.xrcvc.org/mcp/authorize"
+policy:
+  allow_implicit_invocation: true

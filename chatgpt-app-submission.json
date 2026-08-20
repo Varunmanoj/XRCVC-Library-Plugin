@@ -1,0 +1,704 @@
+{
+  "$schema": "https://developers.openai.com/apps-sdk/schemas/chatgpt-app-submission.v1.json",
+  "schema_version": 1,
+  "app_info": {
+    "display_name": "XRCVC Library",
+    "subtitle": "Explore library resources",
+    "description": "XRCVC Library—X Real-time Communication Verification and Control—helps users explore accessible catalog resources and securely review role-authorized carts, requests, orders, activity, tasks, and reports through ChatGPT.",
+    "category": "EDUCATION"
+  },
+  "tools": {
+    "get_llms_txt": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_llms_full_txt": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_public_api_output_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_api_output_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Performs a role-authorized GET against approved XRCVC Library API paths and returns Markdown without modifying data.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_member_catalog_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_catalog_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_requests_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_orders_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_member_recent_activity_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_member_tasks_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_tasks_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_library_openapi_schema": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_library_api_endpoints": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_catalog_statistics": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_member_catalog": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_member_books": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_member_teaching_learning_aids": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_member_tactile_diagrams": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_member_catalog_item": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_catalog": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_books": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_teaching_learning_aids": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_tactile_diagrams": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_admin_catalog_item": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_manual_sections": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_manual_headings": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_admin_manual_section": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_member_manual_sections": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_member_manual_headings": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_member_manual_section": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "mcp_endpoint_mcp_get": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_all_taxonomies": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_taxonomy_family": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_taxonomy_collection": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_taxonomy_item": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_authenticated_identity": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_requests": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_request": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_orders": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_order": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_own_cart": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_carts": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_member_cart": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_member_recent_activity": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_member_tasks": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_tasks": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_reports": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_combined_reports": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_report_table": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_report": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_admin_sitemap": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_member_sitemap": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library catalog, taxonomy, documentation, or service metadata and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    }
+  },
+  "test_cases": [
+    {
+      "description": "Retrieve current public catalog totals.",
+      "user_prompt": "Using XRCVC Library, show the current catalog totals by resource type and the taxonomy total.",
+      "file_attachment_urls": null,
+      "tools_triggered": "get_catalog_statistics",
+      "expected_output": "Returns current totals for books, teaching learning aids, tactile diagrams, the full catalog, and taxonomy values.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Review the complete member-safe book catalog.",
+      "user_prompt": "Using XRCVC Library, list the complete member-safe book catalog and summarize the formats represented.",
+      "file_attachment_urls": null,
+      "tools_triggered": "list_member_catalog_as_markdown",
+      "expected_output": "Returns the unpaginated member-safe book catalog and accurately summarizes its available formats.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Inspect the authenticated member cart.",
+      "user_prompt": "What items are currently in my XRCVC Library cart?",
+      "file_attachment_urls": null,
+      "tools_triggered": "get_own_cart",
+      "expected_output": "Returns only the authenticated member's cart items, or clearly states that the cart is empty.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Review all authorized requests.",
+      "user_prompt": "Show all XRCVC Library requests I am authorized to view, grouped by status and resource type.",
+      "file_attachment_urls": null,
+      "tools_triggered": "list_requests_as_markdown",
+      "expected_output": "Returns complete authorized request data and groups it without exposing records outside the authenticated role.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Retrieve an authorized operational report.",
+      "user_prompt": "As an authorized XRCVC administrator, summarize the request-turnaround report for the last 30 days.",
+      "file_attachment_urls": null,
+      "tools_triggered": "get_report",
+      "expected_output": "Returns the requested date-bounded report for an authorized admin or developer and refuses roles without report access.",
+      "expected_output_url": null
+    }
+  ],
+  "negative_test_cases": [
+    {
+      "description": "Do not invoke the read-only app for a cart or order mutation.",
+      "user_prompt": "Add this title to my XRCVC Library cart and place the order.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not claim or attempt a mutation because this release only reads library data.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not invoke for unrelated calendar work.",
+      "user_prompt": "What meetings do I have tomorrow?",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked because calendar management is outside XRCVC Library workflows.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not invoke for general web news research.",
+      "user_prompt": "Search the public web for this week's accessibility technology news.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked because general web research is outside its catalog and account-data scope.",
+      "expected_output_url": null
+    }
+  ]
+}

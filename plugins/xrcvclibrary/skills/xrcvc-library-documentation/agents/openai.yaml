@@ -1,15 +1,15 @@
 interface:
-  display_name: "Analyze XRCVC Catalog"
-  short_description: "Analyze XRCVC catalog items and taxonomy"
+  display_name: "Explain XRCVC Library Documentation"
+  short_description: "Explain Member and Owner's Manual guidance"
   icon_small: "./assets/xrcvc-library-icon.png"
   icon_large: "./assets/xrcvc-library-logo.png"
   brand_color: "#E8601C"
-  default_prompt: "Use $analyze-xrcvc-catalog to find and compare accessible resources in the XRCVC catalog."
+  default_prompt: "Use $xrcvc-library-documentation to explain the XRCVC Library request and order lifecycle from the public manuals."
 dependencies:
   tools:
     - type: "mcp"
       value: "xrcvc-library"
-      description: "Public and role-authorized XRCVC Library data"
+      description: "Public XRCVC Library documentation Markdown"
       transport: "streamable_http"
       url: "https://mcp.library.xrcvc.org/mcp/authorize"
 policy:

@@ -1,6 +1,6 @@
 # XRCVC Library Agent Plugin
 
-`xrcvclibrary` is the open-source agent plugin from Xavier's Resource Center for Visually Challenged. It connects supported AI hosts to the read-only XRCVC Library MCP server and adds three focused skills for catalog analysis, cart inspection, and account/operational review.
+`xrcvclibrary` is the open-source **XRCVC Library** agent plugin, where XRCVC stands for **X Real-time Communication Verification and Control**. It is published by Xavier's Resource Center for Visually Challenged, connects supported AI hosts to the read-only XRCVC Library MCP server, and adds seven focused skills for public catalog research, member transactions, Admin transactions, Admin/Developer reports, tasks/activity, library orientation, and documentation guidance.
 
 ![XRCVC Library logo](plugins/xrcvclibrary/assets/xrcvc-library-logo.png)
 
@@ -10,7 +10,7 @@
 - Agent Plugins 1.0 portable manifests.
 - Claude plugin and marketplace metadata for Claude.ai, Claude Desktop, Cowork, and Claude Code.
 - One OAuth 2.1 Streamable HTTP MCP connection.
-- Three skills: `analyze-xrcvc-catalog`, `inspect-xrcvc-carts`, and `review-xrcvc-account`. The catalog skill uses the anonymous public Markdown tool for catalog detail and taxonomy paths; the account skill covers protected Member Tasks, Member Recent Activity, Admin Tasks, identity, cart, transaction, and report workflows.
+- Seven focused skills: `public-catalog`, `member-transactions`, `admin-transactions`, `admin-reports`, `xrcvc-tasks-activity`, `xrcvc-library-introduction`, and `xrcvc-library-documentation`. Together they keep public catalog and documentation guidance separate from the role-authorized member and operational workflows.
 - Explicit XRCVC icon and brand-color metadata for each OpenAI/Codex skill.
 
 The plugin is read-only. It can search catalog data and retrieve data the signed-in XRCVC role is already allowed to see; it cannot add to carts, submit requests, place orders, or alter accounts.
@@ -68,7 +68,7 @@ Start a new task after installation so Codex loads the plugin and MCP tools.
 
 ### Claude.ai cloud, Claude Desktop, and Cowork
 
-Install the complete plugin when you want both the three XRCVC skills and the remote MCP connector:
+Install the complete plugin when you want both the seven XRCVC skills and the remote MCP connector:
 
 1. In Claude, open **Customize → Plugins**.
 2. Under **Personal plugins**, select **+ → Add marketplace → Add from a repository**.
@@ -94,24 +94,11 @@ Run `/reload-plugins`, then `/mcp` and complete the XRCVC OAuth flow when a prot
 ### ChatGPT registered connection
 
 1. In ChatGPT, enable Developer Mode under **Settings → Apps & Connectors → Advanced settings**.
-2. Create an app for `https://mcp.library.xrcvc.org/mcp/authorize` and complete OAuth once.
-3. Copy the registered technical ID (`plugin_asdk_app_…`).
-4. Create `plugins/xrcvclibrary/.app.json`:
+2. Use the registered **XRCVC Library** development app for `https://mcp.library.xrcvc.org/mcp/authorize`. Its ChatGPT authentication mode is **Mixed** so public catalog tools work anonymously while account tools request OAuth.
+3. Choose **Use without an account** for public catalog testing, then complete OAuth once when a protected cart, request, order, task, activity, or report tool requests more access.
+4. Validate and reinstall the plugin after any package change.
 
-```json
-{
-  "apps": {
-    "xrcvc-library": {
-      "id": "plugin_asdk_app_REPLACE_WITH_REGISTERED_ID",
-      "category": "Education"
-    }
-  }
-}
-```
-
-5. Add `"apps": "./.app.json"` to `.codex-plugin/plugin.json`, validate, and reinstall the plugin.
-
-The repository intentionally does not ship a fabricated `.app.json`. The technical ID must come from the real XRCVC ChatGPT registration so new conversations resolve the same connection and credential store.
+The package includes `.app.json` with the real XRCVC ChatGPT development-app identifier. New conversations therefore resolve the same registered connection and ChatGPT-managed credential store; no Membership ID or OAuth token is stored in this repository.
 
 ## Access model
 
@@ -132,7 +119,7 @@ The packaged skills prefer the MCP server's Markdown output rather than its pagi
 
 ```bash
 python3 scripts/validate_package.py
-python3 /path/to/skill-creator/scripts/quick_validate.py plugins/xrcvclibrary/skills/analyze-xrcvc-catalog
+for skill in plugins/xrcvclibrary/skills/*; do python3 /path/to/skill-creator/scripts/quick_validate.py "$skill"; done
 python3 /path/to/plugin-creator/scripts/validate_plugin.py plugins/xrcvclibrary
 ```
 

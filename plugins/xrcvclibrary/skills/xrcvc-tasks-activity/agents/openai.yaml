@@ -1,15 +1,15 @@
 interface:
-  display_name: "Inspect XRCVC Carts"
-  short_description: "Review role-authorized XRCVC library carts"
+  display_name: "Explore XRCVC Tasks and Activity"
+  short_description: "Review tasks, upcoming work, and activity"
   icon_small: "./assets/xrcvc-library-icon.png"
   icon_large: "./assets/xrcvc-library-logo.png"
   brand_color: "#E8601C"
-  default_prompt: "Use $inspect-xrcvc-carts to explain the items in my XRCVC Library cart."
+  default_prompt: "Use $xrcvc-tasks-activity to show my XRCVC Library tasks, upcoming work, and recent activity."
 dependencies:
   tools:
     - type: "mcp"
       value: "xrcvc-library"
-      description: "Role-authorized XRCVC Library cart data"
+      description: "Role-authorized XRCVC Library task and activity data"
       transport: "streamable_http"
       url: "https://mcp.library.xrcvc.org/mcp/authorize"
 policy:

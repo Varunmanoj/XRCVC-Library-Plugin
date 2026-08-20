@@ -1,0 +1,16 @@
+interface:
+  display_name: "Review My XRCVC Transactions"
+  short_description: "Review my requests, orders, and cart"
+  icon_small: "./assets/xrcvc-library-icon.png"
+  icon_large: "./assets/xrcvc-library-logo.png"
+  brand_color: "#E8601C"
+  default_prompt: "Use $member-transactions to explain my XRCVC Library cart, requests, and orders."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "xrcvc-library"
+      description: "Authenticated XRCVC Library member transaction data"
+      transport: "streamable_http"
+      url: "https://mcp.library.xrcvc.org/mcp/authorize"
+policy:
+  allow_implicit_invocation: true
