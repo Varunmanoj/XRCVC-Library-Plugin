@@ -1,6 +1,6 @@
 {
   "name": "xrcvclibrary",
-  "version": "0.1.4+codex.20260820183329",
+  "version": "0.1.4+codex.20260820183330",
   "description": "Use XRCVC Library to explore the accessible catalog and review role-authorized library activity.",
   "author": {
     "name": "Xavier's Resource Centre for the Visually Challenged",
@@ -22,9 +22,9 @@
   "apps": "./.app.json",
   "interface": {
     "displayName": "XRCVC Library",
-    "shortDescription": "Explore accessible resources and library activity.",
-    "longDescription": "Explore the accessible public catalog from Xavier's Resource Centre for the Visually Challenged, then securely review role-authorized account information, carts, requests, orders, tasks, and reports through the XRCVC Library MCP server.",
-    "developerName": "Xavier's Resource Centre for the Visually Challenged",
+    "shortDescription": "Explore accessible resources and manage library activity.",
+    "longDescription": "Explore the accessible XRCVC Library catalog, then securely review role-authorized account information, carts, requests, orders, tasks, and reports through the XRCVC Library MCP server.",
+    "developerName": "Varun Manoj Kumar",
     "category": "Education",
     "capabilities": [
       "Search",
