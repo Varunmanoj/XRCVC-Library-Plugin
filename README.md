@@ -98,7 +98,7 @@ Run `/reload-plugins`, then `/mcp` and complete the XRCVC OAuth flow when a prot
 3. Choose **Use without an account** for public catalog testing, then complete OAuth once when a protected cart, request, order, task, activity, or report tool requests more access.
 4. Validate and reinstall the plugin after any package change.
 
-The package includes `.app.json` with the real XRCVC ChatGPT development-app identifier. New conversations therefore resolve the same registered connection and ChatGPT-managed credential store; no Membership ID or OAuth token is stored in this repository.
+The package includes `.app.json` with the real underlying XRCVC ChatGPT development-app identifier (`asdk_app_…`). Do not use the marketplace/plugin wrapper identifier (`plugin_asdk_app_…`) in this manifest. New conversations therefore resolve the same registered connection and ChatGPT-managed credential store; no Membership ID or OAuth token is stored in this repository.
 
 ## Access model
 
