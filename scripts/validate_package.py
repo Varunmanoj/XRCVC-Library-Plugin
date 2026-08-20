@@ -80,6 +80,7 @@ PRIVACY_URL = "https://console.library.xrcvc.org/privacy-policy"
 TERMS_URL = "https://console.library.xrcvc.org/terms-of-service"
 SUPPORT_URL = "https://console.library.xrcvc.org/plugin-support"
 DEVELOPER_NAME = "Xavier's Resource Centre for the Visually Challenged"
+MARKETPLACE_DEVELOPER_NAME = "Varun Manoj Kumar"
 
 
 def load_json(path: Path) -> dict:
@@ -187,10 +188,14 @@ def validate() -> None:
     codex_interface = codex.get("interface", {})
     assert codex.get("homepage") == SUPPORT_URL
     assert codex_interface.get("category") == "Education"
-    assert codex_interface.get("developerName") == DEVELOPER_NAME
+    assert codex_interface.get("developerName") == MARKETPLACE_DEVELOPER_NAME
     assert codex_interface.get("websiteURL") == WEBSITE_URL
     assert codex_interface.get("privacyPolicyURL") == PRIVACY_URL
     assert codex_interface.get("termsOfServiceURL") == TERMS_URL
+    assert codex_interface.get("composerIcon") == "./assets/xrcvc-library-icon.png"
+    assert codex_interface.get("logo") == "./assets/xrcvc-library-logo.png"
+    assert codex_interface.get("logoDark") == "./assets/xrcvc-library-logo.png"
+    assert codex_interface.get("screenshots") == []
     assert portable.get("homepage") == SUPPORT_URL
     assert portable.get("extensions", {}).get("org.xrcvc.library") == {
         "websiteURL": WEBSITE_URL,

@@ -1,6 +1,6 @@
 {
   "name": "xrcvclibrary",
-  "version": "0.1.4+codex.20260820183330",
+  "version": "0.1.4+codex.20260820174657",
   "description": "Use XRCVC Library to explore the accessible catalog and review role-authorized library activity.",
   "author": {
     "name": "Xavier's Resource Centre for the Visually Challenged",
@@ -40,6 +40,8 @@
     ],
     "brandColor": "#E8601C",
     "composerIcon": "./assets/xrcvc-library-icon.png",
-    "logo": "./assets/xrcvc-library-logo.png"
+    "logo": "./assets/xrcvc-library-logo.png",
+    "logoDark": "./assets/xrcvc-library-logo.png",
+    "screenshots": []
   }
 }
