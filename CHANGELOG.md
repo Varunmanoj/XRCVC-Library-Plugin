@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented here.
 
+## 0.1.5 - 2026-08-24
+
+- Updated Member and Admin transaction skills for the expanded request/order MCP schema, including complete `requestedFor` and `openedBy` party maps, Disability Type, and `createdOnBehalfOfSomeoneElse`.
+- Added order-specific guidance for history, reason, linked request/resource identifiers, counts, and parent-order attribution without inventing missing fields or timestamps.
+- Kept carts distinct from submitted requests/orders and documented the structured JSON pagination contract alongside complete unpaginated Markdown.
+- Refreshed the portable, Claude, and ChatGPT/Codex package versions so clients can detect and install the updated skills.
+
 ## 0.1.4 - 2026-08-19
 
 - Published same-origin 192px and 512px XRCVC Library MCP implementation icons for compatible connected-app clients.

@@ -175,9 +175,9 @@ def validate() -> None:
 
     manifests = (codex, portable, claude)
     assert all(item.get("name") == "xrcvclibrary" for item in manifests), "plugin name mismatch"
-    assert portable.get("version") == "0.1.4", "portable plugin version mismatch"
-    assert claude.get("version") == "0.1.4", "Claude plugin version mismatch"
-    assert re.fullmatch(r"0\.1\.4\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
+    assert portable.get("version") == "0.1.5", "portable plugin version mismatch"
+    assert claude.get("version") == "0.1.5", "Claude plugin version mismatch"
+    assert re.fullmatch(r"0\.1\.5\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert all(item.get("author", {}).get("name") == DEVELOPER_NAME for item in manifests), "developer name mismatch"
@@ -215,6 +215,26 @@ def validate() -> None:
     for skill_name in sorted(EXPECTED_SKILLS):
         validate_skill(PLUGIN_ROOT / "skills" / skill_name)
 
+    member_transactions = (PLUGIN_ROOT / "skills" / "member-transactions" / "SKILL.md").read_text(encoding="utf-8")
+    admin_transactions = (PLUGIN_ROOT / "skills" / "admin-transactions" / "SKILL.md").read_text(encoding="utf-8")
+    for skill_name, skill_text in (
+        ("member-transactions", member_transactions),
+        ("admin-transactions", admin_transactions),
+    ):
+        for field_name in (
+            "requestedFor",
+            "openedBy",
+            "createdOnBehalfOfSomeoneElse",
+            "disabilityType",
+            "orderHistory",
+            "orderReason",
+            "requestIds",
+        ):
+            assert field_name in skill_text, f"{skill_name} must explain the current transaction schema field {field_name}"
+        assert "`openedAt`" in skill_text and "never invent" in skill_text, f"{skill_name} must prohibit an invented openedAt field"
+    assert "get_own_cart" in member_transactions, "member-transactions must cover structured cart output"
+    assert "Cart records are saved selections" in member_transactions, "member-transactions must distinguish carts from transactions"
+
     codex_entry = codex_marketplace["plugins"][0]
     assert codex_marketplace.get("name") == "xrcvc-library"
     assert codex_entry.get("name") == "xrcvclibrary"
@@ -228,8 +248,8 @@ def validate() -> None:
     assert claude_entry.get("source") == "./plugins/xrcvclibrary"
     assert claude_entry.get("homepage") == SUPPORT_URL
     assert claude_entry.get("category") == "Education"
-    assert claude_marketplace.get("version") == "0.1.4"
-    assert claude_entry.get("version") == "0.1.4"
+    assert claude_marketplace.get("version") == "0.1.5"
+    assert claude_entry.get("version") == "0.1.5"
     assert claude_marketplace.get("owner", {}).get("name") == DEVELOPER_NAME
     assert claude_entry.get("author", {}).get("name") == DEVELOPER_NAME
     assert claude.get("repository") == claude_entry.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
