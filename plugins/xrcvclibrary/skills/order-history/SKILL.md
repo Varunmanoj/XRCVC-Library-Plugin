@@ -22,7 +22,9 @@ Use the explicit authenticated order-history tools. The server decides identity,
 
 - Read `orderHistory` as the authoritative parent timeline and `requests` as the complete set of generated request records, each with its own `history`.
 - When an order entry returns `requestId`, identify that request as the trigger. Use `requestPreviousStatus` and `requestStatus` for its before-and-after state, and `previousStatus` and `status` for the order transition. Do not attribute an order change from chronology or list position alone.
-- Preserve creation/update dates, updater names, sources, remarks, current statuses, requested/opened parties, and `createdOnBehalfOfSomeoneElse` exactly as returned.
+- Preserve creation/update dates, `adminName`, `adminMembershipId`, sources, remarks, current statuses, requested/opened parties, and `createdOnBehalfOfSomeoneElse` exactly as returned.
+- In both `orderHistory` and each generated request's `history`, render every human updater with both returned fields as `adminName (adminMembershipId)`, for example, **Updated by Varun Manoj Kumar (NX 463)**. Use the Membership ID attached to that exact event; never substitute a requested-for, opened-by, or signed-in Membership ID.
+- When a human event has `adminName` but no `adminMembershipId`, show the returned name without guessing an ID. System-generated events may intentionally omit `adminMembershipId`; present their returned system actor label without adding a Membership ID.
 - Ready request entries already contain human-readable `collectionLocation` text and may contain `collectionDate`; report those values without translating them back to storage keys.
 
 ## Date conversion and display
@@ -36,4 +38,4 @@ Use the explicit authenticated order-history tools. The server decides identity,
 
 - Member answers use only returned `memberOrderUrl` and `memberRequestUrl` values.
 - Administrative answers label both order links and both links for relevant generated requests. Member links require the target member's active session; Admin Console links require existing Staff/Admin/Developer application authorization.
-- Never reconstruct or expose Firebase UID fields from member output. A missing trigger field means the server did not attribute that order transition to a particular request.
+- `adminMembershipId` is the intended human-readable updater identifier and may be shown in Member or Admin answers. Never reconstruct or expose Firebase UID fields from member output. A missing trigger field means the server did not attribute that order transition to a particular request.

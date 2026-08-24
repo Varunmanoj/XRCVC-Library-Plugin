@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented here.
 
+## 0.1.8 - 2026-08-25
+
+- Updated Request History and Order History guidance for the new `adminName` plus `adminMembershipId` fields in JSON and Markdown output.
+- Standardized human updater labels as **Name (Membership ID)** across parent-order and generated-request timelines without reconstructing Firebase UIDs.
+- Documented that system-generated or unresolved legacy events may omit the updater Membership ID, and refreshed portable, Claude, and Codex package versions.
+
 ## 0.1.7 - 2026-08-24
 
 - Added explicit member/admin request-history and order-history MCP tools, with complete generated-request timelines and stored request-trigger context for order transitions.

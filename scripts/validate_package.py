@@ -187,9 +187,9 @@ def validate() -> None:
 
     manifests = (codex, portable, claude)
     assert all(item.get("name") == "xrcvclibrary" for item in manifests), "plugin name mismatch"
-    assert portable.get("version") == "0.1.7", "portable plugin version mismatch"
-    assert claude.get("version") == "0.1.7", "Claude plugin version mismatch"
-    assert re.fullmatch(r"0\.1\.7\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
+    assert portable.get("version") == "0.1.8", "portable plugin version mismatch"
+    assert claude.get("version") == "0.1.8", "Claude plugin version mismatch"
+    assert re.fullmatch(r"0\.1\.8\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert all(item.get("author", {}).get("name") == DEVELOPER_NAME for item in manifests), "developer name mismatch"
@@ -254,9 +254,11 @@ def validate() -> None:
     order_history = (PLUGIN_ROOT / "skills" / "order-history" / "SKILL.md").read_text(encoding="utf-8")
     assert "get_member_request_history" in request_history and "get_admin_request_history" in request_history
     assert "collectionLocation" in request_history and "UID fields" in request_history
+    assert "adminName (adminMembershipId)" in request_history
     assert "get_member_order_history" in order_history and "get_admin_order_history" in order_history
-    for field_name in ("orderHistory", "requestId", "requestPreviousStatus", "requestStatus", "requests"):
+    for field_name in ("orderHistory", "requestId", "requestPreviousStatus", "requestStatus", "requests", "adminMembershipId"):
         assert field_name in order_history, f"order-history must explain {field_name}"
+    assert "adminName (adminMembershipId)" in order_history
 
     codex_entry = codex_marketplace["plugins"][0]
     assert codex_marketplace.get("name") == "xrcvc-library"
@@ -271,8 +273,8 @@ def validate() -> None:
     assert claude_entry.get("source") == "./plugins/xrcvclibrary"
     assert claude_entry.get("homepage") == SUPPORT_URL
     assert claude_entry.get("category") == "Education"
-    assert claude_marketplace.get("version") == "0.1.7"
-    assert claude_entry.get("version") == "0.1.7"
+    assert claude_marketplace.get("version") == "0.1.8"
+    assert claude_entry.get("version") == "0.1.8"
     assert claude_marketplace.get("owner", {}).get("name") == DEVELOPER_NAME
     assert claude_entry.get("author", {}).get("name") == DEVELOPER_NAME
     assert claude.get("repository") == claude_entry.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"

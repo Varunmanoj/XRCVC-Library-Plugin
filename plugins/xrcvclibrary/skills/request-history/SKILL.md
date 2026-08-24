@@ -20,7 +20,9 @@ Use the explicit authenticated history tools. The server decides identity, owner
 
 ## Explain returned evidence
 
-- Treat `history` as the authoritative lifecycle. Preserve each returned status, date, updater name, remarks, and status-specific fields. Do not invent a previous status, updater, reason, or event that is absent.
+- Treat `history` as the authoritative lifecycle. Preserve each returned status, date, `adminName`, `adminMembershipId`, remarks, and status-specific fields. Do not invent a previous status, updater, Membership ID, reason, or event that is absent.
+- For every human history event with both fields, render the updater as `adminName (adminMembershipId)`, for example, **Updated by Varun Manoj Kumar (NX 463)**. Use the Membership ID attached to that exact event; never substitute `requestedFor.membershipId`, `openedBy.membershipId`, or the signed-in person's Membership ID.
+- When a human event has `adminName` but no `adminMembershipId`, show the returned name without guessing an ID. System-generated events may intentionally omit `adminMembershipId`; present their returned system actor label without adding a Membership ID.
 - Use `openedBy`, `requestedFor`, and `createdOnBehalfOfSomeoneElse` exactly as returned. Say the request was opened on behalf of someone else only when that Boolean is `true`.
 - `collectionLocation` is already human-readable. For ready events, report the returned St. Xavier's Main Center, Viviana Mall, or saved custom-location text together with `collectionDate` when present; do not translate it back to Firestore keys.
 - Preserve `requestId`, resource title/type, current status, request/updated dates, and relevant fulfillment or return fields.
@@ -36,4 +38,4 @@ Use the explicit authenticated history tools. The server decides identity, owner
 
 - In member answers, present only the returned member link.
 - In administrative answers, label both links: the member link requires the target member's active session; the Admin Console link requires existing Staff/Admin/Developer application authorization.
-- Never reconstruct or expose `userId`, `firebaseUUID`, `adminUID`, or other Firebase identity fields from member output.
+- `adminMembershipId` is the intended human-readable updater identifier and may be shown in Member or Admin answers. Never reconstruct or expose `userId`, `firebaseUUID`, `adminUID`, or other Firebase identity fields from member output.
