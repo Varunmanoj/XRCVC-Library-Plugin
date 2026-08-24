@@ -7,6 +7,11 @@ description: Explain the complete lifecycle of one XRCVC Library order and every
 
 Use the explicit authenticated order-history tools. The server decides identity, ownership, and role; never ask the user to paste a Membership ID, bearer value, OAuth code, or token.
 
+## Information-view choice
+
+- Never ask the user to state their role or Membership ID. When `/auth/me` identifies the user as Staff, Admin, or Developer, an order history could use either audience, and the user has not selected one, ask whether they want their own Member order history or a role-authorized Admin order history.
+- Use the response only to choose the Member or Admin history route. For an authorized Member, use only the Member route without asking and never offer or query Admin order history. Server authorization remains decisive, and Staff/Admin/Developer users can still use their own Member order history.
+
 ## Select the correct history endpoint
 
 - Use `get_member_order_history` for the signed-in person's order. It is self-scoped for every verified role, returns 404 for another member's order, recursively removes Firebase UID fields, and provides member-app links only.

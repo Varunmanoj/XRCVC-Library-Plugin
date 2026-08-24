@@ -7,6 +7,12 @@ description: Explore and explain publicly visible XRCVC Library catalog items, s
 
 Use the XRCVC Library MCP server as the source of truth. This skill is public: do not ask the user to authenticate unless their question moves into a protected workflow.
 
+## Information-view choice
+
+- For public catalog research, use the public/member-safe catalog path without an audience question.
+- When `/auth/me` identifies an authenticated user as Staff, Admin, or Developer, they request catalog-item information that could use either Member or Admin operational data, and they have not selected a view, ask whether they want the Member catalog-item view or a role-authorized Admin catalog-item view. Never ask them to state their role or Membership ID.
+- Use the answer only to choose the endpoint family. For an authorized Member, use only the Member catalog-item view without asking and never offer or query Admin operational catalog data; server authorization decides whether the Admin view is available.
+
 ## MCP output format
 
 - Prefer `list_member_catalog_as_markdown` for complete member-safe catalog data. It is unpaginated.
@@ -18,7 +24,7 @@ Use the XRCVC Library MCP server as the source of truth. This skill is public: d
 
 1. Establish the material type, subject, format, or taxonomy criteria that meaningfully narrow the question.
 2. Fetch catalog statistics or taxonomy data first when the question is about collection composition or valid filters. Use taxonomy IDs, not display labels, in catalog filters.
-3. Retrieve member-safe catalog Markdown by default. Use the Admin catalog only when the authenticated user specifically needs role-authorized operational fields.
+3. Retrieve member-safe catalog Markdown by default. Use the Admin catalog only when the user selects that role-authorized operational view and the server permits it.
 4. Confirm a specific resource through its public detail path before making a detailed claim, and retain its direct URL when supplied.
 
 ## Response rules

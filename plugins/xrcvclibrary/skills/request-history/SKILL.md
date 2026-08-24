@@ -7,6 +7,11 @@ description: Explain the complete lifecycle of one XRCVC Library request. Use fo
 
 Use the explicit authenticated history tools. The server decides identity, ownership, and role; never ask the user to paste a Membership ID, bearer value, OAuth code, or token.
 
+## Information-view choice
+
+- Never ask the user to state their role or Membership ID. When `/auth/me` identifies the user as Staff, Admin, or Developer, a request history could use either audience, and the user has not selected one, ask whether they want their own Member request history or a role-authorized Admin request history.
+- Use the response only to choose the Member or Admin history route. For an authorized Member, use only the Member route without asking and never offer or query Admin request history. Server authorization remains decisive, and Staff/Admin/Developer users can still use their own Member request history.
+
 ## Select the correct history endpoint
 
 - Use `get_member_request_history` for the signed-in person's request. It is self-scoped for every verified role, returns 404 for another member's request, recursively removes Firebase UID fields, and provides only `memberRequestUrl`.

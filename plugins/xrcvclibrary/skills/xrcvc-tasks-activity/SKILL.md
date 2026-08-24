@@ -7,6 +7,11 @@ description: Explore XRCVC Library tasks, upcoming work, and recent member activ
 
 Use authenticated XRCVC Library MCP Markdown tools. The server determines the role and self-scope, so never ask for credentials or accept a claimed role as authorization.
 
+## Information-view choice
+
+- Never ask the user to state their role or Membership ID. Ask whether they want their own Member view (including their tasks and recent activity) or a role-authorized Admin task view only when `/auth/me` identifies them as Staff, Admin, or Developer and they have not selected an audience.
+- Treat the response only as endpoint selection. For an authorized Member, use the Member view without asking and never offer or query an Admin view; confirm the Admin-view authorization through `/auth/me`.
+
 ## Task and activity views
 
 - Start with `/auth/me` through `get_api_output_as_markdown` when the role or view is not already established.
