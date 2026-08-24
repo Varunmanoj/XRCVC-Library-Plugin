@@ -31,45 +31,51 @@ EXPECTED_CHATGPT_TOOLS = {
     "get_library_openapi_schema",
     "get_llms_full_txt",
     "get_llms_txt",
+    "get_admin_cart",
+    "get_admin_order",
+    "get_admin_request",
     "get_member_cart",
     "get_member_catalog_item",
     "get_member_manual_section",
     "get_member_recent_activity",
     "get_member_recent_activity_as_markdown",
     "get_member_sitemap",
-    "get_order",
-    "get_own_cart",
+    "get_member_order",
     "get_public_api_output_as_markdown",
     "get_report",
     "get_report_table",
-    "get_request",
+    "get_member_request",
     "get_taxonomy_item",
     "list_admin_books",
     "list_admin_catalog",
     "list_admin_catalog_as_markdown",
+    "list_admin_carts",
     "list_admin_manual_headings",
     "list_admin_manual_sections",
+    "list_admin_orders",
+    "list_admin_orders_as_markdown",
+    "list_admin_requests",
+    "list_admin_requests_as_markdown",
     "list_admin_tactile_diagrams",
     "list_admin_tasks",
     "list_admin_tasks_as_markdown",
     "list_admin_teaching_learning_aids",
     "list_all_taxonomies",
-    "list_carts",
     "list_library_api_endpoints",
     "list_member_books",
     "list_member_catalog",
     "list_member_catalog_as_markdown",
     "list_member_manual_headings",
     "list_member_manual_sections",
+    "list_member_orders",
+    "list_member_orders_as_markdown",
+    "list_member_requests",
+    "list_member_requests_as_markdown",
     "list_member_tactile_diagrams",
     "list_member_tasks",
     "list_member_tasks_as_markdown",
     "list_member_teaching_learning_aids",
-    "list_orders",
-    "list_orders_as_markdown",
     "list_reports",
-    "list_requests",
-    "list_requests_as_markdown",
     "list_taxonomy_collection",
     "list_taxonomy_family",
     "mcp_endpoint_mcp_get",
@@ -175,9 +181,9 @@ def validate() -> None:
 
     manifests = (codex, portable, claude)
     assert all(item.get("name") == "xrcvclibrary" for item in manifests), "plugin name mismatch"
-    assert portable.get("version") == "0.1.5", "portable plugin version mismatch"
-    assert claude.get("version") == "0.1.5", "Claude plugin version mismatch"
-    assert re.fullmatch(r"0\.1\.5\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
+    assert portable.get("version") == "0.1.6", "portable plugin version mismatch"
+    assert claude.get("version") == "0.1.6", "Claude plugin version mismatch"
+    assert re.fullmatch(r"0\.1\.6\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert all(item.get("author", {}).get("name") == DEVELOPER_NAME for item in manifests), "developer name mismatch"
@@ -232,7 +238,11 @@ def validate() -> None:
         ):
             assert field_name in skill_text, f"{skill_name} must explain the current transaction schema field {field_name}"
         assert "`openedAt`" in skill_text and "never invent" in skill_text, f"{skill_name} must prohibit an invented openedAt field"
-    assert "get_own_cart" in member_transactions, "member-transactions must cover structured cart output"
+    assert "get_member_cart" in member_transactions, "member-transactions must cover structured cart output"
+    assert "UID-redacted" in member_transactions, "member-transactions must expect UID-redacted output"
+    assert "/requests/member" in member_transactions and "/orders/member" in member_transactions
+    assert "/requests/admin" in admin_transactions and "/orders/admin" in admin_transactions and "/carts/admin" in admin_transactions
+    assert "memberRequestUrl" in member_transactions and "adminRequestUrl" in admin_transactions
     assert "Cart records are saved selections" in member_transactions, "member-transactions must distinguish carts from transactions"
 
     codex_entry = codex_marketplace["plugins"][0]
@@ -248,8 +258,8 @@ def validate() -> None:
     assert claude_entry.get("source") == "./plugins/xrcvclibrary"
     assert claude_entry.get("homepage") == SUPPORT_URL
     assert claude_entry.get("category") == "Education"
-    assert claude_marketplace.get("version") == "0.1.5"
-    assert claude_entry.get("version") == "0.1.5"
+    assert claude_marketplace.get("version") == "0.1.6"
+    assert claude_entry.get("version") == "0.1.6"
     assert claude_marketplace.get("owner", {}).get("name") == DEVELOPER_NAME
     assert claude_entry.get("author", {}).get("name") == DEVELOPER_NAME
     assert claude.get("repository") == claude_entry.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented here.
 
+## 0.1.6 - 2026-08-24
+
+- Split request, order, and cart tools into explicit member/self and Staff/Admin/Developer administrative contracts.
+- Updated member transaction guidance for recursively UID-redacted responses and member-only links.
+- Expanded administrative transaction guidance to saved carts and both labeled member-app and Admin Console links.
+- Updated the ChatGPT submission inventory to the 58-tool MCP contract and refreshed portable, Claude, and Codex package versions.
+
 ## 0.1.5 - 2026-08-24
 
 - Updated Member and Admin transaction skills for the expanded request/order MCP schema, including complete `requestedFor` and `openedBy` party maps, Disability Type, and `createdOnBehalfOfSomeoneElse`.

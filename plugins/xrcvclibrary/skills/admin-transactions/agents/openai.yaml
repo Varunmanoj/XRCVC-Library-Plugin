@@ -1,10 +1,10 @@
 interface:
   display_name: "Review Admin XRCVC Transactions"
-  short_description: "Review role-authorized requests and orders"
+  short_description: "Review role-authorized requests, orders, and carts"
   icon_small: "./assets/xrcvc-library-icon.png"
   icon_large: "./assets/xrcvc-library-logo.png"
   brand_color: "#E8601C"
-  default_prompt: "Use $admin-transactions to review role-authorized XRCVC Library requests and orders."
+  default_prompt: "Use $admin-transactions to review role-authorized XRCVC Library requests, orders, and saved carts."
 dependencies:
   tools:
     - type: "mcp"

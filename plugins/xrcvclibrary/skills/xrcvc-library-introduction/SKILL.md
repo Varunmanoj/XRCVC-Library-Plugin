@@ -18,7 +18,7 @@ Give a clear, welcoming orientation to XRCVC Library, the accessible library ser
 
 1. Briefly introduce the accessible collection: Books, Teaching Learning Aids, and Tactile Diagrams, with catalog/taxonomy discovery.
 2. Describe the member workflow at a high level: explore resources, manage a cart, request items, and follow orders, tasks, and activity.
-3. Describe authorized operations separately: Staff/Admin/Developer operational requests/orders and tasks; Admin/Developer reports.
+3. Describe authorized operations separately: self-scoped member carts/requests/orders; Staff/Admin/Developer all-member carts/requests/orders and tasks; Admin/Developer reports.
 4. Offer the appropriate next action—public catalog exploration, documentation help, or authenticated personal/operational lookup—without assuming access.
 
 ## Response rules

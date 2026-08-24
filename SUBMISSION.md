@@ -15,7 +15,7 @@ Use this checklist after the canonical MCP deployment and public policy routes a
 - Support: `https://console.library.xrcvc.org/plugin-support`
 - Compact icon: `plugins/xrcvclibrary/assets/xrcvc-library-icon.png`
 - Marketplace logo: `plugins/xrcvclibrary/assets/xrcvc-library-logo.png`
-- Submission import: `chatgpt-app-submission.json` (52 tools, five positive tests, and three negative tests)
+- Submission import: `chatgpt-app-submission.json` (58 tools, five positive tests, and three negative tests)
 
 The MCP server is registered in ChatGPT Developer Mode as **XRCVC Library**. Its real `plugin_asdk_app…` identifier is stored in `plugins/xrcvclibrary/.app.json` and referenced from `.codex-plugin/plugin.json`. Complete OAuth, rerun `python3 scripts/validate_package.py`, reinstall the local plugin, and pass the fresh-chat test matrix before submitting for review. The Marketplace submission itself continues to use the canonical MCP Server URL above.
 
@@ -30,7 +30,7 @@ Confirm these in the OpenAI Platform before selecting **Submit for Review**:
 3. The generated domain-verification token is served verbatim from `https://mcp.library.xrcvc.org/.well-known/openai-apps-challenge` while the portal checks it.
 4. A dedicated reviewer Membership ID can complete the OAuth tests without MFA, SMS, email confirmation, or private-network access. Do not place that credential in this repository.
 5. Country or region availability is intentionally selected and supported by the publisher, support process, and legal terms.
-6. The final protected requests/cart test and the cross-conversation persistence matrix below pass with the registered mixed-auth app.
+6. The final protected member/admin requests, orders, and cart tests and the cross-conversation persistence matrix below pass with the registered mixed-auth app.
 
 The Marketplace product name is **XRCVC Library**. XRCVC is the established acronym for **Xavier's Resource Centre for the Visually Challenged**, an integral department of St. Xavier's College, Mumbai. Keep the publisher field aligned with the verified identity and public legal/support surfaces.
 
@@ -55,9 +55,9 @@ For Anthropic community-marketplace review, submit from `https://claude.ai/admin
 
 1. Find Braille mathematics books in the XRCVC catalog and compare their formats and requestability.
 2. Show the complete Teaching Learning Aid taxonomy and collection statistics using the MCP Markdown output, without pagination.
-3. Explain every item in my XRCVC cart, grouped by resource type, and flag anything that no longer resolves.
+3. Explain every item in my self-scoped XRCVC cart from `/carts/member`, grouped by resource type, and confirm that member output contains no Firebase UID fields.
 4. As a Member, show my Member Tasks and summarize my complete Member Recent Activity window using the named MCP Markdown tools.
-5. As an Admin or Developer, summarize Admin Tasks and the available request-turnaround report from the MCP Markdown outputs.
+5. As an Admin or Developer, review another member's requests, orders, and saved cart through the admin tools; show both labeled links and state each link's session/authorization requirement.
 
 ## Negative and boundary test prompts
 
