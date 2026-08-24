@@ -28,8 +28,9 @@ Use the explicit authenticated history tools. The server decides identity, owner
 ## Date conversion and display
 
 - Treat request, update, collection, fulfillment, return, and history values that include a time or UTC offset as UTC database instants. Convert them to the user's known local timezone; if that timezone is unavailable or conversion fails, use Indian Standard Time (`Asia/Kolkata`, UTC+05:30).
-- Render every converted timestamp as `DDMMYYYY, hh:mm AM/PM` in a 12-hour clock, including the timezone when useful for clarity (for example, `25082026, 09:30 PM IST`). Do not return ISO/UTC timestamps unless the user asks for the source value.
-- Do not convert a date-only value without a time or offset; format it as `DDMMYYYY` without inventing a time.
+- Render every converted timestamp as `D MMMM YYYY, h:mm AM/PM` in a 12-hour clock, including the timezone when useful for clarity (for example, `25 August 2026, 9:30 PM IST`). Do not use condensed numeric dates such as `25082026`, and do not return ISO/UTC timestamps unless the user asks for the source value.
+- In a chronological history with multiple events on the same local day, show a `D MMMM YYYY` day heading once, then show only `h:mm AM/PM` for each event under it.
+- Do not convert a date-only value without a time or offset; format it as `D MMMM YYYY` without inventing a time.
 
 ## Link and privacy rules
 
