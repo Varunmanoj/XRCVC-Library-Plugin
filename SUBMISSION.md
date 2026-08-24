@@ -15,7 +15,7 @@ Use this checklist after the canonical MCP deployment and public policy routes a
 - Support: `https://console.library.xrcvc.org/plugin-support`
 - Compact icon: `plugins/xrcvclibrary/assets/xrcvc-library-icon.png`
 - Marketplace logo: `plugins/xrcvclibrary/assets/xrcvc-library-logo.png`
-- Submission import: `chatgpt-app-submission.json` (58 tools, five positive tests, and three negative tests)
+- Submission import: `chatgpt-app-submission.json` (62 tools, seven positive tests, and three negative tests)
 
 The MCP server is registered in ChatGPT Developer Mode as **XRCVC Library**. Its real `plugin_asdk_app…` identifier is stored in `plugins/xrcvclibrary/.app.json` and referenced from `.codex-plugin/plugin.json`. Complete OAuth, rerun `python3 scripts/validate_package.py`, reinstall the local plugin, and pass the fresh-chat test matrix before submitting for review. The Marketplace submission itself continues to use the canonical MCP Server URL above.
 
@@ -47,7 +47,7 @@ Initial submission of the read-only XRCVC Library app. It provides public access
 - Category: **Education**
 - Connector icon source: the same-origin 192px and 512px XRCVC Library icons advertised by `mcp.library.xrcvc.org` through MCP `serverInfo.icons`
 
-For private testing, add the GitHub repository from **Claude → Customize → Plugins → Personal plugins → Add marketplace**, then install **XRCVC Library**. This route installs the seven skills and the remote connector together. A connector-only test can instead be added through **Customize → Connectors → Add custom connector**, but it will not include the skills.
+For private testing, add the GitHub repository from **Claude → Customize → Plugins → Personal plugins → Add marketplace**, then install **XRCVC Library**. This route installs the nine skills and the remote connector together. A connector-only test can instead be added through **Customize → Connectors → Add custom connector**, but it will not include the skills.
 
 For Anthropic community-marketplace review, submit from `https://claude.ai/admin-settings/directory/submissions/plugins/new` when using an eligible Team or Enterprise organization, or from `https://platform.claude.com/plugins/submit` for an individual submission. Upload the bundled XRCVC icon/logo when the submission form requests listing artwork; do not add unsupported `icon` or `logo` fields to the Claude plugin manifest.
 
@@ -58,6 +58,8 @@ For Anthropic community-marketplace review, submit from `https://claude.ai/admin
 3. Explain every item in my self-scoped XRCVC cart from `/carts/member`, grouped by resource type, and confirm that member output contains no Firebase UID fields.
 4. As a Member, show my Member Tasks and summarize my complete Member Recent Activity window using the named MCP Markdown tools.
 5. As an Admin or Developer, review another member's requests, orders, and saved cart through the admin tools; show both labeled links and state each link's session/authorization requirement.
+6. Explain one of my request histories, including each updater, status, date, and ready-state collection location, without exposing Firebase UID fields.
+7. As an authorized internal user, explain an order's complete history, every generated request timeline, and which request triggered each attributed order-status transition.
 
 ## Negative and boundary test prompts
 

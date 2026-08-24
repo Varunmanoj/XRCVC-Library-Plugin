@@ -19,6 +19,8 @@ EXPECTED_SKILLS = {
     "xrcvc-tasks-activity",
     "xrcvc-library-introduction",
     "xrcvc-library-documentation",
+    "request-history",
+    "order-history",
 }
 EXPECTED_CHATGPT_TOOLS = {
     "get_admin_catalog_item",
@@ -33,7 +35,9 @@ EXPECTED_CHATGPT_TOOLS = {
     "get_llms_txt",
     "get_admin_cart",
     "get_admin_order",
+    "get_admin_order_history",
     "get_admin_request",
+    "get_admin_request_history",
     "get_member_cart",
     "get_member_catalog_item",
     "get_member_manual_section",
@@ -41,10 +45,12 @@ EXPECTED_CHATGPT_TOOLS = {
     "get_member_recent_activity_as_markdown",
     "get_member_sitemap",
     "get_member_order",
+    "get_member_order_history",
     "get_public_api_output_as_markdown",
     "get_report",
     "get_report_table",
     "get_member_request",
+    "get_member_request_history",
     "get_taxonomy_item",
     "list_admin_books",
     "list_admin_catalog",
@@ -160,7 +166,7 @@ def validate() -> None:
                 "destructive_justification",
             )
         ), f"{tool_name} needs all ChatGPT hint justifications"
-    assert len(chatgpt_submission.get("test_cases", [])) == 5, "ChatGPT submission needs exactly five positive tests"
+    assert len(chatgpt_submission.get("test_cases", [])) == 7, "ChatGPT submission needs exactly seven positive tests"
     assert len(chatgpt_submission.get("negative_test_cases", [])) == 3, "ChatGPT submission needs exactly three negative tests"
 
     for asset in (
@@ -181,9 +187,9 @@ def validate() -> None:
 
     manifests = (codex, portable, claude)
     assert all(item.get("name") == "xrcvclibrary" for item in manifests), "plugin name mismatch"
-    assert portable.get("version") == "0.1.6", "portable plugin version mismatch"
-    assert claude.get("version") == "0.1.6", "Claude plugin version mismatch"
-    assert re.fullmatch(r"0\.1\.6\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
+    assert portable.get("version") == "0.1.7", "portable plugin version mismatch"
+    assert claude.get("version") == "0.1.7", "Claude plugin version mismatch"
+    assert re.fullmatch(r"0\.1\.7\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert all(item.get("author", {}).get("name") == DEVELOPER_NAME for item in manifests), "developer name mismatch"
@@ -217,7 +223,7 @@ def validate() -> None:
     assert claude.get("mcpServers") == "./.mcp.json"
 
     skill_dirs = {path.name for path in (PLUGIN_ROOT / "skills").iterdir() if path.is_dir()}
-    assert skill_dirs == EXPECTED_SKILLS, f"expected exactly seven skills, found {sorted(skill_dirs)}"
+    assert skill_dirs == EXPECTED_SKILLS, f"expected exactly nine skills, found {sorted(skill_dirs)}"
     for skill_name in sorted(EXPECTED_SKILLS):
         validate_skill(PLUGIN_ROOT / "skills" / skill_name)
 
@@ -244,6 +250,13 @@ def validate() -> None:
     assert "/requests/admin" in admin_transactions and "/orders/admin" in admin_transactions and "/carts/admin" in admin_transactions
     assert "memberRequestUrl" in member_transactions and "adminRequestUrl" in admin_transactions
     assert "Cart records are saved selections" in member_transactions, "member-transactions must distinguish carts from transactions"
+    request_history = (PLUGIN_ROOT / "skills" / "request-history" / "SKILL.md").read_text(encoding="utf-8")
+    order_history = (PLUGIN_ROOT / "skills" / "order-history" / "SKILL.md").read_text(encoding="utf-8")
+    assert "get_member_request_history" in request_history and "get_admin_request_history" in request_history
+    assert "collectionLocation" in request_history and "UID fields" in request_history
+    assert "get_member_order_history" in order_history and "get_admin_order_history" in order_history
+    for field_name in ("orderHistory", "requestId", "requestPreviousStatus", "requestStatus", "requests"):
+        assert field_name in order_history, f"order-history must explain {field_name}"
 
     codex_entry = codex_marketplace["plugins"][0]
     assert codex_marketplace.get("name") == "xrcvc-library"
@@ -258,8 +271,8 @@ def validate() -> None:
     assert claude_entry.get("source") == "./plugins/xrcvclibrary"
     assert claude_entry.get("homepage") == SUPPORT_URL
     assert claude_entry.get("category") == "Education"
-    assert claude_marketplace.get("version") == "0.1.6"
-    assert claude_entry.get("version") == "0.1.6"
+    assert claude_marketplace.get("version") == "0.1.7"
+    assert claude_entry.get("version") == "0.1.7"
     assert claude_marketplace.get("owner", {}).get("name") == DEVELOPER_NAME
     assert claude_entry.get("author", {}).get("name") == DEVELOPER_NAME
     assert claude.get("repository") == claude_entry.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"

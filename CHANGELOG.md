@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented here.
 
+## 0.1.7 - 2026-08-24
+
+- Added explicit member/admin request-history and order-history MCP tools, with complete generated-request timelines and stored request-trigger context for order transitions.
+- Added focused Request History and Order History skills for Claude, ChatGPT, and Codex.
+- Documented human-readable ready-state collection locations while preserving member UID redaction and member/admin link boundaries.
+- Updated the ChatGPT submission inventory to the 62-tool MCP contract and refreshed portable, Claude, and Codex package versions.
+
 ## 0.1.6 - 2026-08-24
 
 - Split request, order, and cart tools into explicit member/self and Staff/Admin/Developer administrative contracts.

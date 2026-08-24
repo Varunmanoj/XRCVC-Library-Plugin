@@ -1,0 +1,27 @@
+---
+name: request-history
+description: Explain the complete lifecycle of one XRCVC Library request. Use for creation, status changes, updater details, remarks, collection information, and request-history questions; do not use for order-wide timelines or aggregate reporting.
+---
+
+# Explain Request History
+
+Use the explicit authenticated history tools. The server decides identity, ownership, and role; never ask the user to paste a Membership ID, bearer value, OAuth code, or token.
+
+## Select the correct history endpoint
+
+- Use `get_member_request_history` for the signed-in person's request. It is self-scoped for every verified role, returns 404 for another member's request, recursively removes Firebase UID fields, and provides only `memberRequestUrl`.
+- Use `get_admin_request_history` only when `/auth/me` confirms Staff, Admin, or Developer and the question requires internal access. It returns complete stored party and audit data plus both `memberRequestUrl` and `adminRequestUrl`.
+- For a complete Markdown rendering, use `get_api_output_as_markdown` with `/requests/member/{requestId}/history` or `/requests/admin/{requestId}/history` after choosing the same audience boundary.
+
+## Explain returned evidence
+
+- Treat `history` as the authoritative lifecycle. Preserve each returned status, date, updater name, remarks, and status-specific fields. Do not invent a previous status, updater, reason, or event that is absent.
+- Use `openedBy`, `requestedFor`, and `createdOnBehalfOfSomeoneElse` exactly as returned. Say the request was opened on behalf of someone else only when that Boolean is `true`.
+- `collectionLocation` is already human-readable. For ready events, report the returned St. Xavier's Main Center, Viviana Mall, or saved custom-location text together with `collectionDate` when present; do not translate it back to Firestore keys.
+- Preserve `requestId`, resource title/type, current status, request/updated dates, and relevant fulfillment or return fields.
+
+## Link and privacy rules
+
+- In member answers, present only the returned member link.
+- In administrative answers, label both links: the member link requires the target member's active session; the Admin Console link requires existing Staff/Admin/Developer application authorization.
+- Never reconstruct or expose `userId`, `firebaseUUID`, `adminUID`, or other Firebase identity fields from member output.

@@ -12,6 +12,7 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 - Start with `/auth/me` through `get_api_output_as_markdown` when role or identity matters.
 - Prefer `get_api_output_as_markdown` with `/carts/member` for the bearer member's cart, and `list_member_requests_as_markdown` or `list_member_orders_as_markdown` for complete request/order lists.
 - Use `get_member_request` or `get_member_order` for structured detail, or `get_api_output_as_markdown` with `/requests/member/{requestId}` or `/orders/member/{orderId}` for complete Markdown detail. Preserve the server-provided member links and statuses.
+- For a lifecycle explanation, hand off to the Request History or Order History skill and use `get_member_request_history` or `get_member_order_history`; the latter returns the parent `orderHistory` plus every generated request and its `history`.
 - When structured JSON is more useful, use `get_member_cart`, `list_member_requests`, or `list_member_orders`. JSON lists are paginated, so follow `pageInfo.nextCursor` until `pageInfo.hasMore` is false when complete coverage is requested.
 - Markdown responses are complete and unpaginated. Do not use or describe `limit`, `cursor`, pages, or partial coverage.
 
@@ -21,6 +22,7 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 - Use `createdOnBehalfOfSomeoneElse` as the authoritative delegation indicator. Say a request or order was created on behalf of someone else only when it is `true`; do not infer delegation from names, roles, or missing identifiers.
 - Keep the returned `requestDate` or `orderDate` as the transaction creation date/time. Preserve a timestamp inside `openedBy` only if the server actually returns one; never invent an `openedAt` field.
 - Requests may include lifecycle, fulfillment, collection, physical-resource, history, notes, reason, taxonomy, and parent-order fields. Orders may include `orderHistory`, `orderReason`, linked `requestIds`, resource IDs/types, and request/item counts. Explain only fields actually returned.
+- `collectionLocation` is human-readable in request responses and ready history entries: it returns the portal label for St. Xavier's Main Center or Viviana Mall, or the saved custom-location text.
 - Cart records are saved selections, not submitted transactions. Do not attach request/order party or on-behalf semantics to cart items unless the server returns those fields.
 
 ## Workflow

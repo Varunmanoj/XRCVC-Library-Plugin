@@ -488,6 +488,18 @@
         "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
       }
     },
+    "get_member_request_history": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves a self-scoped XRCVC Library request lifecycle and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
     "list_member_orders": {
       "annotations": {
         "readOnlyHint": true,
@@ -508,6 +520,18 @@
       },
       "justifications": {
         "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_member_order_history": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves a self-scoped XRCVC Library order lifecycle and its generated request histories without modifying records.",
         "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
         "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
       }
@@ -536,6 +560,18 @@
         "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
       }
     },
+    "get_admin_request_history": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves a role-authorized complete XRCVC Library request lifecycle and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
     "list_admin_orders": {
       "annotations": {
         "readOnlyHint": true,
@@ -556,6 +592,18 @@
       },
       "justifications": {
         "read_only_justification": "Retrieves role-authorized XRCVC Library account or operational records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_admin_order_history": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves a role-authorized complete XRCVC Library order lifecycle and all generated request histories without modifying records.",
         "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
         "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
       }
@@ -736,6 +784,22 @@
       "file_attachment_urls": null,
       "tools_triggered": "list_member_requests_as_markdown",
       "expected_output": "Returns complete self-scoped UID-redacted request data with member links and groups it without exposing another member's records.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Explain one self-scoped request lifecycle.",
+      "user_prompt": "Explain the complete history of one of my XRCVC Library requests, including each status, updater, date, and collection location.",
+      "file_attachment_urls": null,
+      "tools_triggered": "get_member_request_history",
+      "expected_output": "Returns the self-scoped UID-redacted request lifecycle, reports the human-readable ready-state collection location when present, and uses only the member link.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Explain an authorized order and generated request timelines.",
+      "user_prompt": "As an authorized XRCVC internal user, explain this order's complete timeline, every generated request history, and which request triggered each attributed order status change.",
+      "file_attachment_urls": null,
+      "tools_triggered": "get_admin_order_history",
+      "expected_output": "Returns the complete order and request timelines, uses stored trigger request and before-and-after statuses, and labels member and Admin Console links.",
       "expected_output_url": null
     },
     {

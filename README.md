@@ -1,6 +1,6 @@
 # XRCVC Library Agent Plugin
 
-`xrcvclibrary` is the open-source **XRCVC Library** agent plugin. XRCVC is Xavier's Resource Centre for the Visually Challenged, an integral department of St. Xavier's College, Mumbai. The plugin connects supported AI hosts to the read-only XRCVC Library MCP server and adds seven focused skills for public catalog research, member transactions, Admin transactions, Admin/Developer reports, tasks/activity, library orientation, and documentation guidance.
+`xrcvclibrary` is the open-source **XRCVC Library** agent plugin. XRCVC is Xavier's Resource Centre for the Visually Challenged, an integral department of St. Xavier's College, Mumbai. The plugin connects supported AI hosts to the read-only XRCVC Library MCP server and adds nine focused skills for public catalog research, member transactions, Admin transactions, request history, order history, Admin/Developer reports, tasks/activity, library orientation, and documentation guidance.
 
 ![XRCVC Library logo](plugins/xrcvclibrary/assets/xrcvc-library-logo.png)
 
@@ -10,7 +10,7 @@
 - Agent Plugins 1.0 portable manifests.
 - Claude plugin and marketplace metadata for Claude.ai, Claude Desktop, Cowork, and Claude Code.
 - One OAuth 2.1 Streamable HTTP MCP connection.
-- Seven focused skills: `public-catalog`, `member-transactions`, `admin-transactions`, `admin-reports`, `xrcvc-tasks-activity`, `xrcvc-library-introduction`, and `xrcvc-library-documentation`. Together they keep public catalog and documentation guidance separate from the role-authorized member and operational workflows.
+- Nine focused skills: `public-catalog`, `member-transactions`, `admin-transactions`, `request-history`, `order-history`, `admin-reports`, `xrcvc-tasks-activity`, `xrcvc-library-introduction`, and `xrcvc-library-documentation`. Together they keep public catalog and documentation guidance separate from role-authorized member, operational, and lifecycle workflows.
 - Explicit XRCVC icon and brand-color metadata for each OpenAI/Codex skill.
 
 The plugin is read-only. It can search catalog data and retrieve data the signed-in XRCVC role is already allowed to see; it cannot add to carts, submit requests, place orders, or alter accounts.
@@ -68,7 +68,7 @@ Start a new task after installation so Codex loads the plugin and MCP tools.
 
 ### Claude.ai cloud, Claude Desktop, and Cowork
 
-Install the complete plugin when you want both the seven XRCVC skills and the remote MCP connector:
+Install the complete plugin when you want both the nine XRCVC skills and the remote MCP connector:
 
 1. In Claude, open **Customize → Plugins**.
 2. Under **Personal plugins**, select **+ → Add marketplace → Add from a repository**.
@@ -113,7 +113,7 @@ The MCP server derives the effective role from current XRCVC account data. OAuth
 
 ## MCP Markdown output
 
-The packaged skills prefer the MCP server's Markdown output rather than its paginated JSON list tools. Named Markdown companions return complete, unpaginated Catalog, Requests, Orders, Member Recent Activity, Member Tasks, and Admin Tasks data. Public catalog detail, taxonomy, manual, and MCP metadata Markdown are requested through `get_public_api_output_as_markdown`; protected cart, identity, transaction detail, and report Markdown use `get_api_output_as_markdown`. Catalog Markdown has no free-text search input, so the catalog skill uses resource-type or taxonomy filters when available and inspects the returned Markdown locally.
+The packaged skills prefer the MCP server's Markdown output rather than its paginated JSON list tools. Named Markdown companions return complete, unpaginated Catalog, Requests, Orders, Member Recent Activity, Member Tasks, and Admin Tasks data. Explicit request-history and order-history tools return one lifecycle as structured JSON; `get_api_output_as_markdown` can render the matching history path. Public catalog detail, taxonomy, manual, and MCP metadata Markdown are requested through `get_public_api_output_as_markdown`; protected cart, identity, transaction detail, history, and report Markdown use `get_api_output_as_markdown`. Catalog Markdown has no free-text search input, so the catalog skill uses resource-type or taxonomy filters when available and inspects the returned Markdown locally.
 
 ## Validation
 
