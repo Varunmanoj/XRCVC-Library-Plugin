@@ -27,6 +27,12 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 - Retrieve linked request detail before explaining how a request affected its parent order. Do not infer an order transition or attribution from list position alone.
 - Administrative responses include `memberRequestUrl` plus `adminRequestUrl`, `memberOrderUrl` plus `adminOrderUrl`, or `memberCartUrl` plus `adminCartUrl`. Always label both: the member link requires the target member's active session, while the Admin Console link requires existing Staff/Admin/Developer application authorization.
 
+## Date conversion and display
+
+- Treat returned request, order, cart, fulfillment, collection, history, or audit timestamps that include a time or UTC offset as UTC database instants. Convert them to the user's known local timezone; if that timezone is unavailable or conversion fails, use Indian Standard Time (`Asia/Kolkata`, UTC+05:30).
+- Render every converted timestamp as `DDMMYYYY, hh:mm AM/PM` in a 12-hour clock, including the timezone when useful for clarity (for example, `25082026, 09:30 PM IST`). Do not return ISO/UTC timestamps unless the user asks for the source value.
+- Do not convert a date-only value without a time or offset; format it as `DDMMYYYY` without inventing a time.
+
 ## Workflow
 
 1. Confirm the effective role, then choose requests, orders, carts, or the smallest combination that answers the operational question.

@@ -25,6 +25,12 @@ Use the explicit authenticated history tools. The server decides identity, owner
 - `collectionLocation` is already human-readable. For ready events, report the returned St. Xavier's Main Center, Viviana Mall, or saved custom-location text together with `collectionDate` when present; do not translate it back to Firestore keys.
 - Preserve `requestId`, resource title/type, current status, request/updated dates, and relevant fulfillment or return fields.
 
+## Date conversion and display
+
+- Treat request, update, collection, fulfillment, return, and history values that include a time or UTC offset as UTC database instants. Convert them to the user's known local timezone; if that timezone is unavailable or conversion fails, use Indian Standard Time (`Asia/Kolkata`, UTC+05:30).
+- Render every converted timestamp as `DDMMYYYY, hh:mm AM/PM` in a 12-hour clock, including the timezone when useful for clarity (for example, `25082026, 09:30 PM IST`). Do not return ISO/UTC timestamps unless the user asks for the source value.
+- Do not convert a date-only value without a time or offset; format it as `DDMMYYYY` without inventing a time.
+
 ## Link and privacy rules
 
 - In member answers, present only the returned member link.

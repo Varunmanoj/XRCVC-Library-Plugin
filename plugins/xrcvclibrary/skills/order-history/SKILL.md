@@ -25,6 +25,12 @@ Use the explicit authenticated order-history tools. The server decides identity,
 - Preserve creation/update dates, updater names, sources, remarks, current statuses, requested/opened parties, and `createdOnBehalfOfSomeoneElse` exactly as returned.
 - Ready request entries already contain human-readable `collectionLocation` text and may contain `collectionDate`; report those values without translating them back to storage keys.
 
+## Date conversion and display
+
+- Treat order, request, update, collection, fulfillment, return, and history values that include a time or UTC offset as UTC database instants. Convert them to the user's known local timezone; if that timezone is unavailable or conversion fails, use Indian Standard Time (`Asia/Kolkata`, UTC+05:30).
+- Render every converted timestamp as `DDMMYYYY, hh:mm AM/PM` in a 12-hour clock, including the timezone when useful for clarity (for example, `25082026, 09:30 PM IST`). Do not return ISO/UTC timestamps unless the user asks for the source value.
+- Do not convert a date-only value without a time or offset; format it as `DDMMYYYY` without inventing a time.
+
 ## Link and privacy rules
 
 - Member answers use only returned `memberOrderUrl` and `memberRequestUrl` values.

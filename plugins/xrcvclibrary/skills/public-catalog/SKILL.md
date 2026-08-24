@@ -13,6 +13,12 @@ Use the XRCVC Library MCP server as the source of truth. This skill is public: d
 - When `/auth/me` identifies an authenticated user as Staff, Admin, or Developer, they request catalog-item information that could use either Member or Admin operational data, and they have not selected a view, ask whether they want the Member catalog-item view or a role-authorized Admin catalog-item view. Never ask them to state their role or Membership ID.
 - Use the answer only to choose the endpoint family. For an authorized Member, use only the Member catalog-item view without asking and never offer or query Admin operational catalog data; server authorization decides whether the Admin view is available.
 
+## Date conversion and display
+
+- Treat a returned catalog timestamp that includes a time or UTC offset as a UTC database instant. Convert it to the user's known local timezone; if that timezone is unavailable or conversion fails, use Indian Standard Time (`Asia/Kolkata`, UTC+05:30).
+- Render every converted timestamp as `DDMMYYYY, hh:mm AM/PM` in a 12-hour clock, including the timezone when useful for clarity (for example, `25082026, 09:30 PM IST`). Do not return ISO/UTC timestamps unless the user asks for the source value.
+- Do not convert a date-only value that has no time or offset; format it as `DDMMYYYY` without inventing a time.
+
 ## MCP output format
 
 - Prefer `list_member_catalog_as_markdown` for complete member-safe catalog data. It is unpaginated.

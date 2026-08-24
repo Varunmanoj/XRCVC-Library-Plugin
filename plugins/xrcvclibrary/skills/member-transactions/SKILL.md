@@ -25,6 +25,12 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 - `collectionLocation` is human-readable in request responses and ready history entries: it returns the portal label for St. Xavier's Main Center or Viviana Mall, or the saved custom-location text.
 - Cart records are saved selections, not submitted transactions. Do not attach request/order party or on-behalf semantics to cart items unless the server returns those fields.
 
+## Date conversion and display
+
+- Treat returned request, order, cart, fulfillment, collection, history, or activity timestamps that include a time or UTC offset as UTC database instants. Convert them to the user's known local timezone; if that timezone is unavailable or conversion fails, use Indian Standard Time (`Asia/Kolkata`, UTC+05:30).
+- Render every converted timestamp as `DDMMYYYY, hh:mm AM/PM` in a 12-hour clock, including the timezone when useful for clarity (for example, `25082026, 09:30 PM IST`). Do not return ISO/UTC timestamps unless the user asks for the source value.
+- Do not convert a date-only value without a time or offset; format it as `DDMMYYYY` without inventing a time.
+
 ## Workflow
 
 1. Fetch only the requested surface, or fetch cart, requests, and orders for a complete personal lifecycle summary.
