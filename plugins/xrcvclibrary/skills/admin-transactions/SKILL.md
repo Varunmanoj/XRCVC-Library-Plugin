@@ -29,12 +29,21 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 ## Current transaction schema
 
 - Treat `requestedFor` and `openedBy` as complete stored party maps. Preserve returned fields such as `role`, `userId`, `firebaseUUID`, `email`, `membershipId`, `name`, `phone`, `disabilityType`, and `accountRole`, plus any additional stored fields relevant to the operational question.
+- Administrative request and order party maps include canonical `fullName` values read directly from `membership_info/{membershipId}`. Present the requested-for person as `requestedFor.fullName (requestedFor.membershipId)` and, when opener context matters, `openedBy.fullName (openedBy.membershipId)`. Never make a separate profile or Membership ID directory call to obtain these names.
+- Preserve `requestedFor.name` and `openedBy.name` as stored transaction snapshots when relevant, but prefer the returned canonical `fullName` for the person's current display label. The API does not define a separate `displayName` field; do not invent one or claim that `fullName` and `displayName` are two independently returned values.
 - Use `createdOnBehalfOfSomeoneElse` as the authoritative delegation indicator. Describe a transaction as opened on behalf of someone else only when it is `true`; do not recalculate it from names, roles, or partial identifiers.
 - Keep `requestDate` and `orderDate` as the transaction creation date/time. Preserve a timestamp nested in `openedBy` only when returned; never invent `openedAt`.
 - For requests, retain relevant lifecycle, fulfillment, collection, physical-resource, history, notes, reason, taxonomy, and parent-order fields. For orders, retain `orderHistory`, `orderReason`, `requestIds`, `resourceIds`, `resourceTypes`, `requestCount`, `itemCount`, and linked request context when returned.
 - Treat `collectionLocation` as the human-readable portal value. Ready history entries return the St. Xavier's Main Center or Viviana Mall label, or the saved custom-location text.
 - Retrieve linked request detail before explaining how a request affected its parent order. Do not infer an order transition or attribution from list position alone.
 - Administrative responses include `memberRequestUrl` plus `adminRequestUrl`, `memberOrderUrl` plus `adminOrderUrl`, or `memberCartUrl` plus `adminCartUrl`. Always label both: the member link requires the target member's active session, while the Admin Console link requires existing Staff/Admin/Developer application authorization.
+
+## Cart-owner name resolution
+
+- Admin cart summaries, cart detail, and every administrative cart item return the cart owner's canonical `fullName` together with `membershipId`, resolved by the API directly from `membership_info/{membershipId}`.
+- Present every cart owner as `fullName (membershipId)`. When several owners' cart items are shown together, include that returned owner label with every cart summary/item group so no item is associated only with an unlabeled Membership ID.
+- Do not call `get_admin_membership_id`, `list_admin_membership_ids`, or a profile tool to rediscover the cart owner's name. Do not treat `updatedByName` as the cart owner's name; it identifies the updater and may be a different person.
+- If `fullName` is empty or absent in a legacy or unsynchronized response, say that the owner's name is unavailable. Never infer it from email, updater fields, item audit data, request/order records, or another Membership ID.
 
 ## Date conversion and display
 
@@ -52,7 +61,8 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 
 ## Response rules
 
-- Separate carts, requests, and orders, preserve their identifiers/statuses/dates, and retain complete party context and the on-behalf indicator when relevant.
+- In every administrative response, whenever a Membership ID appears, present that exact record's corresponding returned full name as `Full Name (Membership ID)`. Never list a Membership ID alone when its matching name is returned, and never pair it with a name from another person or event. If no matching name is returned, write `Full name unavailable (Membership ID)` instead of guessing or making an unrelated directory lookup.
+- Separate carts, requests, and orders, preserve their identifiers/statuses/dates, and retain complete party context and the on-behalf indicator when relevant. Pair every administrative transaction Membership ID with the matching returned canonical `fullName` as specified above.
 - Present both returned link fields with clear labels; never imply that a member-app link bypasses the target member's session or that an Admin Console link bypasses application authorization.
 - Do not present an operational list as a report or infer causes or performance trends that need report data.
 - A server access denial is authoritative; explain the boundary and do not try alternate routes to bypass it.

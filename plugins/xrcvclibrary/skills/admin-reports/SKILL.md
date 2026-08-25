@@ -29,6 +29,7 @@ Reports are server-authorized for Admin and Developer roles only. Start with `/a
 
 ## Response rules
 
+- Whenever an administrative report result contains a Membership ID, present that exact row's corresponding returned full name as `Full Name (Membership ID)`. Use the matching `fullName`, `memberName`, or other explicitly paired name field from that same row; never output the Membership ID alone when its name is returned. If no matching name is returned, write `Full name unavailable (Membership ID)` instead of guessing or making an unrelated directory lookup.
 - Do not retrieve or summarize reports for Staff or Member roles; report the server-enforced role boundary.
 - Identify filters and dates behind every conclusion, and avoid causal claims that the report does not establish.
 - Treat an unavailable report, not found report/table, and access denial as different outcomes.

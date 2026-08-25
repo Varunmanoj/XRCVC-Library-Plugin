@@ -35,6 +35,7 @@ Use the XRCVC Library MCP server as the source of truth. This skill is public: d
 
 ## Response rules
 
+- In a role-authorized Admin catalog response, whenever an audit or operational field contains a Membership ID, present its explicitly paired returned full-name field as `Full Name (Membership ID)`—for example, `createdByName` with `createdByMembershipId` or `updatedByName` with `updatedByMembershipId`. Never output the Membership ID alone when its matching name is returned. If no matching name is returned, write `Full name unavailable (Membership ID)` instead of guessing or making an unrelated directory lookup.
 - Distinguish Books, Teaching Learning Aids, and Tactile Diagrams.
 - Explain why each item matches, including material format and known subject/topic or diagram-type limits.
 - Treat absent fields as unknown. Catalog inclusion does not guarantee availability or requestability; report the returned status instead.

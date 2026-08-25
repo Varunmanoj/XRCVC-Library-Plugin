@@ -36,6 +36,7 @@ Use authenticated XRCVC Library MCP Markdown tools. The server determines the ro
 
 ## Response rules
 
+- Whenever a role-authorized Admin task result contains a Membership ID, present that exact task row's corresponding returned full name as `Full Name (Membership ID)`. Use the matching `requestedFor.fullName`, `requestedFor.name`, `memberName`, or other explicitly paired name field from the same row; never output the Membership ID alone when its name is returned. If no matching name is returned, write `Full name unavailable (Membership ID)` instead of guessing or making an unrelated directory lookup.
 - Separate actions due now, upcoming work, completed/recent activity, and informational history.
 - Preserve task type, status, IDs, dates, and direct links exactly as returned; state the applicable time window.
 - State clearly whether the view is the bearer’s own Member data or the role-authorized Admin task dataset.

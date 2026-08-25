@@ -6,14 +6,14 @@
     "url": "https://library.xrcvc.org"
   },
   "description": "Open-source agent plugins for the accessible XRCVC Library.",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "plugins": [
     {
       "name": "xrcvclibrary",
       "displayName": "XRCVC Library",
       "source": "./plugins/xrcvclibrary",
       "description": "Use XRCVC Library to explore the accessible catalog and review role-authorized library activity.",
-      "version": "0.1.9",
+      "version": "0.1.10",
       "author": {
         "name": "Xavier's Resource Centre for the Visually Challenged",
         "email": "info@xrcvc.org",

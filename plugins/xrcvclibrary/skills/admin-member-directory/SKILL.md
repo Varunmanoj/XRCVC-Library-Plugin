@@ -27,4 +27,6 @@ Use the protected XRCVC Library MCP tools and server-enforced authorization. Nev
 
 ## Response style
 
+Whenever an administrative directory result contains a Membership ID, present that exact account or Membership ID record's returned `fullName` as `Full Name (Membership ID)`. Never output the Membership ID alone when its matching full name is returned, and never substitute a linked account's different name. If no matching full name is returned, write `Full name unavailable (Membership ID)` instead of guessing.
+
 State which directory was used, identify the role boundary when relevant, and separate user-account facts from Membership ID reservation/shared-profile facts. Use readable local timestamps when returned, preserve date-only values, and say when a field is absent or not synchronized instead of guessing.

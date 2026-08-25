@@ -197,9 +197,9 @@ def validate() -> None:
 
     manifests = (codex, portable, claude)
     assert all(item.get("name") == "xrcvclibrary" for item in manifests), "plugin name mismatch"
-    assert portable.get("version") == "0.1.9", "portable plugin version mismatch"
-    assert claude.get("version") == "0.1.9", "Claude plugin version mismatch"
-    assert re.fullmatch(r"0\.1\.9\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
+    assert portable.get("version") == "0.1.10", "portable plugin version mismatch"
+    assert claude.get("version") == "0.1.10", "Claude plugin version mismatch"
+    assert re.fullmatch(r"0\.1\.10\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert all(item.get("author", {}).get("name") == DEVELOPER_NAME for item in manifests), "developer name mismatch"
@@ -274,15 +274,43 @@ def validate() -> None:
         assert "do not call a Member or Admin cart/request/order tool" in skill_text, (
             f"{skill_name} must not fetch transaction data before a privileged-role scope choice"
         )
+    for required_admin_name_contract in (
+        "requestedFor.fullName (requestedFor.membershipId)",
+        "openedBy.fullName (openedBy.membershipId)",
+        "does not define a separate `displayName` field",
+        "Never make a separate profile or Membership ID directory call",
+        "Do not treat `updatedByName` as the cart owner's name",
+        "Present every cart owner as `fullName (membershipId)`",
+    ):
+        assert required_admin_name_contract in admin_transactions, (
+            f"admin-transactions must preserve the name contract: {required_admin_name_contract}"
+        )
     request_history = (PLUGIN_ROOT / "skills" / "request-history" / "SKILL.md").read_text(encoding="utf-8")
     order_history = (PLUGIN_ROOT / "skills" / "order-history" / "SKILL.md").read_text(encoding="utf-8")
     assert "get_member_request_history" in request_history and "get_admin_request_history" in request_history
     assert "collectionLocation" in request_history and "UID fields" in request_history
     assert "adminName (adminMembershipId)" in request_history
+    assert "requestedFor.fullName (requestedFor.membershipId)" in request_history
+    assert "do not make a separate directory lookup" in request_history
     assert "get_member_order_history" in order_history and "get_admin_order_history" in order_history
     for field_name in ("orderHistory", "requestId", "requestPreviousStatus", "requestStatus", "requests", "adminMembershipId"):
         assert field_name in order_history, f"order-history must explain {field_name}"
     assert "adminName (adminMembershipId)" in order_history
+    assert "requestedFor.fullName (requestedFor.membershipId)" in order_history
+    assert "do not make a separate directory lookup" in order_history
+    admin_name_skills = (
+        admin_transactions,
+        request_history,
+        order_history,
+        (PLUGIN_ROOT / "skills" / "admin-reports" / "SKILL.md").read_text(encoding="utf-8"),
+        (PLUGIN_ROOT / "skills" / "admin-member-directory" / "SKILL.md").read_text(encoding="utf-8"),
+        (PLUGIN_ROOT / "skills" / "xrcvc-tasks-activity" / "SKILL.md").read_text(encoding="utf-8"),
+        (PLUGIN_ROOT / "skills" / "public-catalog" / "SKILL.md").read_text(encoding="utf-8"),
+        (PLUGIN_ROOT / "skills" / "xrcvc-library-introduction" / "SKILL.md").read_text(encoding="utf-8"),
+    )
+    for skill_text in admin_name_skills:
+        assert "Full Name (Membership ID)" in skill_text
+        assert "Full name unavailable (Membership ID)" in skill_text
     member_directory = (PLUGIN_ROOT / "skills" / "admin-member-directory" / "SKILL.md").read_text(encoding="utf-8")
     for tool_name in (
         "get_authenticated_identity", "list_admin_profiles_as_markdown", "get_admin_profile",
@@ -305,8 +333,8 @@ def validate() -> None:
     assert claude_entry.get("source") == "./plugins/xrcvclibrary"
     assert claude_entry.get("homepage") == SUPPORT_URL
     assert claude_entry.get("category") == "Education"
-    assert claude_marketplace.get("version") == "0.1.9"
-    assert claude_entry.get("version") == "0.1.9"
+    assert claude_marketplace.get("version") == "0.1.10"
+    assert claude_entry.get("version") == "0.1.10"
     assert claude_marketplace.get("owner", {}).get("name") == DEVELOPER_NAME
     assert claude_entry.get("author", {}).get("name") == DEVELOPER_NAME
     assert claude.get("repository") == claude_entry.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"

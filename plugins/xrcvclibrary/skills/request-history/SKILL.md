@@ -24,6 +24,7 @@ Use the explicit authenticated history tools. The server decides identity, owner
 - For every human history event with both fields, render the updater as `adminName (adminMembershipId)`, for example, **Updated by Varun Manoj Kumar (NX 463)**. Use the Membership ID attached to that exact event; never substitute `requestedFor.membershipId`, `openedBy.membershipId`, or the signed-in person's Membership ID.
 - When a human event has `adminName` but no `adminMembershipId`, show the returned name without guessing an ID. System-generated events may intentionally omit `adminMembershipId`; present their returned system actor label without adding a Membership ID.
 - Use `openedBy`, `requestedFor`, and `createdOnBehalfOfSomeoneElse` exactly as returned. Say the request was opened on behalf of someone else only when that Boolean is `true`.
+- In an administrative response, present `requestedFor.fullName (requestedFor.membershipId)` and, when opener context matters, `openedBy.fullName (openedBy.membershipId)`. These canonical names are already resolved from the Membership ID parent; do not make a separate directory lookup. Preserve stored `name` snapshots only as secondary audit context.
 - `collectionLocation` is already human-readable. For ready events, report the returned St. Xavier's Main Center, Viviana Mall, or saved custom-location text together with `collectionDate` when present; do not translate it back to Firestore keys.
 - Preserve `requestId`, resource title/type, current status, request/updated dates, and relevant fulfillment or return fields.
 
@@ -36,6 +37,7 @@ Use the explicit authenticated history tools. The server decides identity, owner
 
 ## Link and privacy rules
 
+- In every administrative response, whenever a Membership ID appears, present that exact record or event's corresponding returned full name as `Full Name (Membership ID)`. Use `requestedFor.fullName`, `openedBy.fullName`, or the event-specific `adminName` only with its matching Membership ID. If no matching name is returned, write `Full name unavailable (Membership ID)` instead of guessing or making an unrelated directory lookup.
 - In member answers, present only the returned member link.
 - In administrative answers, label both links: the member link requires the target member's active session; the Admin Console link requires existing Staff/Admin/Developer application authorization.
 - `adminMembershipId` is the intended human-readable updater identifier and may be shown in Member or Admin answers. Never reconstruct or expose `userId`, `firebaseUUID`, `adminUID`, or other Firebase identity fields from member output.

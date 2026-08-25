@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented here.
 
+## 0.1.10 - 2026-08-25
+
+- Added role-aware transaction scope guidance: Staff, Admin, and Developer users are asked whether they want their own records or the all-members administrative view, while Member users go directly to their self-scoped data.
+- Standardized every admin-facing skill to render matching identities as **Full Name (Membership ID)** across transactions, histories, reports, directories, tasks, and catalog audit information.
+- Updated administrative cart, request, and order guidance to consume the canonical `fullName` returned directly by API/MCP responses without performing a separate member-directory lookup.
+- Refreshed portable, Claude, marketplace, and Codex package versions and the Codex cachebuster.
+
 ## 0.1.9 - 2026-08-25
 
 - Added complete byte-for-byte Member and Owner's Manual MCP tools.

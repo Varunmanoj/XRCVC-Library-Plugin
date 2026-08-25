@@ -23,6 +23,7 @@ Use the explicit authenticated order-history tools. The server decides identity,
 - Read `orderHistory` as the authoritative parent timeline and `requests` as the complete set of generated request records, each with its own `history`.
 - When an order entry returns `requestId`, identify that request as the trigger. Use `requestPreviousStatus` and `requestStatus` for its before-and-after state, and `previousStatus` and `status` for the order transition. Do not attribute an order change from chronology or list position alone.
 - Preserve creation/update dates, `adminName`, `adminMembershipId`, sources, remarks, current statuses, requested/opened parties, and `createdOnBehalfOfSomeoneElse` exactly as returned.
+- In an administrative response, present each order or generated request party as `requestedFor.fullName (requestedFor.membershipId)` and, when opener context matters, `openedBy.fullName (openedBy.membershipId)`. These canonical names are already resolved from the Membership ID parent; do not make a separate directory lookup. Preserve stored `name` snapshots only as secondary audit context.
 - In both `orderHistory` and each generated request's `history`, render every human updater with both returned fields as `adminName (adminMembershipId)`, for example, **Updated by Varun Manoj Kumar (NX 463)**. Use the Membership ID attached to that exact event; never substitute a requested-for, opened-by, or signed-in Membership ID.
 - When a human event has `adminName` but no `adminMembershipId`, show the returned name without guessing an ID. System-generated events may intentionally omit `adminMembershipId`; present their returned system actor label without adding a Membership ID.
 - Ready request entries already contain human-readable `collectionLocation` text and may contain `collectionDate`; report those values without translating them back to storage keys.
@@ -36,6 +37,7 @@ Use the explicit authenticated order-history tools. The server decides identity,
 
 ## Link and privacy rules
 
+- In every administrative response, whenever a Membership ID appears, present that exact record or event's corresponding returned full name as `Full Name (Membership ID)`. Use `requestedFor.fullName`, `openedBy.fullName`, or the event-specific `adminName` only with its matching Membership ID. If no matching name is returned, write `Full name unavailable (Membership ID)` instead of guessing or making an unrelated directory lookup.
 - Member answers use only returned `memberOrderUrl` and `memberRequestUrl` values.
 - Administrative answers label both order links and both links for relevant generated requests. Member links require the target member's active session; Admin Console links require existing Staff/Admin/Developer application authorization.
 - `adminMembershipId` is the intended human-readable updater identifier and may be shown in Member or Admin answers. Never reconstruct or expose Firebase UID fields from member output. A missing trigger field means the server did not attribute that order transition to a particular request.
