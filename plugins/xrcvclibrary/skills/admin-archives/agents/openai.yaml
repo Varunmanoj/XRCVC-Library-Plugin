@@ -1,0 +1,16 @@
+interface:
+  display_name: "Review XRCVC Archives"
+  short_description: "Review role-authorized transaction archives"
+  icon_small: "./assets/xrcvc-library-icon.png"
+  icon_large: "./assets/xrcvc-library-logo.png"
+  brand_color: "#E8601C"
+  default_prompt: "Use $admin-archives to review archived XRCVC Library requests and orders."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "xrcvc-library"
+      description: "Role-authorized XRCVC Library administrative archive data"
+      transport: "streamable_http"
+      url: "https://mcp.library.xrcvc.org/mcp/authorize"
+policy:
+  allow_implicit_invocation: true

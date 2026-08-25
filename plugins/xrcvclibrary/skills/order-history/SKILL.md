@@ -7,6 +7,8 @@ description: Explain the complete lifecycle of one XRCVC Library order and every
 
 Use the explicit authenticated order-history tools. The server decides identity, ownership, and role; never ask the user to paste a Membership ID, bearer value, OAuth code, or token.
 
+For a list of archived orders, use Member Archives or Admin Archives. Never search order history for a status named archived; archived selection is based on the stored `isArchived` Boolean.
+
 ## Information-view choice
 
 - Never ask the user to state their role or Membership ID. When `/auth/me` identifies the user as Staff, Admin, or Developer, an order history could use either audience, and the user has not selected one, ask whether they want their own Member order history or a role-authorized Admin order history.

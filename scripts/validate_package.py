@@ -22,6 +22,8 @@ EXPECTED_SKILLS = {
     "request-history",
     "order-history",
     "admin-member-directory",
+    "member-archives",
+    "admin-archives",
 }
 EXPECTED_CHATGPT_TOOLS = {
     "get_admin_catalog_item",
@@ -69,8 +71,12 @@ EXPECTED_CHATGPT_TOOLS = {
     "list_admin_manual_headings",
     "list_admin_manual_sections",
     "list_admin_orders",
+    "list_admin_archived_orders",
+    "list_admin_archived_orders_as_markdown",
     "list_admin_orders_as_markdown",
     "list_admin_requests",
+    "list_admin_archived_requests",
+    "list_admin_archived_requests_as_markdown",
     "list_admin_requests_as_markdown",
     "list_admin_tactile_diagrams",
     "list_admin_tasks",
@@ -84,8 +90,12 @@ EXPECTED_CHATGPT_TOOLS = {
     "list_member_manual_headings",
     "list_member_manual_sections",
     "list_member_orders",
+    "list_member_archived_orders",
+    "list_member_archived_orders_as_markdown",
     "list_member_orders_as_markdown",
     "list_member_requests",
+    "list_member_archived_requests",
+    "list_member_archived_requests_as_markdown",
     "list_member_requests_as_markdown",
     "list_member_tactile_diagrams",
     "list_member_tasks",
@@ -197,9 +207,9 @@ def validate() -> None:
 
     manifests = (codex, portable, claude)
     assert all(item.get("name") == "xrcvclibrary" for item in manifests), "plugin name mismatch"
-    assert portable.get("version") == "0.1.10", "portable plugin version mismatch"
-    assert claude.get("version") == "0.1.10", "Claude plugin version mismatch"
-    assert re.fullmatch(r"0\.1\.10\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
+    assert portable.get("version") == "0.1.11", "portable plugin version mismatch"
+    assert claude.get("version") == "0.1.11", "Claude plugin version mismatch"
+    assert re.fullmatch(r"0\.1\.11\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert all(item.get("author", {}).get("name") == DEVELOPER_NAME for item in manifests), "developer name mismatch"
@@ -233,7 +243,7 @@ def validate() -> None:
     assert claude.get("mcpServers") == "./.mcp.json"
 
     skill_dirs = {path.name for path in (PLUGIN_ROOT / "skills").iterdir() if path.is_dir()}
-    assert skill_dirs == EXPECTED_SKILLS, f"expected exactly ten skills, found {sorted(skill_dirs)}"
+    assert skill_dirs == EXPECTED_SKILLS, f"expected exactly twelve skills, found {sorted(skill_dirs)}"
     for skill_name in sorted(EXPECTED_SKILLS):
         validate_skill(PLUGIN_ROOT / "skills" / skill_name)
 
@@ -319,6 +329,25 @@ def validate() -> None:
         assert tool_name in member_directory, f"admin-member-directory must explain {tool_name}"
     assert "Staff" in member_directory and "Developer" in member_directory
     assert "reservations or shared profiles" in member_directory
+    member_archives = (PLUGIN_ROOT / "skills" / "member-archives" / "SKILL.md").read_text(encoding="utf-8")
+    admin_archives = (PLUGIN_ROOT / "skills" / "admin-archives" / "SKILL.md").read_text(encoding="utf-8")
+    for tool_name in (
+        "list_member_archived_requests_as_markdown", "list_member_archived_orders_as_markdown",
+        "list_member_archived_requests", "list_member_archived_orders",
+    ):
+        assert tool_name in member_archives, f"member-archives must explain {tool_name}"
+    for tool_name in (
+        "list_admin_archived_requests_as_markdown", "list_admin_archived_orders_as_markdown",
+        "list_admin_archived_requests", "list_admin_archived_orders",
+    ):
+        assert tool_name in admin_archives, f"admin-archives must explain {tool_name}"
+    for archive_skill in (member_archives, admin_archives):
+        for field_name in ("isArchived", "archivedAt", "archiveEligibleDate", "archivedBy"):
+            assert field_name in archive_skill, f"archive skill must explain {field_name}"
+        assert "Never" in archive_skill and "status=archived" in archive_skill
+    assert "membership_id" in admin_archives
+    assert "Full Name (Membership ID)" in admin_archives
+    assert "Full name unavailable (Membership ID)" in admin_archives
 
     codex_entry = codex_marketplace["plugins"][0]
     assert codex_marketplace.get("name") == "xrcvc-library"
@@ -333,8 +362,8 @@ def validate() -> None:
     assert claude_entry.get("source") == "./plugins/xrcvclibrary"
     assert claude_entry.get("homepage") == SUPPORT_URL
     assert claude_entry.get("category") == "Education"
-    assert claude_marketplace.get("version") == "0.1.10"
-    assert claude_entry.get("version") == "0.1.10"
+    assert claude_marketplace.get("version") == "0.1.11"
+    assert claude_entry.get("version") == "0.1.11"
     assert claude_marketplace.get("owner", {}).get("name") == DEVELOPER_NAME
     assert claude_entry.get("author", {}).get("name") == DEVELOPER_NAME
     assert claude.get("repository") == claude_entry.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"

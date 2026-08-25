@@ -23,6 +23,7 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 - Prefer `get_api_output_as_markdown` with `/carts/member` for the bearer member's cart, and `list_member_requests_as_markdown` or `list_member_orders_as_markdown` for complete request/order lists.
 - Use `get_member_request` or `get_member_order` for structured detail, or `get_api_output_as_markdown` with `/requests/member/{requestId}` or `/orders/member/{orderId}` for complete Markdown detail. Preserve the server-provided member links and statuses.
 - For a lifecycle explanation, hand off to the Request History or Order History skill and use `get_member_request_history` or `get_member_order_history`; the latter returns the parent `orderHistory` plus every generated request and its `history`.
+- For archived requests or orders, hand off to Member Archives and use the dedicated `isArchived=true` archive tools. Never use `status=archived` because archive state is a separate Boolean field.
 - When structured JSON is more useful, use `get_member_cart`, `list_member_requests`, or `list_member_orders`. JSON lists are paginated, so follow `pageInfo.nextCursor` until `pageInfo.hasMore` is false when complete coverage is requested.
 - Markdown responses are complete and unpaginated. Do not use or describe `limit`, `cursor`, pages, or partial coverage.
 

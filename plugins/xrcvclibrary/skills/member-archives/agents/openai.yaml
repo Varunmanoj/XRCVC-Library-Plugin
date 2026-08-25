@@ -1,0 +1,16 @@
+interface:
+  display_name: "Review My XRCVC Archives"
+  short_description: "Review my archived requests and orders"
+  icon_small: "./assets/xrcvc-library-icon.png"
+  icon_large: "./assets/xrcvc-library-logo.png"
+  brand_color: "#E8601C"
+  default_prompt: "Use $member-archives to show my archived XRCVC Library requests and orders."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "xrcvc-library"
+      description: "Authenticated self-scoped XRCVC Library archive data"
+      transport: "streamable_http"
+      url: "https://mcp.library.xrcvc.org/mcp/authorize"
+policy:
+  allow_implicit_invocation: true

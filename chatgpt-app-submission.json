@@ -56,6 +56,102 @@
         "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
       }
     },
+    "list_member_archived_requests": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves self-scoped archived XRCVC Library requests and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_archived_requests": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized archived XRCVC Library requests and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_member_archived_orders": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves self-scoped archived XRCVC Library orders and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_archived_orders": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized archived XRCVC Library orders and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_member_archived_requests_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves complete self-scoped archived XRCVC Library requests as Markdown and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_archived_requests_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves complete role-authorized archived XRCVC Library requests as Markdown and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_member_archived_orders_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves complete self-scoped archived XRCVC Library orders as Markdown and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_archived_orders_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves complete role-authorized archived XRCVC Library orders as Markdown and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
     "list_member_catalog_as_markdown": {
       "annotations": {
         "readOnlyHint": true,

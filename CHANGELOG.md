@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented here.
 
+## 0.1.11 - 2026-08-26
+
+- Added dedicated Member Archives and Admin Archives skills that select requests/orders through the stored `isArchived` Boolean and never through a fictitious archived status.
+- Added guidance for all eight archived-list MCP tools, including member self-scope, Staff/Admin/Developer authorization, optional administrative Membership ID filtering, audit-field preservation, and real-status separation.
+- Updated transaction and history skills to hand archive questions to the dedicated archive skills, and refreshed portable, Claude, marketplace, and Codex package versions.
+
 ## 0.1.10 - 2026-08-25
 
 - Added role-aware transaction scope guidance: Staff, Admin, and Developer users are asked whether they want their own records or the all-members administrative view, while Member users go directly to their self-scoped data.
