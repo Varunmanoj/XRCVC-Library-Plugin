@@ -21,9 +21,19 @@ EXPECTED_SKILLS = {
     "xrcvc-library-documentation",
     "request-history",
     "order-history",
+    "admin-member-directory",
 }
 EXPECTED_CHATGPT_TOOLS = {
     "get_admin_catalog_item",
+    "get_admin_manual",
+    "get_member_manual",
+    "get_member_profile",
+    "list_admin_profiles",
+    "get_admin_profile",
+    "list_admin_membership_ids",
+    "get_admin_membership_id",
+    "list_admin_profiles_as_markdown",
+    "list_admin_membership_ids_as_markdown",
     "get_admin_manual_section",
     "get_admin_sitemap",
     "get_api_output_as_markdown",
@@ -187,9 +197,9 @@ def validate() -> None:
 
     manifests = (codex, portable, claude)
     assert all(item.get("name") == "xrcvclibrary" for item in manifests), "plugin name mismatch"
-    assert portable.get("version") == "0.1.8", "portable plugin version mismatch"
-    assert claude.get("version") == "0.1.8", "Claude plugin version mismatch"
-    assert re.fullmatch(r"0\.1\.8\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
+    assert portable.get("version") == "0.1.9", "portable plugin version mismatch"
+    assert claude.get("version") == "0.1.9", "Claude plugin version mismatch"
+    assert re.fullmatch(r"0\.1\.9\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert all(item.get("author", {}).get("name") == DEVELOPER_NAME for item in manifests), "developer name mismatch"
@@ -223,7 +233,7 @@ def validate() -> None:
     assert claude.get("mcpServers") == "./.mcp.json"
 
     skill_dirs = {path.name for path in (PLUGIN_ROOT / "skills").iterdir() if path.is_dir()}
-    assert skill_dirs == EXPECTED_SKILLS, f"expected exactly nine skills, found {sorted(skill_dirs)}"
+    assert skill_dirs == EXPECTED_SKILLS, f"expected exactly ten skills, found {sorted(skill_dirs)}"
     for skill_name in sorted(EXPECTED_SKILLS):
         validate_skill(PLUGIN_ROOT / "skills" / skill_name)
 
@@ -245,6 +255,7 @@ def validate() -> None:
             assert field_name in skill_text, f"{skill_name} must explain the current transaction schema field {field_name}"
         assert "`openedAt`" in skill_text and "never invent" in skill_text, f"{skill_name} must prohibit an invented openedAt field"
     assert "get_member_cart" in member_transactions, "member-transactions must cover structured cart output"
+    assert "get_member_profile" in member_transactions, "member-transactions must cover the self-scoped member profile"
     assert "UID-redacted" in member_transactions, "member-transactions must expect UID-redacted output"
     assert "/requests/member" in member_transactions and "/orders/member" in member_transactions
     assert "/requests/admin" in admin_transactions and "/orders/admin" in admin_transactions and "/carts/admin" in admin_transactions
@@ -259,6 +270,14 @@ def validate() -> None:
     for field_name in ("orderHistory", "requestId", "requestPreviousStatus", "requestStatus", "requests", "adminMembershipId"):
         assert field_name in order_history, f"order-history must explain {field_name}"
     assert "adminName (adminMembershipId)" in order_history
+    member_directory = (PLUGIN_ROOT / "skills" / "admin-member-directory" / "SKILL.md").read_text(encoding="utf-8")
+    for tool_name in (
+        "get_authenticated_identity", "list_admin_profiles_as_markdown", "get_admin_profile",
+        "list_admin_membership_ids_as_markdown", "get_admin_membership_id",
+    ):
+        assert tool_name in member_directory, f"admin-member-directory must explain {tool_name}"
+    assert "Staff" in member_directory and "Developer" in member_directory
+    assert "reservations or shared profiles" in member_directory
 
     codex_entry = codex_marketplace["plugins"][0]
     assert codex_marketplace.get("name") == "xrcvc-library"
@@ -273,8 +292,8 @@ def validate() -> None:
     assert claude_entry.get("source") == "./plugins/xrcvclibrary"
     assert claude_entry.get("homepage") == SUPPORT_URL
     assert claude_entry.get("category") == "Education"
-    assert claude_marketplace.get("version") == "0.1.8"
-    assert claude_entry.get("version") == "0.1.8"
+    assert claude_marketplace.get("version") == "0.1.9"
+    assert claude_entry.get("version") == "0.1.9"
     assert claude_marketplace.get("owner", {}).get("name") == DEVELOPER_NAME
     assert claude_entry.get("author", {}).get("name") == DEVELOPER_NAME
     assert claude.get("repository") == claude_entry.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"

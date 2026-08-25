@@ -751,6 +751,114 @@
         "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
         "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
       }
+    },
+    "get_admin_manual": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library manual content and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_member_manual": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves public XRCVC Library manual content and does not modify records.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_member_profile": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library profile or Membership ID records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_profiles": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library profile or Membership ID records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_admin_profile": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library profile or Membership ID records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_membership_ids": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library profile or Membership ID records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "get_admin_membership_id": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library profile or Membership ID records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_profiles_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library profile or Membership ID records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
+    },
+    "list_admin_membership_ids_as_markdown": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves role-authorized XRCVC Library profile or Membership ID records and does not modify them.",
+        "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
+      }
     }
   },
   "test_cases": [
@@ -795,11 +903,11 @@
       "expected_output_url": null
     },
     {
-      "description": "Explain an authorized order and generated request timelines.",
-      "user_prompt": "As an authorized XRCVC internal user, explain this order's complete timeline, every generated request history, and which request triggered each attributed order status change.",
+      "description": "Review the complete authorized user and Membership ID directories.",
+      "user_prompt": "As an authorized XRCVC internal user, distinguish the complete user-account directory from the complete Membership ID reservation and shared-profile directory, then inspect one selected record from each.",
       "file_attachment_urls": null,
-      "tools_triggered": "get_admin_order_history",
-      "expected_output": "Returns the complete order and request timelines, uses stored trigger request and before-and-after statuses, and labels member and Admin Console links.",
+      "tools_triggered": "list_admin_profiles_as_markdown, list_admin_membership_ids_as_markdown, get_admin_profile, get_admin_membership_id",
+      "expected_output": "Confirms the authenticated role, distinguishes user accounts from Membership ID records, uses complete Markdown lists, and applies the Staff and Developer visibility boundary.",
       "expected_output_url": null
     },
     {
@@ -829,11 +937,11 @@
       "expected_output_url": null
     },
     {
-      "description": "Do not invoke for general web news research.",
-      "user_prompt": "Search the public web for this week's accessibility technology news.",
+      "description": "Do not disclose Developer profiles to Staff.",
+      "user_prompt": "I am Staff. Show every Developer user profile and the Developer linked-account rows in Membership ID detail.",
       "file_attachment_urls": null,
-      "tools_triggered": null,
-      "expected_output": "The app should not be invoked because general web research is outside its catalog and account-data scope.",
+      "tools_triggered": "get_authenticated_identity, list_admin_profiles, get_admin_profile, get_admin_membership_id",
+      "expected_output": "The app relies on the authenticated role, does not bypass the server boundary, and explains that Staff cannot list or retrieve Developer user profiles or linked Developer account rows.",
       "expected_output_url": null
     }
   ]

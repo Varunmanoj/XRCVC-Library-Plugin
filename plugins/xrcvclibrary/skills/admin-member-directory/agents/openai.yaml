@@ -1,0 +1,16 @@
+interface:
+  display_name: "Review XRCVC Member Directory"
+  short_description: "Review authorized users and Membership IDs"
+  icon_small: "./assets/xrcvc-library-icon.png"
+  icon_large: "./assets/xrcvc-library-logo.png"
+  brand_color: "#E8601C"
+  default_prompt: "Use $admin-member-directory to review role-authorized XRCVC Library user accounts and Membership ID profiles."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "xrcvc-library"
+      description: "Role-authorized XRCVC Library user and Membership ID directory data"
+      transport: "streamable_http"
+      url: "https://mcp.library.xrcvc.org/mcp/authorize"
+policy:
+  allow_implicit_invocation: true

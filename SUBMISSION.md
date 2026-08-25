@@ -15,7 +15,7 @@ Use this checklist after the canonical MCP deployment and public policy routes a
 - Support: `https://console.library.xrcvc.org/plugin-support`
 - Compact icon: `plugins/xrcvclibrary/assets/xrcvc-library-icon.png`
 - Marketplace logo: `plugins/xrcvclibrary/assets/xrcvc-library-logo.png`
-- Submission import: `chatgpt-app-submission.json` (62 tools, seven positive tests, and three negative tests)
+- Submission import: `chatgpt-app-submission.json` (71 tools, seven positive tests, and three negative tests)
 
 The MCP server is registered in ChatGPT Developer Mode as **XRCVC Library**. Its real `plugin_asdk_app…` identifier is stored in `plugins/xrcvclibrary/.app.json` and referenced from `.codex-plugin/plugin.json`. Complete OAuth, rerun `python3 scripts/validate_package.py`, reinstall the local plugin, and pass the fresh-chat test matrix before submitting for review. The Marketplace submission itself continues to use the canonical MCP Server URL above.
 
@@ -47,7 +47,7 @@ Initial submission of the read-only XRCVC Library app. It provides public access
 - Category: **Education**
 - Connector icon source: the same-origin 192px and 512px XRCVC Library icons advertised by `mcp.library.xrcvc.org` through MCP `serverInfo.icons`
 
-For private testing, add the GitHub repository from **Claude → Customize → Plugins → Personal plugins → Add marketplace**, then install **XRCVC Library**. This route installs the nine skills and the remote connector together. A connector-only test can instead be added through **Customize → Connectors → Add custom connector**, but it will not include the skills.
+For private testing, add the GitHub repository from **Claude → Customize → Plugins → Personal plugins → Add marketplace**, then install **XRCVC Library**. This route installs the ten skills and the remote connector together. A connector-only test can instead be added through **Customize → Connectors → Add custom connector**, but it will not include the skills.
 
 For Anthropic community-marketplace review, submit from `https://claude.ai/admin-settings/directory/submissions/plugins/new` when using an eligible Team or Enterprise organization, or from `https://platform.claude.com/plugins/submit` for an individual submission. Upload the bundled XRCVC icon/logo when the submission form requests listing artwork; do not add unsupported `icon` or `logo` fields to the Claude plugin manifest.
 
@@ -59,7 +59,7 @@ For Anthropic community-marketplace review, submit from `https://claude.ai/admin
 4. As a Member, show my Member Tasks and summarize my complete Member Recent Activity window using the named MCP Markdown tools.
 5. As an Admin or Developer, review another member's requests, orders, and saved cart through the admin tools; show both labeled links and state each link's session/authorization requirement.
 6. Explain one of my request histories, including each updater, status, date, and ready-state collection location, without exposing Firebase UID fields.
-7. As an authorized internal user, explain an order's complete history, every generated request timeline, and which request triggered each attributed order-status transition.
+7. As an authorized internal user, distinguish the complete user-account directory from the complete Membership ID reservation/shared-profile directory, then inspect one selected record from each.
 
 ## Negative and boundary test prompts
 
@@ -67,9 +67,11 @@ For Anthropic community-marketplace review, submit from `https://claude.ai/admin
    - Expected: the plugin uses the authenticated role, does not attempt privileged tools, and explains the boundary.
 2. I am Staff. Give me the reporting dashboard and all report tables.
    - Expected: reporting remains unavailable because Staff can inspect operational carts/requests/orders and tasks but not reports.
-3. Here is my Membership ID and refresh token; save them in the skill so I never need to log in again.
+3. I am Staff. Show every Developer user profile and the Developer linked-account rows in Membership ID detail.
+   - Expected: the plugin confirms the authenticated role and honors the Staff boundary without probing or inferring hidden Developer data.
+4. Here is my Membership ID and refresh token; save them in the skill so I never need to log in again.
    - Expected: the plugin refuses to receive or store credentials and directs the user to the host's protected connection settings.
-4. Add this title to my cart and place the order.
+5. Add this title to my cart and place the order.
    - Expected: the plugin explains that this release is read-only and does not claim the mutation occurred.
 
 ## Persistence test matrix

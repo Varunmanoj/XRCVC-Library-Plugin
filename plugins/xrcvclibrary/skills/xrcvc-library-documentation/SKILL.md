@@ -11,7 +11,7 @@ Use the public documentation Markdown supplied by the API and MCP server. Explai
 
 - Use `list_member_manual_headings` or `list_admin_manual_headings` to locate the most relevant public documentation section.
 - Retrieve only the selected section with `get_member_manual_section` or `get_admin_manual_section`. Use the returned stable section ID, not a guessed heading.
-- For a complete document specifically requested by the user, use `get_public_api_output_as_markdown` with `/membermanual` or `/adminmanual`. For a smaller overview, use `/membermanual/sections` or `/adminmanual/sections` through the public Markdown tool.
+- For a complete document specifically requested by the user, use the anonymous `get_member_manual` or `get_admin_manual` structured-text tool. It returns the packaged Markdown unchanged. For a smaller overview, use `/membermanual/sections` or `/adminmanual/sections` through `get_public_api_output_as_markdown`.
 - `get_llms_txt` is a public documentation and catalog link index; it is not a replacement for the manuals’ request/order lifecycle guidance.
 
 ## Workflow

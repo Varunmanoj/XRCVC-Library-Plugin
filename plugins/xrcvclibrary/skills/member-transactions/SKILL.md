@@ -10,6 +10,7 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 ## Allowed member scope
 
 - Start with `/auth/me` through `get_api_output_as_markdown` when role or identity matters.
+- For the signed-in person's own profile, use `get_member_profile`. It is bearer-self-scoped and UID-redacted for every authenticated role; do not probe `list_admin_profiles`, `get_admin_profile`, or Membership ID administrative routes for a self-profile question.
 - Prefer `get_api_output_as_markdown` with `/carts/member` for the bearer member's cart, and `list_member_requests_as_markdown` or `list_member_orders_as_markdown` for complete request/order lists.
 - Use `get_member_request` or `get_member_order` for structured detail, or `get_api_output_as_markdown` with `/requests/member/{requestId}` or `/orders/member/{orderId}` for complete Markdown detail. Preserve the server-provided member links and statuses.
 - For a lifecycle explanation, hand off to the Request History or Order History skill and use `get_member_request_history` or `get_member_order_history`; the latter returns the parent `orderHistory` plus every generated request and its `history`.

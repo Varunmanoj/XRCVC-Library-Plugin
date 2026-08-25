@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented here.
 
+## 0.1.9 - 2026-08-25
+
+- Added complete byte-for-byte Member and Owner's Manual MCP tools.
+- Added self-scoped member profile and role-authorized user-account and Membership ID directory tools, including complete unpaginated Markdown companions and the Staff/Developer privacy boundary.
+- Added the automatically discoverable Admin Member Directory skill and extended member guidance to use the self-profile tool without probing administrative routes.
+- Updated the ChatGPT submission inventory to the 71-tool MCP contract and refreshed portable, Claude, marketplace, and Codex package versions.
+
 ## 0.1.8 - 2026-08-25
 
 - Updated Request History and Order History guidance for the new `adminName` plus `adminMembershipId` fields in JSON and Markdown output.
