@@ -261,6 +261,19 @@ def validate() -> None:
     assert "/requests/admin" in admin_transactions and "/orders/admin" in admin_transactions and "/carts/admin" in admin_transactions
     assert "memberRequestUrl" in member_transactions and "adminRequestUrl" in admin_transactions
     assert "Cart records are saved selections" in member_transactions, "member-transactions must distinguish carts from transactions"
+    transaction_scope_question = (
+        "Do you want the cart, requests, or orders for your logged-in Membership ID, "
+        "or the complete role-authorized Admin list for all Membership IDs?"
+    )
+    for skill_name, skill_text in (
+        ("member-transactions", member_transactions),
+        ("admin-transactions", admin_transactions),
+    ):
+        assert transaction_scope_question in skill_text, f"{skill_name} must use the exact transaction scope question"
+        assert "If `/auth/me` reports **Member**" in skill_text, f"{skill_name} must route Members without asking"
+        assert "do not call a Member or Admin cart/request/order tool" in skill_text, (
+            f"{skill_name} must not fetch transaction data before a privileged-role scope choice"
+        )
     request_history = (PLUGIN_ROOT / "skills" / "request-history" / "SKILL.md").read_text(encoding="utf-8")
     order_history = (PLUGIN_ROOT / "skills" / "order-history" / "SKILL.md").read_text(encoding="utf-8")
     assert "get_member_request_history" in request_history and "get_admin_request_history" in request_history

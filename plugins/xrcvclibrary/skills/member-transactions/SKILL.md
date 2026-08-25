@@ -1,15 +1,24 @@
 ---
 name: member-transactions
-description: Review the signed-in member's XRCVC Library requests, orders, and cart. Use for a member's own transaction lifecycle; do not use for other members' records or administrative reporting.
+description: Review the signed-in person's self-scoped XRCVC Library requests, orders, and cart. Use for personal transaction data after role-aware audience selection; do not use for other members' records or administrative reporting.
 ---
 
 # Review Member Requests, Orders, and Cart
 
 Use authenticated XRCVC Library MCP Markdown output. The server, not the conversation, decides ownership and role. Never request a Membership ID, bearer value, or OAuth token in chat.
 
+## Required information-view choice
+
+- First call `/auth/me` through `get_api_output_as_markdown`. Never ask the user to state their role or type a Membership ID; use the authenticated identity and role returned by the server.
+- If `/auth/me` reports **Member**, do not ask an information-view question. Proceed directly with the requested self-scoped Member cart, requests, or orders because Members cannot access other Membership IDs' transaction data.
+- If `/auth/me` reports **Staff, Admin, or Developer** and the user has not already explicitly selected self-scope or all-member scope, ask exactly: **“Do you want the cart, requests, or orders for your logged-in Membership ID, or the complete role-authorized Admin list for all Membership IDs?”**
+- For Staff, Admin, or Developer, stop after asking that question. Apart from `/auth/me`, do not call a Member or Admin cart/request/order tool and do not display the signed-in person's current cart, requests, or orders until the user chooses a view.
+- If Staff, Admin, or Developer chooses their logged-in Membership ID, use only the self-scoped Member routes in this skill. If they choose all Membership IDs, hand off to the Admin Transactions skill and use its Admin routes.
+- Do not repeat the choice when the user already clearly asked for **their own/logged-in Membership ID** or for **all Membership IDs/the complete Admin list**. Server authorization remains decisive.
+
 ## Allowed member scope
 
-- Start with `/auth/me` through `get_api_output_as_markdown` when role or identity matters.
+- Start with the required `/auth/me` role check and audience-selection gate above.
 - For the signed-in person's own profile, use `get_member_profile`. It is bearer-self-scoped and UID-redacted for every authenticated role; do not probe `list_admin_profiles`, `get_admin_profile`, or Membership ID administrative routes for a self-profile question.
 - Prefer `get_api_output_as_markdown` with `/carts/member` for the bearer member's cart, and `list_member_requests_as_markdown` or `list_member_orders_as_markdown` for complete request/order lists.
 - Use `get_member_request` or `get_member_order` for structured detail, or `get_api_output_as_markdown` with `/requests/member/{requestId}` or `/orders/member/{orderId}` for complete Markdown detail. Preserve the server-provided member links and statuses.
@@ -34,10 +43,11 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 
 ## Workflow
 
-1. Fetch only the requested surface, or fetch cart, requests, and orders for a complete personal lifecycle summary.
-2. Separate cart contents from submitted requests and orders: a cart item is not a submitted request or an order.
-3. For an individual request or order, retrieve its detail before explaining status history, due/return information, or linked records.
-4. If a user asks about another member, all-member data, or reports, hand off to the appropriate Admin skill; do not probe privileged routes.
+1. Resolve the authenticated role and, when required, the information view before fetching transaction data.
+2. Fetch only the requested surface, or fetch cart, requests, and orders for a complete personal lifecycle summary.
+3. Separate cart contents from submitted requests and orders: a cart item is not a submitted request or an order.
+4. For an individual request or order, retrieve its detail before explaining status history, due/return information, or linked records.
+5. If a user asks about another member, all-member data, or reports, hand off to the appropriate Admin skill; do not probe privileged routes.
 
 ## Response rules
 

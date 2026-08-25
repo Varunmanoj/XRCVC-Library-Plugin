@@ -7,9 +7,18 @@ description: Review role-authorized XRCVC Library requests, orders, and saved ca
 
 Use authenticated XRCVC Library MCP Markdown output and server-enforced access. This operational skill is available only when `/auth/me` reports Staff, Admin, or Developer; never infer that role from the user's wording.
 
+## Required information-view choice
+
+- First call `/auth/me` through `get_api_output_as_markdown`. Never ask the user to state their role or type a Membership ID; use the authenticated identity and role returned by the server.
+- If `/auth/me` reports **Member**, do not ask an information-view question and do not use this skill's Admin routes. Hand off to Member Transactions, which directly retrieves the Member's self-scoped cart, requests, or orders.
+- If `/auth/me` reports **Staff, Admin, or Developer** and the user has not already explicitly selected self-scope or all-member scope, ask exactly: **“Do you want the cart, requests, or orders for your logged-in Membership ID, or the complete role-authorized Admin list for all Membership IDs?”**
+- For Staff, Admin, or Developer, stop after asking that question. Apart from `/auth/me`, do not call a Member or Admin cart/request/order tool and do not display the signed-in person's current cart, requests, or orders until the user chooses a view.
+- If Staff, Admin, or Developer chooses their logged-in Membership ID, hand off to Member Transactions and use its self-scoped Member routes. If they choose all Membership IDs, proceed with the Admin routes in this skill.
+- Do not repeat the choice when the user already clearly asked for **their own/logged-in Membership ID** or for **all Membership IDs/the complete Admin list**. Server authorization remains decisive.
+
 ## MCP output format
 
-- Start with `/auth/me` through `get_api_output_as_markdown`.
+- Start with the required `/auth/me` role check and audience-selection gate above.
 - Use `list_admin_requests_as_markdown` and `list_admin_orders_as_markdown` for complete role-authorized transaction lists. Apply only supported status, resource-type, or Membership ID filters.
 - Use `get_admin_request` or `get_admin_order` for structured detail, or `get_api_output_as_markdown` with `/requests/admin/{requestId}` or `/orders/admin/{orderId}` for complete Markdown detail.
 - For a lifecycle explanation, hand off to the Request History or Order History skill and use `get_admin_request_history` or `get_admin_order_history`; order history includes the parent `orderHistory`, every generated request `history`, and stored request-trigger context.
@@ -35,10 +44,11 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 
 ## Workflow
 
-1. Confirm the effective role, then choose requests, orders, carts, or the smallest combination that answers the operational question.
-2. Apply the smallest returned-server filter that answers the question and inspect the complete Markdown for analysis.
-3. Retrieve detail for any transaction whose lifecycle, requester, order linkage, or status history is being explained.
-4. Keep reporting questions in the Admin Reports skill; use the explicit admin cart endpoints for saved-cart investigations.
+1. Confirm the effective role and resolve the required information view before fetching transaction data.
+2. Choose requests, orders, carts, or the smallest combination that answers the operational question.
+3. Apply the smallest returned-server filter that answers the question and inspect the complete Markdown for analysis.
+4. Retrieve detail for any transaction whose lifecycle, requester, order linkage, or status history is being explained.
+5. Keep reporting questions in the Admin Reports skill; use the explicit admin cart endpoints for saved-cart investigations.
 
 ## Response rules
 
