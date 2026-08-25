@@ -17,8 +17,8 @@ Give a clear, welcoming orientation to XRCVC Library, the accessible library ser
 ## Orientation response
 
 1. Briefly introduce the accessible collection: Books, Teaching Learning Aids, and Tactile Diagrams, with catalog/taxonomy discovery.
-2. Describe the member workflow at a high level: explore resources, manage a cart, request items, and follow orders, tasks, and activity.
-3. Describe authorized operations separately: every authenticated user can view only their own member profile; Staff/Admin/Developer can additionally review the role-authorized user-account directory and distinct Membership ID reservation/shared-profile directory, then inspect a selected record. Staff cannot view Developer user profiles or Developer linked-account rows. Also describe self-scoped member carts/requests/orders; Staff/Admin/Developer all-member carts/requests/orders and tasks; and Admin/Developer reports.
+2. Describe the member workflow at a high level: explore resources, manage a cart, request items, follow orders, tasks, and activity, and review personal archived requests or orders.
+3. Describe authorized operations separately: every authenticated user can view only their own member profile; Staff/Admin/Developer can additionally review the role-authorized user-account directory and distinct Membership ID reservation/shared-profile directory, then inspect a selected record. Staff cannot view Developer user profiles or Developer linked-account rows. Also describe self-scoped member carts/requests/orders and archived transactions; Staff/Admin/Developer all-member carts/requests/orders, archived transactions, and tasks; and Admin/Developer reports.
 4. Offer the appropriate next action—public catalog exploration, documentation help, or authenticated personal/operational lookup—without assuming access.
 
 ## Post-login information-view choice
@@ -29,6 +29,14 @@ Give a clear, welcoming orientation to XRCVC Library, the accessible library ser
 - Do not ask this question for an authorized Member. Use only the member-oriented endpoint family for their requests, orders, cart, catalog items, tasks, and recent activity; never offer or query Admin-related information.
 - Use the answer only to choose the Member or Admin endpoint family. Server authorization remains decisive; an unavailable Admin view must not be retried through another route.
 - Do not ask this audience-selection question for an explicitly member-only or admin-only skill, or for an Admin/Developer-only report request: those endpoints already establish the relevant audience and eligibility.
+
+## Archived requests and orders
+
+- Treat archived transactions as a distinct request/order capability. Archive membership comes only from the stored `isArchived` Boolean; never search for or invent `status=archived`. Preserve the returned real status independently from archive state.
+- For an authenticated Member, use `list_member_archived_requests_as_markdown` or `list_member_archived_orders_as_markdown` for a complete personal list. Use `list_member_archived_requests` or `list_member_archived_orders` only when structured cursor pagination is useful. These tools remain bearer-self-scoped and UID-redacted.
+- For Staff, Admin, or Developer users who choose the role-authorized Admin view, use `list_admin_archived_requests_as_markdown` or `list_admin_archived_orders_as_markdown` for a complete list, or their structured counterparts for cursor pagination. Apply the optional `membership_id` filter only when the user asks for one requested-for Membership ID.
+- Preserve `isArchived`, `archivedAt`, `archiveEligibleDate`, `archivedBy`, and all other returned audit fields. Do not infer missing archive metadata or replace the transaction's actual status.
+- When the introduction is only explaining available capabilities, describe archive access without fetching private transaction data. Fetch it only when the user asks for an authenticated lookup and the scope choice above is resolved.
 
 ## Response rules
 

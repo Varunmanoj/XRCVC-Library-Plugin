@@ -6,6 +6,7 @@ All notable changes to this project will be documented here.
 
 - Added dedicated Member Archives and Admin Archives skills that select requests/orders through the stored `isArchived` Boolean and never through a fictitious archived status.
 - Added guidance for all eight archived-list MCP tools, including member self-scope, Staff/Admin/Developer authorization, optional administrative Membership ID filtering, audit-field preservation, and real-status separation.
+- Extended the XRCVC Library Introduction skill to present archived requests and orders as an available role-aware capability and route authenticated lookups to the dedicated archive tools.
 - Updated transaction and history skills to hand archive questions to the dedicated archive skills, and refreshed portable, Claude, marketplace, and Codex package versions.
 
 ## 0.1.10 - 2026-08-25

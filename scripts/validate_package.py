@@ -331,6 +331,7 @@ def validate() -> None:
     assert "reservations or shared profiles" in member_directory
     member_archives = (PLUGIN_ROOT / "skills" / "member-archives" / "SKILL.md").read_text(encoding="utf-8")
     admin_archives = (PLUGIN_ROOT / "skills" / "admin-archives" / "SKILL.md").read_text(encoding="utf-8")
+    introduction = (PLUGIN_ROOT / "skills" / "xrcvc-library-introduction" / "SKILL.md").read_text(encoding="utf-8")
     for tool_name in (
         "list_member_archived_requests_as_markdown", "list_member_archived_orders_as_markdown",
         "list_member_archived_requests", "list_member_archived_orders",
@@ -348,6 +349,15 @@ def validate() -> None:
     assert "membership_id" in admin_archives
     assert "Full Name (Membership ID)" in admin_archives
     assert "Full name unavailable (Membership ID)" in admin_archives
+    for tool_name in (
+        "list_member_archived_requests_as_markdown", "list_member_archived_orders_as_markdown",
+        "list_admin_archived_requests_as_markdown", "list_admin_archived_orders_as_markdown",
+    ):
+        assert tool_name in introduction, f"introduction must explain {tool_name}"
+    for field_name in ("isArchived", "archivedAt", "archiveEligibleDate", "archivedBy"):
+        assert field_name in introduction, f"introduction must explain {field_name}"
+    assert "status=archived" in introduction
+    assert "membership_id" in introduction
 
     codex_entry = codex_marketplace["plugins"][0]
     assert codex_marketplace.get("name") == "xrcvc-library"
