@@ -20,11 +20,12 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 
 - Start with the required `/auth/me` role check and audience-selection gate above.
 - For the signed-in person's own profile, use `get_member_profile`. It is bearer-self-scoped and UID-redacted for every authenticated role; do not probe `list_admin_profiles`, `get_admin_profile`, or Membership ID administrative routes for a self-profile question.
-- Prefer `get_api_output_as_markdown` with `/carts/member` for the bearer member's cart, and `list_member_requests_as_markdown` or `list_member_orders_as_markdown` for complete request/order lists.
+- Prefer `get_api_output_as_markdown` with `/carts/member` for the bearer member's cart. For ordinary complete request/order lists, call `list_member_requests_as_markdown(..., is_archived=false)` or `list_member_orders_as_markdown(..., is_archived=false)` so archived records are excluded at the API/MCP layer.
 - Use `get_member_request` or `get_member_order` for structured detail, or `get_api_output_as_markdown` with `/requests/member/{requestId}` or `/orders/member/{orderId}` for complete Markdown detail. Preserve the server-provided member links and statuses.
 - For a lifecycle explanation, hand off to the Request History or Order History skill and use `get_member_request_history` or `get_member_order_history`; the latter returns the parent `orderHistory` plus every generated request and its `history`.
-- For archived requests or orders, hand off to Member Archives and use the dedicated `isArchived=true` archive tools. Never use `status=archived` because archive state is a separate Boolean field.
-- When structured JSON is more useful, use `get_member_cart`, `list_member_requests`, or `list_member_orders`. JSON lists are paginated, so follow `pageInfo.nextCursor` until `pageInfo.hasMore` is false when complete coverage is requested.
+- Treat `is_archived=false` as mandatory for every ordinary request or order list, including lists that also use status or resource-type filters. Do not omit it: an unset archive filter can include both active and archived records.
+- Return archived requests or orders only when the user explicitly asks for archived records. In that case, hand off to Member Archives and use its dedicated archive tools, which enforce stored `isArchived=true`. Never use `status=archived` because archive state is a separate Boolean field.
+- When structured JSON is more useful, use `get_member_cart`, `list_member_requests(..., is_archived=false)`, or `list_member_orders(..., is_archived=false)`. JSON lists are paginated, so follow `pageInfo.nextCursor` until `pageInfo.hasMore` is false when complete coverage is requested.
 - Markdown responses are complete and unpaginated. Do not use or describe `limit`, `cursor`, pages, or partial coverage.
 
 ## Current request and order schema
@@ -45,7 +46,7 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 ## Workflow
 
 1. Resolve the authenticated role and, when required, the information view before fetching transaction data.
-2. Fetch only the requested surface, or fetch cart, requests, and orders for a complete personal lifecycle summary.
+2. Fetch only the requested surface, or fetch cart, requests, and orders for a complete personal lifecycle summary. Pass `is_archived=false` on every ordinary request/order list call unless the user explicitly requested archived records.
 3. Separate cart contents from submitted requests and orders: a cart item is not a submitted request or an order.
 4. For an individual request or order, retrieve its detail before explaining status history, due/return information, or linked records.
 5. If a user asks about another member, all-member data, or reports, hand off to the appropriate Admin skill; do not probe privileged routes.

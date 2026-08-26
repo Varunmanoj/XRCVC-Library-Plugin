@@ -19,12 +19,13 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 ## MCP output format
 
 - Start with the required `/auth/me` role check and audience-selection gate above.
-- Use `list_admin_requests_as_markdown` and `list_admin_orders_as_markdown` for complete role-authorized transaction lists. Apply only supported status, resource-type, or Membership ID filters.
+- Use `list_admin_requests_as_markdown(..., is_archived=false)` and `list_admin_orders_as_markdown(..., is_archived=false)` for ordinary complete role-authorized transaction lists. Apply only supported status, resource-type, or Membership ID filters in addition to this required archive exclusion.
 - Use `get_admin_request` or `get_admin_order` for structured detail, or `get_api_output_as_markdown` with `/requests/admin/{requestId}` or `/orders/admin/{orderId}` for complete Markdown detail.
 - For a lifecycle explanation, hand off to the Request History or Order History skill and use `get_admin_request_history` or `get_admin_order_history`; order history includes the parent `orderHistory`, every generated request `history`, and stored request-trigger context.
-- For archived requests or orders, hand off to Admin Archives and use its dedicated `isArchived=true` archive tools, including the optional requested-for Membership ID filter. Never use `status=archived` because archive state is a separate Boolean field.
+- Treat `is_archived=false` as mandatory for every ordinary request or order list, including lists that also use Membership ID, status, or resource-type filters. Do not omit it: an unset archive filter can include both active and archived records.
+- Return archived requests or orders only when the user explicitly asks for archived records. In that case, hand off to Admin Archives and use its dedicated archive tools, which enforce stored `isArchived=true` and support the optional requested-for Membership ID filter. Never use `status=archived` because archive state is a separate Boolean field.
 - Use `list_admin_carts` and `get_admin_cart` for structured saved-cart review, or `get_api_output_as_markdown` with `/carts/admin` or `/carts/admin/{membershipId}` for complete Markdown. Saved carts are not submitted transactions.
-- When structured JSON is required, use `list_admin_requests`, `list_admin_orders`, or `list_admin_carts` and follow `pageInfo.nextCursor` until `pageInfo.hasMore` is false when complete coverage is requested.
+- When structured JSON is required, use `list_admin_requests(..., is_archived=false)`, `list_admin_orders(..., is_archived=false)`, or `list_admin_carts` and follow `pageInfo.nextCursor` until `pageInfo.hasMore` is false when complete coverage is requested.
 - Markdown results are complete and unpaginated. Do not use or describe `limit`, `cursor`, pages, or partial coverage.
 
 ## Current transaction schema
@@ -56,7 +57,7 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 
 1. Confirm the effective role and resolve the required information view before fetching transaction data.
 2. Choose requests, orders, carts, or the smallest combination that answers the operational question.
-3. Apply the smallest returned-server filter that answers the question and inspect the complete Markdown for analysis.
+3. Apply `is_archived=false` to every ordinary request/order list, add only the smallest other server filters that answer the question, and inspect the complete Markdown for analysis. Use the archive skill only after an explicit archived-record request.
 4. Retrieve detail for any transaction whose lifecycle, requester, order linkage, or status history is being explained.
 5. Keep reporting questions in the Admin Reports skill; use the explicit admin cart endpoints for saved-cart investigations.
 
