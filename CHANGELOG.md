@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented here.
 
+## 0.1.14 - 2026-09-01
+
+- Kept the portable, Claude, Claude Marketplace, and ChatGPT/Codex base versions synchronized.
+- Added durable repository guidance and package validation that reject cross-host version drift.
+
 ## 0.1.13 - 2026-09-01
 
 - Made bare request/order list and status questions default to the server-enforced active lifecycle view, even when users do not say “active” or “current.”

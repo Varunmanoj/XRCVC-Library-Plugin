@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "xrcvclibrary",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "Use XRCVC Library to explore the accessible catalog, documentation, and role-authorized library information.",
   "author": {
     "name": "Xavier's Resource Centre for the Visually Challenged",
