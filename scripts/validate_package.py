@@ -207,9 +207,16 @@ def validate() -> None:
 
     manifests = (codex, portable, claude)
     assert all(item.get("name") == "xrcvclibrary" for item in manifests), "plugin name mismatch"
-    assert portable.get("version") == "0.1.13", "portable plugin version mismatch"
-    assert claude.get("version") == "0.1.13", "Claude plugin version mismatch"
-    assert re.fullmatch(r"0\.1\.13\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
+    release_version = str(portable.get("version", ""))
+    assert re.fullmatch(
+        r"[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?",
+        release_version,
+    ), "portable plugin version must be a semantic release version without build metadata"
+    assert claude.get("version") == release_version, "Claude plugin base version must match the portable plugin"
+    assert re.fullmatch(
+        rf"{re.escape(release_version)}\+codex\.[0-9]{{14}}",
+        str(codex.get("version", "")),
+    ), "ChatGPT/Codex plugin base version must match the portable plugin and include one cachebuster"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert all(item.get("author", {}).get("name") == DEVELOPER_NAME for item in manifests), "developer name mismatch"
@@ -387,8 +394,8 @@ def validate() -> None:
     assert claude_entry.get("source") == "./plugins/xrcvclibrary"
     assert claude_entry.get("homepage") == SUPPORT_URL
     assert claude_entry.get("category") == "Education"
-    assert claude_marketplace.get("version") == "0.1.13"
-    assert claude_entry.get("version") == "0.1.13"
+    assert claude_marketplace.get("version") == release_version, "Claude marketplace version must match the portable plugin"
+    assert claude_entry.get("version") == release_version, "Claude marketplace plugin version must match the portable plugin"
     assert claude_marketplace.get("owner", {}).get("name") == DEVELOPER_NAME
     assert claude_entry.get("author", {}).get("name") == DEVELOPER_NAME
     assert claude.get("repository") == claude_entry.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
