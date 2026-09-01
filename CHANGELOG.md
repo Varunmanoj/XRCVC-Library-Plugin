@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented here.
 
+## 0.1.13 - 2026-09-01
+
+- Made bare request/order list and status questions default to the server-enforced active lifecycle view, even when users do not say “active” or “current.”
+- Added explicit skill routing for all/every/non-archived views through `active_only=false`, while archived wording continues to use only the dedicated archive tools.
+- Defined resource-aware active states: Books end at Issued or Rejected; Teaching Learning Aids and Tactile Diagrams end at Returned or Rejected; orders end at Completed.
+- Added introduction-skill prompt examples that explain how to request default open lists, complete non-archived lists, exact statuses, and dedicated archived lists for Member and Admin views.
+
 ## 0.1.12 - 2026-09-01
 
 - Defined current, active, ordinary, and explicitly non-archived transaction questions as complete `isArchived=false` views rather than implicit lifecycle-status filters.

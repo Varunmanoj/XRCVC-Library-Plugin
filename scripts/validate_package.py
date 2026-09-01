@@ -207,9 +207,9 @@ def validate() -> None:
 
     manifests = (codex, portable, claude)
     assert all(item.get("name") == "xrcvclibrary" for item in manifests), "plugin name mismatch"
-    assert portable.get("version") == "0.1.12", "portable plugin version mismatch"
-    assert claude.get("version") == "0.1.12", "Claude plugin version mismatch"
-    assert re.fullmatch(r"0\.1\.12\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
+    assert portable.get("version") == "0.1.13", "portable plugin version mismatch"
+    assert claude.get("version") == "0.1.13", "Claude plugin version mismatch"
+    assert re.fullmatch(r"0\.1\.13\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert all(item.get("author", {}).get("name") == DEVELOPER_NAME for item in manifests), "developer name mismatch"
@@ -275,9 +275,11 @@ def validate() -> None:
         ("member-transactions", member_transactions),
         ("admin-transactions", admin_transactions),
     ):
-        assert "complete `isArchived=false` view" in skill_text, f"{name} must define the ordinary non-archived view"
-        assert "Books with `status=issued`" in skill_text, f"{name} must retain issued non-archived Books"
-        assert "Never drop one because `completedDate` is present" in skill_text, f"{name} must not infer archive state from completion metadata"
+        assert "Default to the active view" in skill_text, f"{name} must define the bare-list active default"
+        assert "active_only=true" in skill_text, f"{name} must use the server-side active filter"
+        assert "active_only=false" in skill_text, f"{name} must define the explicit all/non-archived override"
+        assert "Books with `status=issued`" in skill_text, f"{name} must retain issued Books in explicit non-archived views"
+        assert "Never infer archive state from `completedDate`" in skill_text, f"{name} must keep completion and archive state separate"
         assert "only when the user explicitly names that exact lifecycle status" in skill_text, f"{name} must avoid implicit status filtering"
     transaction_scope_question = (
         "Do you want the cart, requests, or orders for your logged-in Membership ID, "
@@ -366,6 +368,11 @@ def validate() -> None:
         assert field_name in introduction, f"introduction must explain {field_name}"
     assert "status=archived" in introduction
     assert "membership_id" in introduction
+    assert "## How users can ask about requests and orders" in introduction
+    assert "List my requests and their statuses" in introduction
+    assert "Show all my non-archived requests, including completed ones" in introduction
+    assert "Show my archived requests" in introduction
+    assert "The user does not need to say active" in introduction
 
     codex_entry = codex_marketplace["plugins"][0]
     assert codex_marketplace.get("name") == "xrcvc-library"
@@ -380,8 +387,8 @@ def validate() -> None:
     assert claude_entry.get("source") == "./plugins/xrcvclibrary"
     assert claude_entry.get("homepage") == SUPPORT_URL
     assert claude_entry.get("category") == "Education"
-    assert claude_marketplace.get("version") == "0.1.12"
-    assert claude_entry.get("version") == "0.1.12"
+    assert claude_marketplace.get("version") == "0.1.13"
+    assert claude_entry.get("version") == "0.1.13"
     assert claude_marketplace.get("owner", {}).get("name") == DEVELOPER_NAME
     assert claude_entry.get("author", {}).get("name") == DEVELOPER_NAME
     assert claude.get("repository") == claude_entry.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"

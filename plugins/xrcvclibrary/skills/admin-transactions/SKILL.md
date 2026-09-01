@@ -19,21 +19,21 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 ## MCP output format
 
 - Start with the required `/auth/me` role check and audience-selection gate above.
-- Use `list_admin_requests_as_markdown(..., is_archived=false)` and `list_admin_orders_as_markdown(..., is_archived=false)` for ordinary complete role-authorized transaction lists. Apply only supported status, resource-type, or Membership ID filters in addition to this required archive exclusion.
+- Use `list_admin_requests_as_markdown(..., is_archived=false, active_only=true)` and `list_admin_orders_as_markdown(..., is_archived=false, active_only=true)` for bare, ordinary, current, active, unfinished, outstanding, or action-needed role-authorized transaction lists. `active_only=true` is also the tool default, so a plain “list the requests” remains lifecycle-active even when the user supplies no active-status keyword.
 - Use `get_admin_request` or `get_admin_order` for structured detail, or `get_api_output_as_markdown` with `/requests/admin/{requestId}` or `/orders/admin/{orderId}` for complete Markdown detail.
 - For a lifecycle explanation, hand off to the Request History or Order History skill and use `get_admin_request_history` or `get_admin_order_history`; order history includes the parent `orderHistory`, every generated request `history`, and stored request-trigger context.
-- Treat `is_archived=false` as mandatory for every ordinary request or order list, including lists that also use Membership ID, status, or resource-type filters. Do not omit it: an unset archive filter can include both active and archived records.
+- Treat `is_archived=false` as mandatory for every ordinary request or order list, including lists that also use Membership ID, status, or resource-type filters. Keep `active_only=true` unless the user explicitly requests all/every non-archived records or explicitly names a terminal lifecycle status.
 - Return archived requests or orders only when the user explicitly asks for archived records. In that case, hand off to Admin Archives and use its dedicated archive tools, which enforce stored `isArchived=true` and support the optional requested-for Membership ID filter. Never use `status=archived` because archive state is a separate Boolean field.
 - Use `list_admin_carts` and `get_admin_cart` for structured saved-cart review, or `get_api_output_as_markdown` with `/carts/admin` or `/carts/admin/{membershipId}` for complete Markdown. Saved carts are not submitted transactions.
-- When structured JSON is required, use `list_admin_requests(..., is_archived=false)`, `list_admin_orders(..., is_archived=false)`, or `list_admin_carts` and follow `pageInfo.nextCursor` until `pageInfo.hasMore` is false when complete coverage is requested.
+- When structured JSON is required, use `list_admin_requests(..., is_archived=false, active_only=true)`, `list_admin_orders(..., is_archived=false, active_only=true)`, or `list_admin_carts`. Set `active_only=false` only for the explicit complete non-archived cases below, and follow `pageInfo.nextCursor` until `pageInfo.hasMore` is false when complete coverage is requested.
 - Markdown results are complete and unpaginated. Do not use or describe `limit`, `cursor`, pages, or partial coverage.
 
 ## Archive state and lifecycle intent
 
-- Treat **current**, **active**, **ordinary**, **requests/orders**, **current statuses**, and **not archived/non-archived** list questions as the complete `isArchived=false` view for the selected audience. Call the matching Markdown list with `is_archived=false` and no lifecycle `status` filter, then return every row.
-- A non-archived list includes ongoing work and recently completed work that remains visible before automatic archiving: Books with `status=issued`, physical Teaching Learning Aids or Tactile Diagrams with `status=returned`, rejected requests, and orders with `status=Completed`. Never drop one because `completedDate` is present.
-- Add a server `status` filter only when the user explicitly names that exact lifecycle status. Words such as **current**, **active**, or **not archived** are archive-scope intent, not an implied `in_review`/`ready` filter.
-- When the user explicitly asks only for unfinished, outstanding, or action-needed work, first fetch the complete non-archived list and then classify locally: a Book is terminal when Issued or Rejected; a physical TLA/TD is terminal when Returned or Rejected; an order is terminal when Completed. Preserve Issued and Overdue physical requests as outstanding until they are Returned.
+- Default to the active view for the selected audience. Treat a bare **list the requests/orders**, **show requests/orders and their statuses**, or ordinary **requests/orders** question exactly like **current**, **active**, **unfinished**, **outstanding**, or **action-needed**. Call the matching Markdown list with `is_archived=false, active_only=true` and no lifecycle `status` filter.
+- The server, not local model filtering, applies the resource lifecycle. A Book is active until it reaches Issued or Rejected. A physical Teaching Learning Aid or Tactile Diagram remains active in In Review, Ready, Issued, or Overdue and ends only at Returned or Rejected. An order remains active in Received, In Progress, Partially Fulfilled, or Partially Fulfilled Overdue and ends at Completed.
+- Only use the complete `isArchived=false` view when the user explicitly asks for **all**, **every**, **not archived**, or **non-archived** requests/orders. Call the matching Markdown list with `is_archived=false, active_only=false`; this includes ongoing work and completed-but-not-yet-archived Books with `status=issued`, physical requests with `status=returned`, rejected requests, and orders with `status=Completed`.
+- Add a server `status` filter only when the user explicitly names that exact lifecycle status. When the named status is terminal, pass `active_only=false` so the requested status is not suppressed. Never infer archive state from `completedDate`.
 - Archive membership remains independent of lifecycle completion. Use Admin Archives only for an explicit archived-record request; do not treat a completed-but-not-yet-archived record as archived history.
 
 ## Current transaction schema
@@ -65,14 +65,14 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 
 1. Confirm the effective role and resolve the required information view before fetching transaction data.
 2. Choose requests, orders, carts, or the smallest combination that answers the operational question.
-3. Apply `is_archived=false` to every ordinary request/order list, add only the smallest other server filters that answer the question, and inspect the complete Markdown for analysis. Use the archive skill only after an explicit archived-record request.
+3. Apply `is_archived=false, active_only=true` to every bare/current/active request/order list. Pass `active_only=false` only for explicit all/every/non-archived intent or an explicitly named terminal status, and use the archive skill only after an explicit archived-record request.
 4. Retrieve detail for any transaction whose lifecycle, requester, order linkage, or status history is being explained.
 5. Keep reporting questions in the Admin Reports skill; use the explicit admin cart endpoints for saved-cart investigations.
 
 ## Response rules
 
 - In every administrative response, whenever a Membership ID appears, present that exact record's corresponding returned full name as `Full Name (Membership ID)`. Never list a Membership ID alone when its matching name is returned, and never pair it with a name from another person or event. If no matching name is returned, write `Full name unavailable (Membership ID)` instead of guessing or making an unrelated directory lookup.
-- Separate carts, ongoing requests/orders, and completed-but-not-yet-archived requests/orders, preserve their identifiers/statuses/dates, and retain complete party context and the on-behalf indicator when relevant. Include both transaction groups in every ordinary/current/non-archived list. Pair every administrative transaction Membership ID with the matching returned canonical `fullName` as specified above.
+- For a bare/current/active list, return only the server-filtered open requests/orders. For an explicit all/every/non-archived list, separate ongoing records from completed-but-not-yet-archived records when useful. Preserve identifiers/statuses/dates and complete party context, and pair every administrative transaction Membership ID with the matching returned canonical `fullName` as specified above.
 - Present both returned link fields with clear labels; never imply that a member-app link bypasses the target member's session or that an Admin Console link bypasses application authorization.
 - Do not present an operational list as a report or infer causes or performance trends that need report data.
 - A server access denial is authoritative; explain the boundary and do not try alternate routes to bypass it.

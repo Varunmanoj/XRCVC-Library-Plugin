@@ -987,7 +987,7 @@
       "user_prompt": "Show all XRCVC Library requests I am authorized to view, grouped by status and resource type.",
       "file_attachment_urls": null,
       "tools_triggered": "list_member_requests_as_markdown",
-      "expected_output": "Returns complete self-scoped UID-redacted request data with member links and groups it without exposing another member's records.",
+      "expected_output": "Treats the explicit word all as a complete non-archived request view, returns self-scoped UID-redacted request data including completed-but-not-yet-archived records with member links, and does not expose another member's records.",
       "expected_output_url": null
     },
     {

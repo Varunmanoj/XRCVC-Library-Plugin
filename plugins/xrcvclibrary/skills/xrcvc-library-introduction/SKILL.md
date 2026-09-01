@@ -30,6 +30,15 @@ Give a clear, welcoming orientation to XRCVC Library, the accessible library ser
 - Use the answer only to choose the Member or Admin endpoint family. Server authorization remains decisive; an unavailable Admin view must not be retried through another route.
 - Do not ask this audience-selection question for an explicitly member-only or admin-only skill, or for an Admin/Developer-only report request: those endpoints already establish the relevant audience and eligibility.
 
+## How users can ask about requests and orders
+
+- Explain the default before suggesting prompt examples: a plain request such as **“List my requests and their statuses”**, **“Show my orders”**, or **“Give me the list of requests”** returns only open, non-archived lifecycle records. The user does not need to say active, current, open, unfinished, or outstanding. Member scope is bearer-self-scoped; Staff/Admin/Developer users must first resolve the information-view choice above when their wording does not already select their own or the all-member Admin view.
+- Explain what open means by resource. A Book request is open before Issued or Rejected. A Teaching Learning Aid or Tactile Diagram request remains open through In Review, Ready, Issued, and Overdue, and closes at Returned or Rejected. An order is open in Received, In Progress, Partially Fulfilled, or Partially Fulfilled Overdue, and closes at Completed.
+- For the complete non-archived view, suggest explicit wording such as **“Show all my non-archived requests, including completed ones”**, **“List every non-archived order”**, or, for an already selected Admin view, **“Show all non-archived requests and orders for all Membership IDs.”** This view includes completed-but-not-yet-archived issued Books, returned physical resources, rejected requests, and Completed orders.
+- For a particular real status, suggest wording such as **“Show my issued Book requests”**, **“List overdue Teaching Learning Aid and Tactile Diagram requests”**, or **“Show Completed orders that have not been archived.”** The transaction skill uses the named real status and disables the active-only filter when that status is terminal.
+- For stored archive history, suggest explicit wording such as **“Show my archived requests”**, **“List my archived orders”**, or, for an already selected Admin view, **“Show archived requests for Membership ID ….”** Archived wording always routes to the dedicated archive tools and never to a fictitious archived status.
+- When responding to a general introduction, offer these prompt patterns as examples without fetching private records. Fetch request/order data only after the user asks for a lookup, authentication is available, and any required Member/Admin scope choice is resolved.
+
 ## Archived requests and orders
 
 - Treat archived transactions as a distinct request/order capability. Archive membership comes only from the stored `isArchived` Boolean; never search for or invent `status=archived`. Preserve the returned real status independently from archive state.
