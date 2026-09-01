@@ -207,9 +207,9 @@ def validate() -> None:
 
     manifests = (codex, portable, claude)
     assert all(item.get("name") == "xrcvclibrary" for item in manifests), "plugin name mismatch"
-    assert portable.get("version") == "0.1.11", "portable plugin version mismatch"
-    assert claude.get("version") == "0.1.11", "Claude plugin version mismatch"
-    assert re.fullmatch(r"0\.1\.11\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
+    assert portable.get("version") == "0.1.12", "portable plugin version mismatch"
+    assert claude.get("version") == "0.1.12", "Claude plugin version mismatch"
+    assert re.fullmatch(r"0\.1\.12\+codex\.[0-9]{14}", str(codex.get("version", ""))), "Codex plugin cachebuster mismatch"
     assert portable.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
     assert codex.get("repository") == portable.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"
     assert all(item.get("author", {}).get("name") == DEVELOPER_NAME for item in manifests), "developer name mismatch"
@@ -271,6 +271,14 @@ def validate() -> None:
     assert "/requests/admin" in admin_transactions and "/orders/admin" in admin_transactions and "/carts/admin" in admin_transactions
     assert "memberRequestUrl" in member_transactions and "adminRequestUrl" in admin_transactions
     assert "Cart records are saved selections" in member_transactions, "member-transactions must distinguish carts from transactions"
+    for name, skill_text in (
+        ("member-transactions", member_transactions),
+        ("admin-transactions", admin_transactions),
+    ):
+        assert "complete `isArchived=false` view" in skill_text, f"{name} must define the ordinary non-archived view"
+        assert "Books with `status=issued`" in skill_text, f"{name} must retain issued non-archived Books"
+        assert "Never drop one because `completedDate` is present" in skill_text, f"{name} must not infer archive state from completion metadata"
+        assert "only when the user explicitly names that exact lifecycle status" in skill_text, f"{name} must avoid implicit status filtering"
     transaction_scope_question = (
         "Do you want the cart, requests, or orders for your logged-in Membership ID, "
         "or the complete role-authorized Admin list for all Membership IDs?"
@@ -372,8 +380,8 @@ def validate() -> None:
     assert claude_entry.get("source") == "./plugins/xrcvclibrary"
     assert claude_entry.get("homepage") == SUPPORT_URL
     assert claude_entry.get("category") == "Education"
-    assert claude_marketplace.get("version") == "0.1.11"
-    assert claude_entry.get("version") == "0.1.11"
+    assert claude_marketplace.get("version") == "0.1.12"
+    assert claude_entry.get("version") == "0.1.12"
     assert claude_marketplace.get("owner", {}).get("name") == DEVELOPER_NAME
     assert claude_entry.get("author", {}).get("name") == DEVELOPER_NAME
     assert claude.get("repository") == claude_entry.get("repository") == "https://github.com/Varunmanoj/XRCVC-Library-Plugin"

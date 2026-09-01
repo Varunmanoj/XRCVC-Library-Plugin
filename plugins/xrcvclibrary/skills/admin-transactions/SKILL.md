@@ -28,6 +28,14 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 - When structured JSON is required, use `list_admin_requests(..., is_archived=false)`, `list_admin_orders(..., is_archived=false)`, or `list_admin_carts` and follow `pageInfo.nextCursor` until `pageInfo.hasMore` is false when complete coverage is requested.
 - Markdown results are complete and unpaginated. Do not use or describe `limit`, `cursor`, pages, or partial coverage.
 
+## Archive state and lifecycle intent
+
+- Treat **current**, **active**, **ordinary**, **requests/orders**, **current statuses**, and **not archived/non-archived** list questions as the complete `isArchived=false` view for the selected audience. Call the matching Markdown list with `is_archived=false` and no lifecycle `status` filter, then return every row.
+- A non-archived list includes ongoing work and recently completed work that remains visible before automatic archiving: Books with `status=issued`, physical Teaching Learning Aids or Tactile Diagrams with `status=returned`, rejected requests, and orders with `status=Completed`. Never drop one because `completedDate` is present.
+- Add a server `status` filter only when the user explicitly names that exact lifecycle status. Words such as **current**, **active**, or **not archived** are archive-scope intent, not an implied `in_review`/`ready` filter.
+- When the user explicitly asks only for unfinished, outstanding, or action-needed work, first fetch the complete non-archived list and then classify locally: a Book is terminal when Issued or Rejected; a physical TLA/TD is terminal when Returned or Rejected; an order is terminal when Completed. Preserve Issued and Overdue physical requests as outstanding until they are Returned.
+- Archive membership remains independent of lifecycle completion. Use Admin Archives only for an explicit archived-record request; do not treat a completed-but-not-yet-archived record as archived history.
+
 ## Current transaction schema
 
 - Treat `requestedFor` and `openedBy` as complete stored party maps. Preserve returned fields such as `role`, `userId`, `firebaseUUID`, `email`, `membershipId`, `name`, `phone`, `disabilityType`, and `accountRole`, plus any additional stored fields relevant to the operational question.
@@ -64,7 +72,7 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 ## Response rules
 
 - In every administrative response, whenever a Membership ID appears, present that exact record's corresponding returned full name as `Full Name (Membership ID)`. Never list a Membership ID alone when its matching name is returned, and never pair it with a name from another person or event. If no matching name is returned, write `Full name unavailable (Membership ID)` instead of guessing or making an unrelated directory lookup.
-- Separate carts, requests, and orders, preserve their identifiers/statuses/dates, and retain complete party context and the on-behalf indicator when relevant. Pair every administrative transaction Membership ID with the matching returned canonical `fullName` as specified above.
+- Separate carts, ongoing requests/orders, and completed-but-not-yet-archived requests/orders, preserve their identifiers/statuses/dates, and retain complete party context and the on-behalf indicator when relevant. Include both transaction groups in every ordinary/current/non-archived list. Pair every administrative transaction Membership ID with the matching returned canonical `fullName` as specified above.
 - Present both returned link fields with clear labels; never imply that a member-app link bypasses the target member's session or that an Admin Console link bypasses application authorization.
 - Do not present an operational list as a report or infer causes or performance trends that need report data.
 - A server access denial is authoritative; explain the boundary and do not try alternate routes to bypass it.

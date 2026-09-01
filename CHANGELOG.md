@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented here.
 
+## 0.1.12 - 2026-09-01
+
+- Defined current, active, ordinary, and explicitly non-archived transaction questions as complete `isArchived=false` views rather than implicit lifecycle-status filters.
+- Required issued Books, returned Teaching Learning Aids and Tactile Diagrams, rejected requests, and Completed orders to remain visible while they are not archived, even when `completedDate` is present.
+- Added separate unfinished/action-needed classification rules and refreshed portable, Claude, marketplace, and Codex package versions.
+
 ## 0.1.11 - 2026-08-26
 
 - Added dedicated Member Archives and Admin Archives skills that select requests/orders through the stored `isArchived` Boolean and never through a fictitious archived status.

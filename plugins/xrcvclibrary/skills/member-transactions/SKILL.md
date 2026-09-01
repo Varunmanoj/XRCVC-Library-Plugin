@@ -28,6 +28,14 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 - When structured JSON is more useful, use `get_member_cart`, `list_member_requests(..., is_archived=false)`, or `list_member_orders(..., is_archived=false)`. JSON lists are paginated, so follow `pageInfo.nextCursor` until `pageInfo.hasMore` is false when complete coverage is requested.
 - Markdown responses are complete and unpaginated. Do not use or describe `limit`, `cursor`, pages, or partial coverage.
 
+## Archive state and lifecycle intent
+
+- Treat **current**, **active**, **ordinary**, **my requests/orders**, **current statuses**, and **not archived/non-archived** list questions as the complete `isArchived=false` view. Call the matching Markdown list with `is_archived=false` and no lifecycle `status` filter, then return every row.
+- A non-archived list includes ongoing work and recently completed work that remains visible before automatic archiving: Books with `status=issued`, physical Teaching Learning Aids or Tactile Diagrams with `status=returned`, rejected requests, and orders with `status=Completed`. Never drop one because `completedDate` is present.
+- Add a server `status` filter only when the user explicitly names that exact lifecycle status. Words such as **current**, **active**, or **not archived** are archive-scope intent, not an implied `in_review`/`ready` filter.
+- When the user explicitly asks only for unfinished, outstanding, or action-needed work, first fetch the complete non-archived list and then classify locally: a Book is terminal when Issued or Rejected; a physical TLA/TD is terminal when Returned or Rejected; an order is terminal when Completed. Preserve Issued and Overdue physical requests as outstanding until they are Returned.
+- Archive membership remains independent of lifecycle completion. Use Member Archives only for an explicit archived-record request; do not treat a completed-but-not-yet-archived record as archived history.
+
 ## Current request and order schema
 
 - Expect the member `requestedFor` and `openedBy` maps to be recursively UID-redacted before JSON or Markdown rendering. Preserve human-readable returned fields such as `role`, `email`, `membershipId`, `name`, `phone`, `disabilityType`, and `accountRole`; do not request, reconstruct, or invent `userId`, `firebaseUUID`, `adminUID`, or other Firebase identity fields.
@@ -55,5 +63,5 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 
 - Preserve request/order IDs, status labels, dates, human-readable party context, and the on-behalf indicator exactly as returned when relevant.
 - Present only `memberRequestUrl`, `memberOrderUrl`, or `memberCartUrl` from member responses. Do not construct or expose Admin Console transaction links.
-- Group results into cart, open requests, active orders, and completed history; distinguish no results, unavailable data, access denied, and not found.
+- Group results into cart, ongoing requests/orders, and completed-but-not-yet-archived requests/orders when useful. Include both transaction groups in every ordinary/current/non-archived list; distinguish no results, unavailable data, access denied, and not found.
 - If authentication is required, direct the user to the host's XRCVC OAuth connection flow. Installation alone does not authenticate an account.
