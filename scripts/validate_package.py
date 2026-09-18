@@ -24,6 +24,9 @@ EXPECTED_SKILLS = {
     "admin-member-directory",
     "member-archives",
     "admin-archives",
+    "admin-catalog-management",
+    "xrcvc-settings-management",
+    "admin-maintenance",
 }
 EXPECTED_CHATGPT_TOOLS = {
     "get_admin_catalog_item",
@@ -106,6 +109,27 @@ EXPECTED_CHATGPT_TOOLS = {
     "list_taxonomy_family",
     "mcp_endpoint_mcp_get",
 }
+MUTATION_TOOL_NAMES = {
+    "create_admin_catalog_item", "update_admin_catalog_item", "delete_admin_catalog_item",
+    "create_admin_taxonomy_item", "update_admin_taxonomy_item", "delete_admin_taxonomy_item",
+    "create_admin_user", "update_admin_user", "delete_admin_user",
+    "create_admin_membership_id", "update_admin_membership_id", "delete_admin_membership_id",
+    "create_admin_membership_profile", "update_admin_membership_profile", "delete_admin_membership_profile",
+    "add_member_cart_item", "remove_member_cart_item", "clear_member_cart",
+    "add_admin_cart_item", "remove_admin_cart_item", "clear_admin_cart",
+    "create_member_request", "create_admin_request", "update_admin_request", "delete_admin_request",
+    "create_member_order", "create_admin_order", "update_admin_order", "delete_admin_order",
+    "update_accessibility_settings", "update_report_defaults", "update_developer_settings", "update_ai_settings",
+    "bulk_import_admin_catalog", "bulk_import_admin_taxonomy", "bulk_import_admin_membership_ids",
+    "bulk_delete_admin_requests", "bulk_delete_admin_orders", "bulk_delete_admin_cart_items",
+    "delete_admin_report_data", "rebuild_admin_report_data", "classify_admin_archives",
+}
+DESTRUCTIVE_TOOL_NAMES = {
+    name
+    for name in MUTATION_TOOL_NAMES
+    if name.startswith(("update_", "delete_", "remove_", "clear_", "bulk_", "rebuild_", "classify_"))
+} | {"add_member_cart_item", "add_admin_cart_item"}
+EXPECTED_CHATGPT_TOOLS |= MUTATION_TOOL_NAMES
 MCP_URL = "https://mcp.library.xrcvc.org/mcp/authorize"
 WEBSITE_URL = "https://library.xrcvc.org"
 PRIVACY_URL = "https://console.library.xrcvc.org/privacy-policy"
@@ -170,12 +194,12 @@ def validate() -> None:
     assert app_info.get("category") == "EDUCATION"
     submission_tools = chatgpt_submission.get("tools", {})
     assert set(submission_tools) == EXPECTED_CHATGPT_TOOLS, "ChatGPT submission tool inventory mismatch"
-    expected_annotations = {
-        "readOnlyHint": True,
-        "openWorldHint": False,
-        "destructiveHint": False,
-    }
     for tool_name, tool in submission_tools.items():
+        expected_annotations = {
+            "readOnlyHint": tool_name not in MUTATION_TOOL_NAMES,
+            "openWorldHint": False,
+            "destructiveHint": tool_name in DESTRUCTIVE_TOOL_NAMES,
+        }
         assert tool.get("annotations") == expected_annotations, f"{tool_name} ChatGPT annotations mismatch"
         justifications = tool.get("justifications", {})
         assert all(
@@ -186,8 +210,8 @@ def validate() -> None:
                 "destructive_justification",
             )
         ), f"{tool_name} needs all ChatGPT hint justifications"
-    assert len(chatgpt_submission.get("test_cases", [])) == 7, "ChatGPT submission needs exactly seven positive tests"
-    assert len(chatgpt_submission.get("negative_test_cases", [])) == 3, "ChatGPT submission needs exactly three negative tests"
+    assert len(chatgpt_submission.get("test_cases", [])) == 10, "ChatGPT submission needs exactly ten positive tests"
+    assert len(chatgpt_submission.get("negative_test_cases", [])) == 5, "ChatGPT submission needs exactly five negative tests"
 
     for asset in (
         PLUGIN_ROOT / "assets" / "xrcvc-library-icon.png",
@@ -250,7 +274,7 @@ def validate() -> None:
     assert claude.get("mcpServers") == "./.mcp.json"
 
     skill_dirs = {path.name for path in (PLUGIN_ROOT / "skills").iterdir() if path.is_dir()}
-    assert skill_dirs == EXPECTED_SKILLS, f"expected exactly twelve skills, found {sorted(skill_dirs)}"
+    assert skill_dirs == EXPECTED_SKILLS, f"expected exactly fifteen skills, found {sorted(skill_dirs)}"
     for skill_name in sorted(EXPECTED_SKILLS):
         validate_skill(PLUGIN_ROOT / "skills" / skill_name)
 
@@ -278,6 +302,20 @@ def validate() -> None:
     assert "/requests/admin" in admin_transactions and "/orders/admin" in admin_transactions and "/carts/admin" in admin_transactions
     assert "memberRequestUrl" in member_transactions and "adminRequestUrl" in admin_transactions
     assert "Cart records are saved selections" in member_transactions, "member-transactions must distinguish carts from transactions"
+    for tool_name in (
+        "add_member_cart_item", "remove_member_cart_item", "clear_member_cart",
+        "create_member_request", "create_member_order",
+    ):
+        assert tool_name in member_transactions, f"member-transactions must explain {tool_name}"
+    for tool_name in (
+        "add_admin_cart_item", "remove_admin_cart_item", "clear_admin_cart",
+        "create_admin_request", "update_admin_request", "delete_admin_request",
+        "create_admin_order", "update_admin_order", "delete_admin_order",
+        "bulk_delete_admin_requests", "bulk_delete_admin_orders", "bulk_delete_admin_cart_items",
+    ):
+        assert tool_name in admin_transactions, f"admin-transactions must explain {tool_name}"
+    assert "Staff must never call these tools" in admin_transactions
+    assert "fresh explicit confirmation" in member_transactions and "fresh explicit confirmation" in admin_transactions
     for name, skill_text in (
         ("member-transactions", member_transactions),
         ("admin-transactions", admin_transactions),
@@ -345,7 +383,36 @@ def validate() -> None:
     ):
         assert tool_name in member_directory, f"admin-member-directory must explain {tool_name}"
     assert "Staff" in member_directory and "Developer" in member_directory
-    assert "reservations or shared profiles" in member_directory
+    assert "Membership ID reservation" in member_directory and "shared profile" in member_directory
+    for tool_name in (
+        "create_admin_user", "update_admin_user", "delete_admin_user",
+        "create_admin_membership_id", "update_admin_membership_id", "delete_admin_membership_id",
+        "create_admin_membership_profile", "update_admin_membership_profile", "delete_admin_membership_profile",
+        "bulk_import_admin_membership_ids",
+    ):
+        assert tool_name in member_directory, f"admin-member-directory must explain {tool_name}"
+    catalog_management = (PLUGIN_ROOT / "skills" / "admin-catalog-management" / "SKILL.md").read_text(encoding="utf-8")
+    for tool_name in (
+        "create_admin_catalog_item", "update_admin_catalog_item", "delete_admin_catalog_item",
+        "create_admin_taxonomy_item", "update_admin_taxonomy_item", "delete_admin_taxonomy_item",
+        "bulk_import_admin_catalog", "bulk_import_admin_taxonomy",
+    ):
+        assert tool_name in catalog_management, f"admin-catalog-management must explain {tool_name}"
+    assert "Staff deletion is forbidden" in catalog_management
+    settings_management = (PLUGIN_ROOT / "skills" / "xrcvc-settings-management" / "SKILL.md").read_text(encoding="utf-8")
+    for tool_name in (
+        "update_accessibility_settings", "update_report_defaults",
+        "update_developer_settings", "update_ai_settings",
+    ):
+        assert tool_name in settings_management, f"xrcvc-settings-management must explain {tool_name}"
+    assert "Omit any optional target Membership ID" in settings_management
+    admin_maintenance = (PLUGIN_ROOT / "skills" / "admin-maintenance" / "SKILL.md").read_text(encoding="utf-8")
+    for tool_name in (
+        "bulk_delete_admin_requests", "bulk_delete_admin_orders", "bulk_delete_admin_cart_items",
+        "delete_admin_report_data", "rebuild_admin_report_data", "classify_admin_archives",
+    ):
+        assert tool_name in admin_maintenance, f"admin-maintenance must explain {tool_name}"
+    assert "fresh explicit confirmation" in admin_maintenance
     member_archives = (PLUGIN_ROOT / "skills" / "member-archives" / "SKILL.md").read_text(encoding="utf-8")
     admin_archives = (PLUGIN_ROOT / "skills" / "admin-archives" / "SKILL.md").read_text(encoding="utf-8")
     introduction = (PLUGIN_ROOT / "skills" / "xrcvc-library-introduction" / "SKILL.md").read_text(encoding="utf-8")

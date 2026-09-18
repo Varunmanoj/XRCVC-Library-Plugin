@@ -1,6 +1,6 @@
 # XRCVC Library Agent Plugin
 
-`xrcvclibrary` is the open-source **XRCVC Library** agent plugin. XRCVC is Xavier's Resource Centre for the Visually Challenged, an integral department of St. Xavier's College, Mumbai. The plugin connects supported AI hosts to the read-only XRCVC Library MCP server and adds twelve focused skills for public catalog research, member transactions, Admin transactions, member archives, Admin archives, the Admin member directory, request history, order history, Admin/Developer reports, tasks/activity, library orientation, and documentation guidance.
+`xrcvclibrary` is the open-source **XRCVC Library** agent plugin. XRCVC is Xavier's Resource Centre for the Visually Challenged, an integral department of St. Xavier's College, Mumbai. The plugin connects supported AI hosts to the XRCVC Library MCP server and adds fifteen focused skills for public catalog research; member and Admin transactions; archives and histories; catalog/taxonomy management; user and Membership ID administration; settings and maintenance; reports; tasks/activity; orientation; and documentation guidance.
 
 ![XRCVC Library logo](plugins/xrcvclibrary/assets/xrcvc-library-logo.png)
 
@@ -10,10 +10,12 @@
 - Agent Plugins 1.0 portable manifests.
 - Claude plugin and marketplace metadata for Claude.ai, Claude Desktop, Cowork, and Claude Code.
 - One OAuth 2.1 Streamable HTTP MCP connection.
-- Twelve focused skills: `public-catalog`, `member-transactions`, `admin-transactions`, `member-archives`, `admin-archives`, `admin-member-directory`, `request-history`, `order-history`, `admin-reports`, `xrcvc-tasks-activity`, `xrcvc-library-introduction`, and `xrcvc-library-documentation`. Together they keep public catalog and documentation guidance separate from role-authorized member, archive, directory, operational, and lifecycle workflows.
+- Fifteen focused skills: `public-catalog`, `member-transactions`, `admin-transactions`, `member-archives`, `admin-archives`, `admin-member-directory`, `admin-catalog-management`, `xrcvc-settings-management`, `admin-maintenance`, `request-history`, `order-history`, `admin-reports`, `xrcvc-tasks-activity`, `xrcvc-library-introduction`, and `xrcvc-library-documentation`. Together they keep public research separate from role-authorized self-service, administrative CRUD, destructive maintenance, reporting, and lifecycle workflows.
 - Explicit XRCVC icon and brand-color metadata for each OpenAI/Codex skill.
 
-The plugin is read-only. It can search catalog data and retrieve data the signed-in XRCVC role is already allowed to see; it cannot add to carts, submit requests, place orders, or alter accounts.
+The plugin exposes the complete FastMCP 0.2.1 contract: 121 tools, including 42 mutations. Every authenticated role may read the Membership ID reservation/shared-profile directory; Member responses omit internal sign-in, security, linked-login, and Admin Console fields. Members may add or remove items in their own cart and create requests or orders only for themselves, but cannot mutate Membership ID records. Staff, Admin, and Developer may create and update operational records and act on behalf of members; Staff cannot delete. Admin and Developer may administer users, Membership IDs, catalog deletion, report defaults, and destructive operations, while Developer-only settings and maintenance retain their server-enforced boundary.
+
+Membership ID is the single protected API identity. OAuth resolves back to that Membership ID for every protected call, and multiple linked verified accounts use the highest role in `developer` > `admin` > `staff` > `member` order. The plugin never asks for the bearer credential in conversation.
 
 ## Authentication
 
@@ -68,7 +70,7 @@ Start a new task after installation so Codex loads the plugin and MCP tools.
 
 ### Claude.ai cloud, Claude Desktop, and Cowork
 
-Install the complete plugin when you want both the twelve XRCVC skills and the remote MCP connector:
+Install the complete plugin when you want both the fifteen XRCVC skills and the remote MCP connector:
 
 1. In Claude, open **Customize → Plugins**.
 2. Under **Personal plugins**, select **+ → Add marketplace → Add from a repository**.
@@ -102,18 +104,18 @@ The package includes `.app.json` with the real registered XRCVC ChatGPT MCP conn
 
 ## Access model
 
-| Role | Own data | All carts/requests/orders | Member Tasks | Admin Tasks | Reports |
+| Role | Own cart/request/order mutations | On-behalf create/update | Delete | User/Membership administration | Developer settings/maintenance |
 |---|---:|---:|---:|---:|---:|
-| Member | Yes | No | Yes | No | No |
-| Staff | Yes | Yes | Yes | Yes | No |
-| Admin | Yes | Yes | Yes | Yes | Yes |
+| Member | Yes, self only | No | Own cart removal/clear only | No | No |
+| Staff | Yes | Yes | No | No | No |
+| Admin | Yes | Yes | Yes | Yes | No |
 | Developer | Yes | Yes | Yes | Yes | Yes |
 
-The MCP server derives the effective role from current XRCVC account data. OAuth scopes never elevate a role. Member Tasks and Member Recent Activity are self-scoped to the bearer Membership ID for every authenticated role. Admin Tasks remain an additional all-operator view for Staff, Admin, and Developer.
+The MCP server derives the effective role from current XRCVC account data. OAuth scopes never elevate a role. Member cart, request, order, accessibility, Tasks, and Recent Activity operations are self-scoped to the bearer Membership ID for every authenticated role. Admin tools remain separate on-behalf surfaces for Staff, Admin, and Developer, with Staff deletion denied.
 
 ## MCP Markdown output
 
-The packaged skills prefer the MCP server's Markdown output rather than its paginated JSON list tools. Named Markdown companions return complete, unpaginated Catalog, Requests, Orders, archived Requests, archived Orders, Member Recent Activity, Member Tasks, Admin Tasks, user-account directory, and Membership ID directory data. Dedicated archive tools select stored `isArchived=true` records while preserving the independent real status and `archivedAt`, `archiveEligibleDate`, `archivedBy`, and other audit fields; they never rely on a status named archived. Administrative archive tools can additionally filter by requested-for Membership ID. The user-account directory can filter by account role; the Membership ID directory can filter by member/staff role and linked, unlinked, or multi-login state. Complete Member and Owner's Manual tools return the packaged Markdown unchanged. Explicit request-history and order-history tools return one lifecycle as structured JSON; `get_api_output_as_markdown` can render the matching history path. Both formats include `adminName` and `adminMembershipId` for every resolvable human update, and the history skills present them as **Name (Membership ID)** while preserving member UID redaction. Public catalog detail, taxonomy, manual, and MCP metadata Markdown are requested through `get_public_api_output_as_markdown`; protected profile, directory, cart, identity, transaction detail, history, and report Markdown use `get_api_output_as_markdown`. Catalog Markdown has no free-text search input, so the catalog skill uses resource-type or taxonomy filters when available and inspects the returned Markdown locally.
+The packaged skills prefer complete MCP Markdown for review and use structured tools for mutations. Named Markdown companions return complete, unpaginated Catalog, Requests, Orders, archives, activity, tasks, user accounts, and Membership ID data. Mutation skills read the relevant current state, enforce role and self/on-behalf boundaries, review exact targets and inputs, require explicit confirmation for destructive or high-impact operations, invoke the dedicated mutation tool, and verify the result through a follow-up read when possible. Tool annotations distinguish read-only, additive, overwriting, and destructive behavior; application authorization remains server-enforced.
 
 ## Validation
 

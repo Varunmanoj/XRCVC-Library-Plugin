@@ -11,14 +11,14 @@ Give a clear, welcoming orientation to XRCVC Library, the accessible library ser
 
 - Use `get_llms_txt` for a concise current public catalog, taxonomy, and documentation index; use `get_llms_full_txt` only when a broad public collection explanation needs full detail.
 - Use `get_public_api_output_as_markdown` for public catalog statistics, taxonomy, member-manual, admin-manual, or MCP metadata paths when a current source is needed.
-- Explain that catalog research is public, while profiles, directories, carts, requests, orders, tasks, activity, and reports require an authenticated XRCVC connection and server-authorized role.
-- The plugin is read-only: it can explain authorized information but cannot add cart items, submit requests, place orders, or change accounts.
+- Explain that catalog research is public, while profiles, directories, carts, requests, orders, tasks, activity, and reports require an authenticated XRCVC connection and server-authorized role. Every authenticated role may read the Membership ID reservation/shared-profile directory, but the user-account directory remains internal.
+- The plugin can use role-authorized MCP mutations as well as reads. Members can manage only their own cart and create requests or orders for themselves. Staff, Admin, and Developer can perform supported operational mutations on behalf of members; Staff cannot delete. Admin and Developer can manage users, Membership IDs, destructive operations, and report defaults, while Developer-only settings and maintenance retain their server-enforced boundary.
 
 ## Orientation response
 
 1. Briefly introduce the accessible collection: Books, Teaching Learning Aids, and Tactile Diagrams, with catalog/taxonomy discovery.
-2. Describe the member workflow at a high level: explore resources, manage a cart, request items, follow orders, tasks, and activity, and review personal archived requests or orders.
-3. Describe authorized operations separately: every authenticated user can view only their own member profile; Staff/Admin/Developer can additionally review the role-authorized user-account directory and distinct Membership ID reservation/shared-profile directory, then inspect a selected record. Staff cannot view Developer user profiles or Developer linked-account rows. Also describe self-scoped member carts/requests/orders and archived transactions; Staff/Admin/Developer all-member carts/requests/orders, archived transactions, and tasks; and Admin/Developer reports.
+2. Describe the member workflow at a high level: explore resources, add or remove items in the self-scoped cart, create personal requests or submit the saved cart as an order, then follow orders, tasks, activity, and personal archives.
+3. Describe authorized operations separately: every authenticated user can view their own member profile and the read-only Membership ID reservation/shared-profile directory. Member directory results omit internal sign-in, security, linked-login, and Admin Console fields. Staff/Admin/Developer can additionally review the user-account directory and perform supported operational mutations for all-member carts, requests, and orders. Staff cannot delete. Admin/Developer can administer users, Membership IDs, catalog deletion, destructive maintenance, and report defaults; Developer-only settings and maintenance retain their boundary.
 4. Offer the appropriate next action—public catalog exploration, documentation help, or authenticated personal/operational lookup—without assuming access.
 
 ## Post-login information-view choice
@@ -46,6 +46,13 @@ Give a clear, welcoming orientation to XRCVC Library, the accessible library ser
 - For Staff, Admin, or Developer users who choose the role-authorized Admin view, use `list_admin_archived_requests_as_markdown` or `list_admin_archived_orders_as_markdown` for a complete list, or their structured counterparts for cursor pagination. Apply the optional `membership_id` filter only when the user asks for one requested-for Membership ID.
 - Preserve `isArchived`, `archivedAt`, `archiveEligibleDate`, `archivedBy`, and all other returned audit fields. Do not infer missing archive metadata or replace the transaction's actual status.
 - When the introduction is only explaining available capabilities, describe archive access without fetching private transaction data. Fetch it only when the user asks for an authenticated lookup and the scope choice above is resolved.
+
+## Mutation routing
+
+- Route self-cart additions/removals, personal requests, and personal cart checkout to Member Transactions.
+- Route on-behalf cart/request/order creation, lifecycle updates, and Admin/Developer transaction deletion to Admin Transactions.
+- Route catalog or taxonomy administration to Admin Catalog Management, user and Membership ID administration to Admin Member Directory, settings changes to XRCVC Settings Management, and bulk destructive/report/archive maintenance to Admin Maintenance.
+- Before any mutation, resolve `get_authenticated_identity`, review the exact target and inputs, and honor tool-specific confirmation requirements. A request for explanation or a preview is not authorization to write.
 
 ## Response rules
 

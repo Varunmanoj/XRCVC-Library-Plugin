@@ -1,9 +1,9 @@
 ---
 name: member-transactions
-description: Review the signed-in person's self-scoped XRCVC Library requests, orders, and cart. Use for personal transaction data after role-aware audience selection; do not use for other members' records or administrative reporting.
+description: Review and manage the signed-in person's self-scoped XRCVC Library cart, requests, and orders. Use for personal transaction data or an explicit add, remove, request, or checkout action; do not use for another member or administrative reporting.
 ---
 
-# Review Member Requests, Orders, and Cart
+# Review and Manage Member Requests, Orders, and Cart
 
 Use authenticated XRCVC Library MCP Markdown output. The server, not the conversation, decides ownership and role. Never request a Membership ID, bearer value, or OAuth token in chat.
 
@@ -27,6 +27,15 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 - Return archived requests or orders only when the user explicitly asks for archived records. In that case, hand off to Member Archives and use its dedicated archive tools, which enforce stored `isArchived=true`. Never use `status=archived` because archive state is a separate Boolean field.
 - When structured JSON is more useful, use `get_member_cart`, `list_member_requests(..., is_archived=false, active_only=true)`, or `list_member_orders(..., is_archived=false, active_only=true)`. Set `active_only=false` only for the explicit complete non-archived cases below. JSON lists are paginated, so follow `pageInfo.nextCursor` until `pageInfo.hasMore` is false when complete coverage is requested.
 - Markdown responses are complete and unpaginated. Do not use or describe `limit`, `cursor`, pages, or partial coverage.
+
+## Member mutations
+
+- `add_member_cart_item` adds or replaces one requestable item in the authenticated Membership ID's own cart. Confirm the exact catalog item and required Book format or Tactile Diagram type from the live tool schema and catalog detail; never supply another Membership ID.
+- `remove_member_cart_item` removes one saved item, and `clear_member_cart` removes every saved item. Retrieve the current cart first and obtain fresh explicit confirmation immediately before either destructive operation.
+- `create_member_request` creates a request only for the authenticated Membership ID. Retrieve the selected catalog detail, confirm requestability, and collect every required option and reason before execution.
+- `create_member_order` submits the authenticated Membership ID's current saved cart. Retrieve and summarize the complete cart, collect the required order reason, and obtain fresh explicit confirmation immediately before placing the order.
+- Staff, Admin, and Developer may use these same member tools only for their own authenticated Membership ID. Acting for someone else requires the Admin Transactions skill and its administrative tools.
+- A help, preview, availability, or “what would happen” question is not permission to mutate data. Execute only when the user clearly asks for the exact action, and report the returned result before claiming success.
 
 ## Archive state and lifecycle intent
 
@@ -57,7 +66,8 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 2. Fetch only the requested surface, or fetch cart, requests, and orders for a complete personal lifecycle summary. Pass `is_archived=false, active_only=true` on every bare/current/active request/order list. Pass `active_only=false` only for explicit all/every/non-archived intent or an explicitly named terminal status.
 3. Separate cart contents from submitted requests and orders: a cart item is not a submitted request or an order.
 4. For an individual request or order, retrieve its detail before explaining status history, due/return information, or linked records.
-5. If a user asks about another member, all-member data, or reports, hand off to the appropriate Admin skill; do not probe privileged routes.
+5. For a mutation, review the exact target and required inputs, execute only the authorized action, then retrieve the affected cart/request/order when possible to verify the result.
+6. If a user asks about another member, all-member data, or reports, hand off to the appropriate Admin skill; do not probe privileged routes.
 
 ## Response rules
 
@@ -65,3 +75,4 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 - Present only `memberRequestUrl`, `memberOrderUrl`, or `memberCartUrl` from member responses. Do not construct or expose Admin Console transaction links.
 - For a bare/current/active list, return only the server-filtered open requests/orders. For an explicit all/every/non-archived list, separate ongoing records from completed-but-not-yet-archived records when useful. Distinguish no results, unavailable data, access denied, and not found.
 - If authentication is required, direct the user to the host's XRCVC OAuth connection flow. Installation alone does not authenticate an account.
+- Distinguish a mutation accepted by the server from a verified post-write state. Never claim that a cart item, request, or order was created until the tool returns success.

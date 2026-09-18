@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented here.
 
+## 0.2.1 - 2026-09-18
+
+- Allowed every authenticated role to read the Membership ID reservation/shared-profile directory while retaining Member read-only enforcement.
+- Redacted sign-in methods, account-security state, linked-login rows, and Admin Console links from Member directory results.
+- Bound accessibility-setting updates to the authenticated Membership ID and aligned MCP destructive annotations for updates, replacement-capable cart adds, imports, rebuilds, and classification.
+- Synchronized the portable, Claude, Claude Marketplace, and ChatGPT/Codex plugin versions and refreshed directory skill guidance.
+
+## 0.2.0 - 2026-09-18
+
+- Expanded the plugin from 79 read tools to the complete 121-tool FastMCP 0.2.0 contract, including 42 role-authorized mutations.
+- Added self-scoped member cart, request, and order mutations while keeping Membership ID as the single identity source.
+- Added Staff/Admin/Developer on-behalf transaction creation and lifecycle updates, with deletion restricted to Admin and Developer.
+- Added catalog/taxonomy, user/Membership ID, settings, bulk import, and protected maintenance skill coverage with explicit review and confirmation boundaries.
+- Added dedicated Admin Catalog Management, XRCVC Settings Management, and Admin Maintenance skills and updated all host manifests to fifteen skills.
+- Updated ChatGPT submission annotations and tests so writes, overwrites, and destructive operations are distinguished from read-only tools.
+
 ## 0.1.14 - 2026-09-01
 
 - Kept the portable, Claude, Claude Marketplace, and ChatGPT/Codex base versions synchronized.

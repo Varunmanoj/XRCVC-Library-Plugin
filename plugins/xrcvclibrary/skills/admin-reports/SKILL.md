@@ -26,6 +26,7 @@ Reports are server-authorized for Admin and Developer roles only. Start with `/a
 2. State the requested/default time range before interpreting totals, trends, or comparisons.
 3. Preserve report/table names, metric labels, units, and source links. Clearly distinguish observed values from an inference.
 4. For a transaction-level follow-up, use the Admin Transactions skill rather than treating report aggregates as record detail.
+5. For a requested report-default change, hand off to XRCVC Settings Management. For report-data deletion or rebuild, hand off to Admin Maintenance; do not treat those state-changing operations as report reads.
 
 ## Response rules
 

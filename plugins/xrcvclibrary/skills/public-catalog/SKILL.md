@@ -32,6 +32,7 @@ Use the XRCVC Library MCP server as the source of truth. This skill is public: d
 2. Fetch catalog statistics or taxonomy data first when the question is about collection composition or valid filters. Use taxonomy IDs, not display labels, in catalog filters.
 3. Retrieve member-safe catalog Markdown by default. Use the Admin catalog only when the user selects that role-authorized operational view and the server permits it.
 4. Confirm a specific resource through its public detail path before making a detailed claim, and retain its direct URL when supplied.
+5. If the user explicitly asks to add, request, or order a selected item, hand off to Member Transactions for their own Membership ID or Admin Transactions for a role-authorized on-behalf action. Do not invoke a mutation merely because a catalog match was found.
 
 ## Response rules
 

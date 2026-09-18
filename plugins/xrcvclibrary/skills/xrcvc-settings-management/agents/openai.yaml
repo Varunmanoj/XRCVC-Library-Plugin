@@ -1,15 +1,15 @@
 interface:
-  display_name: "Introduce XRCVC Library"
-  short_description: "Explain XRCVC Library and its features"
+  display_name: "Manage XRCVC Settings"
+  short_description: "Update role-authorized library settings"
   icon_small: "./assets/xrcvc-library-icon.png"
   icon_large: "./assets/xrcvc-library-logo.png"
   brand_color: "#E8601C"
-  default_prompt: "Use $xrcvc-library-introduction to introduce XRCVC Library and explain what I can do with it."
+  default_prompt: "Use $xrcvc-settings-management to update the appropriate XRCVC Library settings for my authenticated role."
 dependencies:
   tools:
     - type: "mcp"
       value: "xrcvc-library"
-      description: "Public and role-authorized XRCVC Library read and mutation tools"
+      description: "Self-scoped and role-authorized XRCVC Library settings mutation tools"
       transport: "streamable_http"
       url: "https://mcp.library.xrcvc.org/mcp/authorize"
 policy:

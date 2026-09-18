@@ -20,6 +20,7 @@ Use the public documentation Markdown supplied by the API and MCP server. Explai
 2. List headings, select the narrowest relevant section, and retrieve it before explaining the lifecycle or application behavior.
 3. Explain the documented flow in order—catalog discovery, cart/request steps, request review, order fulfilment/return where applicable—and preserve stated conditions and role limits.
 4. If the question asks what is currently in a user’s account or queue, move to the appropriate authenticated skill rather than inferring it from documentation.
+5. For API or MCP mutation questions, use the developer API/FastMCP reference section in the returned manuals to identify the current tool, HTTP method, Membership-ID identity rule, role boundary, and whether the operation creates, overwrites, or deletes state. Documentation alone is not permission to execute the operation.
 
 ## Response rules
 

@@ -1,15 +1,15 @@
 interface:
-  display_name: "Introduce XRCVC Library"
-  short_description: "Explain XRCVC Library and its features"
+  display_name: "Manage XRCVC Catalog"
+  short_description: "Create and maintain catalog and taxonomy data"
   icon_small: "./assets/xrcvc-library-icon.png"
   icon_large: "./assets/xrcvc-library-logo.png"
   brand_color: "#E8601C"
-  default_prompt: "Use $xrcvc-library-introduction to introduce XRCVC Library and explain what I can do with it."
+  default_prompt: "Use $admin-catalog-management to create or update role-authorized XRCVC Library catalog and taxonomy records."
 dependencies:
   tools:
     - type: "mcp"
       value: "xrcvc-library"
-      description: "Public and role-authorized XRCVC Library read and mutation tools"
+      description: "Role-authorized XRCVC Library catalog and taxonomy mutation tools"
       transport: "streamable_http"
       url: "https://mcp.library.xrcvc.org/mcp/authorize"
 policy:

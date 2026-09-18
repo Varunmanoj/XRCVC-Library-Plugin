@@ -1,9 +1,9 @@
 ---
 name: admin-transactions
-description: Review role-authorized XRCVC Library requests, orders, and saved carts across members. Use for Staff, Admin, and Developer operational transaction work; do not use for reports or a member's self-only question.
+description: Review and manage role-authorized XRCVC Library requests, orders, and saved carts across members. Use for Staff, Admin, and Developer operational reads or explicit on-behalf creation and lifecycle updates; do not use for reports or a member's self-only question.
 ---
 
-# Review Admin Requests, Orders, and Carts
+# Review and Manage Admin Requests, Orders, and Carts
 
 Use authenticated XRCVC Library MCP Markdown output and server-enforced access. This operational skill is available only when `/auth/me` reports Staff, Admin, or Developer; never infer that role from the user's wording.
 
@@ -27,6 +27,16 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 - Use `list_admin_carts` and `get_admin_cart` for structured saved-cart review, or `get_api_output_as_markdown` with `/carts/admin` or `/carts/admin/{membershipId}` for complete Markdown. Saved carts are not submitted transactions.
 - When structured JSON is required, use `list_admin_requests(..., is_archived=false, active_only=true)`, `list_admin_orders(..., is_archived=false, active_only=true)`, or `list_admin_carts`. Set `active_only=false` only for the explicit complete non-archived cases below, and follow `pageInfo.nextCursor` until `pageInfo.hasMore` is false when complete coverage is requested.
 - Markdown results are complete and unpaginated. Do not use or describe `limit`, `cursor`, pages, or partial coverage.
+
+## Administrative mutations
+
+- Staff, Admin, and Developer may use `add_admin_cart_item`, `create_admin_request`, `create_admin_order`, `update_admin_request`, and `update_admin_order` for an explicitly selected target Membership ID. The target identifier is operation data, not an authentication credential; never substitute it for the authenticated Membership ID.
+- Before adding a cart item or creating a request/order, retrieve the target member's current administrative cart and the selected catalog detail. Confirm requestability, required format/type options, reason, and the exact **Full Name (Membership ID)** beneficiary.
+- `create_admin_order` submits the selected member's saved cart. Show the complete cart and obtain explicit confirmation immediately before placing the order.
+- Before a lifecycle update, retrieve current request/order detail and history, summarize the current status and proposed fields, and use only values accepted by the live MCP schema. Do not skip lifecycle rules or invent timestamps, actors, or history entries.
+- Only Admin and Developer may use `remove_admin_cart_item`, `clear_admin_cart`, `delete_admin_request`, `delete_admin_order`, `bulk_delete_admin_requests`, `bulk_delete_admin_orders`, or `bulk_delete_admin_cart_items`. Staff must never call these tools.
+- Every removal, clear, individual deletion, and bulk deletion requires fresh explicit confirmation identifying the exact target or reviewed target set. Preserve server dependency checks and report skipped or ineligible records exactly as returned.
+- For every mutation, report the returned result and retrieve the affected record afterward when possible. Do not claim success from an attempted call or from a pre-write preview.
 
 ## Archive state and lifecycle intent
 
@@ -67,7 +77,8 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 2. Choose requests, orders, carts, or the smallest combination that answers the operational question.
 3. Apply `is_archived=false, active_only=true` to every bare/current/active request/order list. Pass `active_only=false` only for explicit all/every/non-archived intent or an explicitly named terminal status, and use the archive skill only after an explicit archived-record request.
 4. Retrieve detail for any transaction whose lifecycle, requester, order linkage, or status history is being explained.
-5. Keep reporting questions in the Admin Reports skill; use the explicit admin cart endpoints for saved-cart investigations.
+5. For a mutation, review the exact beneficiary, record, current state, and required inputs before invoking one role-authorized tool; verify the resulting state when possible.
+6. Keep reporting questions in the Admin Reports skill; use the explicit admin cart endpoints for saved-cart investigations.
 
 ## Response rules
 

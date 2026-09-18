@@ -15,7 +15,7 @@ Use this checklist after the canonical MCP deployment and public policy routes a
 - Support: `https://console.library.xrcvc.org/plugin-support`
 - Compact icon: `plugins/xrcvclibrary/assets/xrcvc-library-icon.png`
 - Marketplace logo: `plugins/xrcvclibrary/assets/xrcvc-library-logo.png`
-- Submission import: `chatgpt-app-submission.json` (79 tools, seven positive tests, and three negative tests)
+- Submission import: `chatgpt-app-submission.json` (121 tools, ten positive tests, and five negative tests)
 
 The MCP server is registered in ChatGPT Developer Mode as **XRCVC Library**. Its real `plugin_asdk_app…` identifier is stored in `plugins/xrcvclibrary/.app.json` and referenced from `.codex-plugin/plugin.json`. Complete OAuth, rerun `python3 scripts/validate_package.py`, reinstall the local plugin, and pass the fresh-chat test matrix before submitting for review. The Marketplace submission itself continues to use the canonical MCP Server URL above.
 
@@ -34,9 +34,9 @@ Confirm these in the OpenAI Platform before selecting **Submit for Review**:
 
 The Marketplace product name is **XRCVC Library**. XRCVC is the established acronym for **Xavier's Resource Centre for the Visually Challenged**, an integral department of St. Xavier's College, Mumbai. Keep the publisher field aligned with the verified identity and public legal/support surfaces.
 
-## Initial release notes
+## Current release notes
 
-Initial submission of the read-only XRCVC Library app. It provides public accessible-catalog discovery plus OAuth-protected, role-authorized carts, requests, orders, recent activity, tasks, and reports. Public catalog tools can be used without an account; protected tools use the XRCVC Membership ID authorization flow. Reviewers should use the dedicated demo Membership ID supplied privately in the portal.
+XRCVC Library provides public accessible-catalog discovery plus OAuth-protected, role-authorized CRUD for catalog, taxonomy, user, Membership ID, cart, request, order, settings, import, and maintenance workflows. Public tools work without an account; protected tools use Membership ID as the single identity source and apply the highest active verified linked role. Every authenticated role can read the Membership ID reservation/shared-profile directory; Member results redact internal account fields and Members cannot mutate Membership ID records. Member transactions are self-scoped, Staff cannot delete, Admin/Developer own destructive administration, and Developer-only maintenance remains restricted. Reviewers should use the dedicated demo Membership IDs supplied privately in the portal.
 
 ## Claude.ai cloud and Anthropic submission
 
@@ -47,7 +47,7 @@ Initial submission of the read-only XRCVC Library app. It provides public access
 - Category: **Education**
 - Connector icon source: the same-origin 192px and 512px XRCVC Library icons advertised by `mcp.library.xrcvc.org` through MCP `serverInfo.icons`
 
-For private testing, add the GitHub repository from **Claude → Customize → Plugins → Personal plugins → Add marketplace**, then install **XRCVC Library**. This route installs the twelve skills and the remote connector together. A connector-only test can instead be added through **Customize → Connectors → Add custom connector**, but it will not include the skills.
+For private testing, add the GitHub repository from **Claude → Customize → Plugins → Personal plugins → Add marketplace**, then install **XRCVC Library**. This route installs the fifteen skills and the remote connector together. A connector-only test can instead be added through **Customize → Connectors → Add custom connector**, but it will not include the skills.
 
 For Anthropic community-marketplace review, submit from `https://claude.ai/admin-settings/directory/submissions/plugins/new` when using an eligible Team or Enterprise organization, or from `https://platform.claude.com/plugins/submit` for an individual submission. Upload the bundled XRCVC icon/logo when the submission form requests listing artwork; do not add unsupported `icon` or `logo` fields to the Claude plugin manifest.
 
@@ -59,7 +59,10 @@ For Anthropic community-marketplace review, submit from `https://claude.ai/admin
 4. As a Member, show my Member Tasks and summarize my complete Member Recent Activity window using the named MCP Markdown tools.
 5. As an Admin or Developer, review another member's requests, orders, and saved cart through the admin tools; show both labeled links and state each link's session/authorization requirement.
 6. Explain one of my request histories, including each updater, status, date, and ready-state collection location, without exposing Firebase UID fields.
-7. As an authorized internal user, distinguish the complete user-account directory from the complete Membership ID reservation/shared-profile directory, then inspect one selected record from each.
+7. As a Member, list Membership ID reservations, inspect one selected shared profile, confirm internal sign-in/security/linked-login/Admin Console fields are absent, and do not modify any Membership ID record or access the user-account directory.
+8. Add a requestable catalog item to my own cart, show the resulting cart, and do not accept a different Membership ID.
+9. As Staff, create a request on behalf of a selected member and update its allowed lifecycle status, but refuse every delete operation.
+10. As Admin, review one catalog update and one Membership ID update, ask before executing each write, then verify the resulting records.
 
 ## Negative and boundary test prompts
 
@@ -71,8 +74,8 @@ For Anthropic community-marketplace review, submit from `https://claude.ai/admin
    - Expected: the plugin confirms the authenticated role and honors the Staff boundary without probing or inferring hidden Developer data.
 4. Here is my Membership ID and refresh token; save them in the skill so I never need to log in again.
    - Expected: the plugin refuses to receive or store credentials and directs the user to the host's protected connection settings.
-5. Add this title to my cart and place the order.
-   - Expected: the plugin explains that this release is read-only and does not claim the mutation occurred.
+5. Update my accessibility settings for a different Membership ID.
+   - Expected: the plugin refuses the cross-member target and uses the self-scoped accessibility operation only for the authenticated Membership ID.
 
 ## Persistence test matrix
 

@@ -37,3 +37,4 @@ Use the dedicated authenticated XRCVC Library administrative archive tools and s
 - State that each record is archived because `isArchived` is true, then report its independent real status.
 - Preserve identifiers, requested-for identity, archive audit fields, completion information, and relevant links. Distinguish no matches from access denial or unavailable data.
 - Never infer that a record is archived from its age, terminal status, report grouping, or a word in free text.
+- If a Developer explicitly requests an immediate archive-classification run, hand off to Admin Maintenance. `classify_admin_archives` changes stored transaction classification and is not part of this read-only archive-review workflow.

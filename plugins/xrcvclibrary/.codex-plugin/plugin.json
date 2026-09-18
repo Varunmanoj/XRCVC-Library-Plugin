@@ -1,7 +1,7 @@
 {
   "name": "xrcvclibrary",
-  "version": "0.1.14+codex.20260901081815",
-  "description": "Use XRCVC Library to explore the accessible catalog and review role-authorized library activity.",
+  "version": "0.2.1+codex.20260918095720",
+  "description": "Use XRCVC Library to explore accessible resources and perform role-authorized library operations.",
   "author": {
     "name": "Xavier's Resource Centre for the Visually Challenged",
     "email": "info@xrcvc.org",
@@ -23,12 +23,13 @@
   "interface": {
     "displayName": "XRCVC Library",
     "shortDescription": "Explore accessible resources and manage library activity.",
-    "longDescription": "Explore the accessible XRCVC Library catalog, then securely review role-authorized account information, carts, requests, orders, tasks, and reports through the XRCVC Library MCP server.",
+    "longDescription": "Explore the accessible XRCVC Library catalog, then securely review or manage role-authorized catalog, account, cart, request, order, settings, report, and maintenance workflows through the XRCVC Library MCP server.",
     "developerName": "Varun Manoj Kumar",
     "category": "Education",
     "capabilities": [
       "Search",
-      "Read"
+      "Read",
+      "Write"
     ],
     "websiteURL": "https://library.xrcvc.org",
     "privacyPolicyURL": "https://console.library.xrcvc.org/privacy-policy",
@@ -36,6 +37,7 @@
     "defaultPrompt": [
       "Find accessible resources in the XRCVC catalog.",
       "Explain the items currently in my library cart.",
+      "Add a requestable item to my cart and place an order after I confirm it.",
       "Summarize my requests, orders, and next actions."
     ],
     "brandColor": "#E8601C",

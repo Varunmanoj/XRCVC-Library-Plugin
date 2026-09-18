@@ -1,6 +1,6 @@
 # Contributing
 
-Keep the plugin read-only, accessible, role-aware, and aligned with the deployed XRCVC Library MCP contract.
+Keep the plugin accessible, role-aware, mutation-safe, and aligned with the deployed XRCVC Library MCP contract. Preserve Membership ID as the single API identity, Member self-scope, Staff delete denial, and Admin/Developer destructive-operation boundaries.
 
 ## Before opening a pull request
 
