@@ -4,6 +4,8 @@ This distributable package provides **XRCVC Library**, the accessible library se
 
 The package covers all 121 current FastMCP tools, including 42 mutations. Membership ID remains the single protected identity, OAuth resolves to that Membership ID, and multiple active verified linked accounts use the highest role. Every authenticated role may read the Membership ID reservation/shared-profile directory; Member output omits internal account fields. Members may mutate only their own cart and create requests or orders for themselves, and cannot mutate Membership ID records. Staff, Admin, and Developer may create/update operational records and act on behalf of members; Staff cannot delete. Admin and Developer may administer users, Membership IDs, destructive operations, and report defaults; Developer-only settings and maintenance remain restricted. Skills review current state, exact targets, and required fields before writes and require explicit confirmation for destructive or high-impact operations.
 
+The introduction skill describes the same ZeptoMail side effects for website, API, and MCP mutations: standalone request mail, combined order mail, actual lifecycle-transition mail, and documented account-workflow mail. It also identifies cart-only and Membership ID reservation/profile-only changes as intentionally email-silent, preserves the Developer Mode recipient override, and prevents a successful data write from being misreported as proof of asynchronous provider acceptance.
+
 ## Public listing links
 
 - Website: https://library.xrcvc.org

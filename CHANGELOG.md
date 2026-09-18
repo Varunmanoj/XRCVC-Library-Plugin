@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented here.
 
+## 0.2.2 - 2026-09-19
+
+- Expanded the XRCVC Library Introduction skill to describe the channel-independent ZeptoMail behavior for API and MCP mutations.
+- Documented standalone request, combined order, lifecycle-status, account-workflow, Developer Mode recipient-override, and intentionally email-silent cart/Membership ID operations.
+- Required assistants to distinguish a successful authoritative data write from asynchronous provider acceptance and to use returned delivery evidence without overstating delivery.
+- Synchronized the portable, Claude, Claude Marketplace, and ChatGPT/Codex plugin versions and refreshed the Codex cachebuster.
+
 ## 0.2.1 - 2026-09-18
 
 - Allowed every authenticated role to read the Membership ID reservation/shared-profile directory while retaining Member read-only enforcement.

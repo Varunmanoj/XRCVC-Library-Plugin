@@ -15,6 +15,8 @@
 
 The plugin exposes the complete FastMCP 0.2.1 contract: 121 tools, including 42 mutations. Every authenticated role may read the Membership ID reservation/shared-profile directory; Member responses omit internal sign-in, security, linked-login, and Admin Console fields. Members may add or remove items in their own cart and create requests or orders only for themselves, but cannot mutate Membership ID records. Staff, Admin, and Developer may create and update operational records and act on behalf of members; Staff cannot delete. Admin and Developer may administer users, Membership IDs, catalog deletion, report defaults, and destructive operations, while Developer-only settings and maintenance retain their server-enforced boundary.
 
+The introduction skill also explains the channel-independent ZeptoMail contract. API and MCP mutations retain the website workflows for standalone request creation, combined order submission, request/order status transitions, and documented account events; cart-only changes and Membership ID reservation/profile-only edits remain intentionally email-silent. It distinguishes an authoritative write from asynchronous provider acceptance and preserves the Developer Mode recipient override.
+
 Membership ID is the single protected API identity. OAuth resolves back to that Membership ID for every protected call, and multiple linked verified accounts use the highest role in `developer` > `admin` > `staff` > `member` order. The plugin never asks for the bearer credential in conversation.
 
 ## Authentication

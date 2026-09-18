@@ -447,6 +447,17 @@ def validate() -> None:
     assert "Show all my non-archived requests, including completed ones" in introduction
     assert "Show my archived requests" in introduction
     assert "The user does not need to say active" in introduction
+    assert "## Transactional email behavior" in introduction
+    for email_contract_text in (
+        "ZeptoMail",
+        "Standalone request creation",
+        "combined order email",
+        "Cart-only add, remove, and clear operations",
+        "Developer Mode",
+        "emailDelivery",
+        "not asynchronous ZeptoMail provider acceptance",
+    ):
+        assert email_contract_text in introduction, f"introduction must explain {email_contract_text}"
 
     codex_entry = codex_marketplace["plugins"][0]
     assert codex_marketplace.get("name") == "xrcvc-library"
