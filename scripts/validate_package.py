@@ -128,7 +128,10 @@ DESTRUCTIVE_TOOL_NAMES = {
     name
     for name in MUTATION_TOOL_NAMES
     if name.startswith(("update_", "delete_", "remove_", "clear_", "bulk_", "rebuild_", "classify_"))
-} | {"add_member_cart_item", "add_admin_cart_item"}
+} | {
+    "add_member_cart_item", "add_admin_cart_item",
+    "create_member_order", "create_admin_order",
+}
 EXPECTED_CHATGPT_TOOLS |= MUTATION_TOOL_NAMES
 MCP_URL = "https://mcp.library.xrcvc.org/mcp/authorize"
 WEBSITE_URL = "https://library.xrcvc.org"
@@ -302,6 +305,8 @@ def validate() -> None:
     assert "/requests/admin" in admin_transactions and "/orders/admin" in admin_transactions and "/carts/admin" in admin_transactions
     assert "memberRequestUrl" in member_transactions and "adminRequestUrl" in admin_transactions
     assert "Cart records are saved selections" in member_transactions, "member-transactions must distinguish carts from transactions"
+    assert "if requestability is later restored" in member_transactions, "member-transactions must cover reverse requestability refresh"
+    assert "A fresh call clears a blocked state" in admin_transactions, "admin-transactions must cover reverse requestability refresh"
     for tool_name in (
         "add_member_cart_item", "remove_member_cart_item", "clear_member_cart",
         "create_member_request", "create_member_order",
@@ -316,6 +321,22 @@ def validate() -> None:
         assert tool_name in admin_transactions, f"admin-transactions must explain {tool_name}"
     assert "Staff must never call these tools" in admin_transactions
     assert "fresh explicit confirmation" in member_transactions and "fresh explicit confirmation" in admin_transactions
+    for skill_name, skill_text in (
+        ("member-transactions", member_transactions),
+        ("admin-transactions", admin_transactions),
+    ):
+        assert "confirmPartialOrder=true" in skill_text, f"{skill_name} must document partial-order confirmation"
+        assert "confirmedSkippedItems" in skill_text, f"{skill_name} must bind confirmation to exact skipped items"
+        assert "removed from the cart" in skill_text, f"{skill_name} must report skipped-item cart removal"
+        assert "do not perform polling" in skill_text, f"{skill_name} must prohibit continuous availability lookups"
+        assert "itemized **Requested items** confirmation" in skill_text, f"{skill_name} must require itemized order confirmation"
+        assert "catalog item name and type" in skill_text, f"{skill_name} must report actual requested catalog items"
+        assert "Book format or Tactile Diagram type" in skill_text, f"{skill_name} must report request options"
+        assert "pre-submit cart alone" in skill_text, f"{skill_name} must verify the server-created result"
+        assert "excluded from the order" in skill_text, f"{skill_name} must explain blocked-item exclusion"
+        assert "remaining requestable items" in skill_text, f"{skill_name} must ask before partial checkout"
+    assert "contact XRCVC admin staff" in member_transactions, "member-transactions must offer member assistance"
+    assert "specific returned administrative reason" in admin_transactions, "admin-transactions must report blocked causes"
     for name, skill_text in (
         ("member-transactions", member_transactions),
         ("admin-transactions", admin_transactions),

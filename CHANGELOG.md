@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented here.
 
+## 0.2.3 - 2026-09-19
+
+- Required request and order success responses to list the actual server-created requests with catalog title, selected format or diagram type, reason, status, and identifiers instead of returning a generic confirmation.
+- Clarified that blocked catalog items are excluded from a partial order only after explicit confirmation, never create requests, and must be reported separately with generic Member assistance or the specific Admin-visible cause.
+- Made Member and Admin cart reads return current per-item requestability and aggregate checkout readiness, including the reverse transition when requestability is restored on a later API/MCP call.
+- Kept Member blocked-item guidance generic while exposing manual-disable, incomplete-configuration, and missing-record causes only to administrative cart reads.
+- Required Member and Admin order tools to surface current non-requestable cart items and obtain exact, fresh confirmation before placing a partial order.
+- Documented that skipped catalog items are not requested and are removed when the submitted cart is cleared, and required assistants to report those titles explicitly.
+- Kept internal requestability causes Admin-only: member agents provide generic XRCVC staff-contact guidance, while administrative agents may distinguish manual disablement from incomplete requesting configuration using current catalog detail.
+- Marked order creation as destructive because successful checkout clears persistent cart records.
+- Synchronized the portable, Claude, Claude Marketplace, and ChatGPT/Codex plugin versions and refreshed the Codex cachebuster.
+
 ## 0.2.2 - 2026-09-19
 
 - Expanded the XRCVC Library Introduction skill to describe the channel-independent ZeptoMail behavior for API and MCP mutations.

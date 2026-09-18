@@ -1008,12 +1008,12 @@
       "annotations": {
         "readOnlyHint": false,
         "openWorldHint": false,
-        "destructiveHint": false
+        "destructiveHint": true
       },
       "justifications": {
         "read_only_justification": "Creates or submits role-authorized XRCVC Library state and therefore modifies records.",
         "open_world_justification": "Changes only the protected XRCVC Library service under server-enforced authorization and does not publish to unrelated external systems.",
-        "destructive_justification": "Creates new role-authorized state without deleting or overwriting an existing record."
+        "destructive_justification": "Creates the order and requests, then clears the submitted cart, including confirmed non-requestable items skipped from a partial order."
       }
     },
     "list_admin_orders": {
@@ -1032,12 +1032,12 @@
       "annotations": {
         "readOnlyHint": false,
         "openWorldHint": false,
-        "destructiveHint": false
+        "destructiveHint": true
       },
       "justifications": {
         "read_only_justification": "Creates or submits role-authorized XRCVC Library state and therefore modifies records.",
         "open_world_justification": "Changes only the protected XRCVC Library service under server-enforced authorization and does not publish to unrelated external systems.",
-        "destructive_justification": "Creates new role-authorized state without deleting or overwriting an existing record."
+        "destructive_justification": "Creates the order and requests, then clears the submitted cart, including confirmed non-requestable items skipped from a partial order."
       }
     },
     "get_admin_order": {
