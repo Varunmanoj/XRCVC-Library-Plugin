@@ -28,6 +28,13 @@ Reports are server-authorized for Admin and Developer roles only. Start with `/a
 4. For a transaction-level follow-up, use the Admin Transactions skill rather than treating report aggregates as record detail.
 5. For a requested report-default change, hand off to XRCVC Settings Management. For report-data deletion or rebuild, hand off to Admin Maintenance; do not treat those state-changing operations as report reads.
 
+## Catalog Health open-cart impact
+
+- For members whose open carts contain catalog items that are currently unable to be requested, use `/reports/catalog-health/tables/open-cart-unrequestable-by-member`. This table groups blocked items under the returned `memberDisplayName`, `memberName`, and `membershipId`.
+- For the inverse view, use `/reports/catalog-health/tables/open-cart-unrequestable-by-item`. This table groups affected members under each catalog item and returns the exact current member count, request-block reason, and the catalog item's updater identity/date.
+- These two tables are current point-in-time Catalog Health data. State that scope explicitly; do not imply that `start_date` or `end_date` reconstructs historical cart membership.
+- Preserve each returned catalog item's reason and audit fields. When listing members, render the row's paired name and Membership ID as `Full Name (Membership ID)` and do not make a separate directory lookup.
+
 ## Response rules
 
 - Whenever an administrative report result contains a Membership ID, present that exact row's corresponding returned full name as `Full Name (Membership ID)`. Use the matching `fullName`, `memberName`, or other explicitly paired name field from that same row; never output the Membership ID alone when its name is returned. If no matching name is returned, write `Full name unavailable (Membership ID)` instead of guessing or making an unrelated directory lookup.
