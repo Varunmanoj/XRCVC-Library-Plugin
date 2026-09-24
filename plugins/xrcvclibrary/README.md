@@ -6,6 +6,8 @@ The package covers all 121 current FastMCP tools, including 42 mutations. Member
 
 The introduction skill describes the same ZeptoMail side effects for website, API, and MCP mutations: standalone request mail, combined order mail, actual lifecycle-transition mail, and documented account-workflow mail. It also identifies cart-only and Membership ID reservation/profile-only changes as intentionally email-silent, preserves the Developer Mode recipient override, and prevents a successful data write from being misreported as proof of asynchronous provider acceptance.
 
+The Member and Admin transaction skills describe each saved cart item's stored `addedAt` and `updatedAt` dates and actor attribution, unavailable legacy values, and API/MCP sorting. Member JSON and MCP cart detail always includes the stored `addedByName`, including self-added items; Admin detail includes full added and last-updated actor names and Membership IDs.
+
 ## Public listing links
 
 - Website: https://library.xrcvc.org
