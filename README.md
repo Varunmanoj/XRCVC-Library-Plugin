@@ -119,6 +119,8 @@ The MCP server derives the effective role from current XRCVC account data. OAuth
 
 The packaged skills prefer complete MCP Markdown for review and use structured tools for mutations. Named Markdown companions return complete, unpaginated Catalog, Requests, Orders, archives, activity, tasks, user accounts, and Membership ID data. Mutation skills read the relevant current state, enforce role and self/on-behalf boundaries, review exact targets and inputs, require explicit confirmation for destructive or high-impact operations, invoke the dedicated mutation tool, and verify the result through a follow-up read when possible. Tool annotations distinguish read-only, additive, overwriting, and destructive behavior; application authorization remains server-enforced.
 
+The catalog, taxonomy, request, order, archive, and Admin report skills explain the deployed `sort_by` and `sort_order` controls, including name sorting and continuation with the same sort parameters. Admin Reports also covers the separate Catalog Taxonomy Breakdown report and its eight aggregate tables.
+
 ## Validation
 
 ```bash

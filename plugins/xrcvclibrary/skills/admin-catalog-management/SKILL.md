@@ -16,6 +16,8 @@ Use the authenticated XRCVC Library MCP tools and server-enforced role checks. M
 
 ## Catalog mutations
 
+- For a read or pre-mutation review, use `list_admin_catalog_as_markdown` or a structured Admin catalog list with `sort_by` set to a returned field and `sort_order=asc|desc`. Apply the same query parameters to `/taxonomies` family or collection lists. Examples include catalog `title` or `createdAt` and taxonomy `title` or `usageCount`; a nested returned field may use a dotted path. Keep sort parameters and the returned `pageInfo.nextCursor` together on structured pages. Sorting changes display order only; it does not select a mutation target.
+
 - Use `create_admin_catalog_item` for a new Book, Teaching Learning Aid, or Tactile Diagram. Use `update_admin_catalog_item` only after retrieving the selected administrative catalog detail and confirming its `resource_type` and `resource_id`.
 - Use `delete_admin_catalog_item` only for Admin or Developer after showing the exact item and receiving explicit confirmation that it should be permanently deleted. Dependency checks may still reject the deletion.
 - Preserve server-managed IDs and audit fields. Do not copy IDs from one resource type to another or invent fields that are absent from the tool schema.

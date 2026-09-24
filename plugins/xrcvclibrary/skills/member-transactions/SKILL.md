@@ -28,6 +28,7 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 - When structured JSON is more useful, use `get_member_cart`, `list_member_requests(..., is_archived=false, active_only=true)`, or `list_member_orders(..., is_archived=false, active_only=true)`. Set `active_only=false` only for the explicit complete non-archived cases below. JSON lists are paginated, so follow `pageInfo.nextCursor` until `pageInfo.hasMore` is false when complete coverage is requested.
 - Every `get_member_cart` call evaluates the saved items against the current catalog state. Use `isRequestable`, `requestabilityStatus`, `requestableItemCount`, `blockedItemCount`, and `canPlaceOrder` as returned; if requestability is later restored, a fresh call clears the blocked state without polling. For blocked member items, present only `requestabilityMessage` and never infer the internal cause.
 - Markdown responses are complete and unpaginated. Do not use or describe `limit`, `cursor`, pages, or partial coverage.
+- For a requested sort, pass `sort_by` and `sort_order=asc|desc` to the Member request/order Markdown or structured list tool, including archived tools after an explicit archive request. For name sorting, requests use `resourceTitle` and orders can use returned `requestedFor.name`; date and status fields also work. Preserve `is_archived` and `active_only` filters; sorting does not change their meaning. Reuse the sort and `pageInfo.nextCursor` on each structured page.
 
 ## Member mutations
 

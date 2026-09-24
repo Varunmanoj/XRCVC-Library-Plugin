@@ -18,6 +18,7 @@ Use the dedicated authenticated XRCVC Library administrative archive tools and s
 
 - Dedicated archive tools select only documents whose stored `isArchived` boolean is `true`. Never pass or search for `status=archived`; request/order status remains an independent lifecycle field.
 - A real status may additionally narrow archived records. Archived request tools also accept a real resource-type filter.
+- For a requested order, pass `sort_by` set to a returned request/order field and `sort_order=asc|desc` to the dedicated archive Markdown or structured list tool. Preserve any requested-for Membership ID filter and reuse the sort with `pageInfo.nextCursor` on structured pages; sorting does not change the `isArchived=true` selection.
 - Preserve `isArchived`, `archivedAt`, `archiveEligibleDate`, `archivedBy`, and every other returned audit field. Do not infer missing archive metadata from history actors or the signed-in operator.
 - For a specific lifecycle explanation, hand off to Request History or Order History. Use returned history entries rather than treating archive metadata as status history.
 

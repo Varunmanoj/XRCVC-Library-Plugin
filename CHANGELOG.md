@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented here.
 
+## 1.0.2 - 2026-09-24
+
+- Updated catalog, taxonomy, request, order, archive, and Admin report skills for the deployed API/MCP `sort_by` and `sort_order` controls, including name fields and cursor continuity.
+- Added guidance for the separate Admin/Developer Catalog Taxonomy Breakdown report and its eight aggregate tables.
+- Synchronized the portable, Claude, Claude Marketplace, and ChatGPT/Codex release versions and refreshed the Codex cachebuster.
+
 ## 0.2.3 - 2026-09-19
 
 - Required request and order success responses to list the actual server-created requests with catalog title, selected format or diagram type, reason, status, and identifiers instead of returning a generic confirmation.

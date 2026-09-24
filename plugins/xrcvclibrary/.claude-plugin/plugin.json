@@ -1,7 +1,7 @@
 {
   "name": "xrcvclibrary",
   "displayName": "XRCVC Library",
-  "version": "0.2.3",
+  "version": "1.0.2",
   "description": "Explore XRCVC Library and perform role-authorized catalog, membership, cart, request, order, settings, and maintenance operations.",
   "author": {
     "name": "Xavier's Resource Centre for the Visually Challenged",

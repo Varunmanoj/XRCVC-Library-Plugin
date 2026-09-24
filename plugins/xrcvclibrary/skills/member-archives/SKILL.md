@@ -13,6 +13,7 @@ Use the dedicated authenticated XRCVC Library archive tools. The server derives 
 - These tools select only documents whose stored `isArchived` boolean is `true`. Never pass or search for `status=archived`, because requests and orders retain their real lifecycle status independently from archive state.
 - A real request/order status filter may additionally narrow the already archived records. Archived request tools also accept a real resource-type filter.
 - Member archive output is bearer-self-scoped, recursively Firebase-UID-redacted, and contains only member-app transaction links.
+- For a requested order, pass `sort_by` set to a returned request/order field and `sort_order=asc|desc` to the dedicated archive Markdown or structured list tool. Keep the same sort on every JSON continuation with `pageInfo.nextCursor`; the stored `isArchived=true` selection stays in force.
 
 ## Fields to preserve
 

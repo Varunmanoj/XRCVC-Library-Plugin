@@ -13,6 +13,13 @@ Reports are server-authorized for Admin and Developer roles only. Start with `/a
 - Request `/reports` first when the report ID is unknown; use its returned report/table IDs rather than guessing them.
 - Use supported `start_date` and `end_date` query values when the requested reporting period differs from the server default. Dates cannot precede `2026-01-01`.
 - Markdown report results are complete within their documented report/table bounds. Do not claim a JSON page or cursor is complete Markdown evidence.
+- For a requested order, pass `sort_by=<table schema column key>&sort_order=asc|desc` to `/reports/{reportId}`, `/reports/{reportId}/tables/{tableId}`, or `/reports/combined`. Use a key returned in that table's `schema`; the combined endpoint sorts each table containing that key. Keep the same sort parameters on every JSON continuation request. Markdown table output remains complete.
+
+## Catalog Taxonomy Breakdown
+
+- Use `/reports/catalog-taxonomy` for current counts by taxonomy value. Its eight tables cover Book Categories, Formats, and Keywords; Teaching Learning Aid Subjects and Topics; and Tactile Diagram Subjects, Topics, and Diagram Types. For example, `/reports/catalog-taxonomy/tables/book-categories?sort_by=count&sort_order=desc` ranks Book categories by linked-resource count; `sort_by=value&sort_order=asc` sorts their names.
+- These are counts of resource-to-taxonomy associations, so one catalog resource can contribute to several values. `count: null` means a stored usage count is unavailable; it is not zero. The report contains aggregate taxonomy values and counts, not individual catalog records.
+- This is a current snapshot. Do not imply that `start_date` or `end_date` reconstructs historical taxonomy counts. Do not look for its breakdown inside Catalog Health.
 
 ## Date conversion and display
 

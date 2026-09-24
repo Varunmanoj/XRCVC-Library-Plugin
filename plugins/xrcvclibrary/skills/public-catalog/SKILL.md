@@ -25,6 +25,7 @@ Use the XRCVC Library MCP server as the source of truth. This skill is public: d
 - Use `get_public_api_output_as_markdown` for `/catalog/statistics`, public member catalog details, taxonomy paths, and MCP metadata. Never use the OAuth-only Markdown tool for those public routes.
 - The catalog has no server-side free-text search. Narrow only by `resource_type` and known `taxonomy_type` plus `taxonomy_id`; inspect the returned Markdown locally for title, author, subject, format, or topic matches.
 - Use `get_llms_full_txt` only for a broad public catalog-and-taxonomy audit, not as proof of private availability.
+- When the user requests an order, pass `sort_by` and `sort_order` (`asc` or `desc`) to `list_member_catalog_as_markdown`, or use the same query parameters on `/catalog/member`, its resource-type routes, and `/taxonomies` routes through `get_public_api_output_as_markdown`. Choose a field actually returned by that list, such as `title`, `status`, `createdAt`, or taxonomy `title`/`usageCount`; nested returned fields use dotted paths. Keep the same sort on each structured JSON page and use `pageInfo.nextCursor` for continuation. Sorting does not add fields or widen public access.
 
 ## Workflow
 
