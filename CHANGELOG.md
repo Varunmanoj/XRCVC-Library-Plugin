@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented here.
 
+## 1.0.3 - 2026-09-24
+
+- Updated Member and Admin cart guidance for per-item added date, time, and actor information, including legacy items with missing attribution. Per-item last-update fields are no longer part of the response.
+- Documented cart item sorting by added time, title, resource type, requestability, and role-appropriate actor fields, with sort options preserved across structured pages.
+- Synchronized the portable, Claude, Claude Marketplace, and ChatGPT/Codex release versions and refreshed the Codex cachebuster.
+
 ## 1.0.2 - 2026-09-24
 
 - Updated catalog, taxonomy, request, order, archive, and Admin report skills for the deployed API/MCP `sort_by` and `sort_order` controls, including name fields and cursor continuity.
