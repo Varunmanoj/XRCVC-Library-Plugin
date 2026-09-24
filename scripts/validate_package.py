@@ -365,7 +365,7 @@ def validate() -> None:
         "openedBy.fullName (openedBy.membershipId)",
         "does not define a separate `displayName` field",
         "Never make a separate profile or Membership ID directory call",
-        "Do not treat `updatedByName` as the cart owner's name",
+        "Do not treat `addedByName` as the cart owner's name",
         "Present every cart owner as `fullName (membershipId)`",
     ):
         assert required_admin_name_contract in admin_transactions, (
