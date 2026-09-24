@@ -132,6 +132,8 @@ python3 /path/to/plugin-creator/scripts/validate_plugin.py plugins/xrcvclibrary
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the complete release checks.
 The marketplace registration checklist and positive/negative review prompts are in [SUBMISSION.md](SUBMISSION.md).
 
+ChatGPT personal plugin upload ZIPs are kept in `release-archives/chatgpt/` for future updates. This archive folder is outside the marketplace's `./plugins/xrcvclibrary` source path, so storing a ZIP there does not change the plugin installed by the Codex desktop app. Other release archives remain local unless explicitly added to the repository.
+
 ## Policies and support
 
 - [Privacy Policy](https://console.library.xrcvc.org/privacy-policy)

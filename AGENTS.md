@@ -12,3 +12,7 @@
 - Never bump or publish the ChatGPT/Codex and Claude distributions separately. A release is ready only when every manifest has the same base version and `scripts/validate_package.py` passes.
 - Keep `scripts/validate_package.py` version checks derived from the canonical portable manifest; do not hard-code a release number into separate host assertions.
 
+## Release archives
+
+- Store ChatGPT personal plugin upload ZIPs in `release-archives/chatgpt/` and keep them tracked in the repository.
+- Keep release ZIPs outside `plugins/xrcvclibrary/` and outside both marketplace source paths so archives are never treated as plugin contents by the desktop app.

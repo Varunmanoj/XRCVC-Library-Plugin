@@ -2,5 +2,8 @@
 __pycache__/
 *.pyc
 .pytest_cache/
-release-archives/
+release-archives/*
+!release-archives/chatgpt/
+release-archives/chatgpt/*
+!release-archives/chatgpt/*.zip
 plugins/xrcvclibrary/.app.json.local
