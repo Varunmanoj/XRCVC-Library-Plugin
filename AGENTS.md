@@ -1,5 +1,11 @@
 # XRCVC Library Plugin Agent Rules
 
+## User-facing Language and Cloud Function Deployment
+
+- Use plain, user-facing language across the entire XRCVC Library ecosystem: Member and Admin websites, desktop apps, Member and Admin plugins on every supported host, emails, notifications, dialogs, errors, help text, and user-visible API/MCP responses. Explain what a feature does, what happened, and what the user can do next using familiar words. Avoid technical jargon, internal identifiers, implementation details, and raw service errors in user-facing communication; describe technology-related functionality in terms users can understand. Keep implementation terminology in developer documentation and diagnostic logs.
+- Whenever `AGENTS.md` is updated, preserve this language rule and review the changed instructions for consistent coverage across Member, Admin, desktop, and plugin platforms. Include plain-language communication in UI and email audits.
+- Whenever Firebase Cloud Functions are added or changed, automatically deploy the affected functions to the configured Firebase project after development is complete and all required tests and checks pass. This rule provides standing authorization for that deployment without a separate confirmation. Include functions affected by changes to shared backend code, confirm the target project and deployment scope, and verify the live deployment before reporting completion. If testing or deployment fails, or access is unavailable, report the exact blocker and remaining work; do not claim deployment succeeded. Function deletion must still follow the repository's explicit deletion safeguards.
+
 ## Cross-host version synchronization
 
 - Treat `plugins/xrcvclibrary/plugin.json` as the canonical release version for the XRCVC Library plugin.
