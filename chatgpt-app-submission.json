@@ -1459,6 +1459,18 @@
         "open_world_justification": "Does not publish content or change public internet state or third-party systems.",
         "destructive_justification": "Does not delete, overwrite, revoke access, send transactions, or perform irreversible actions."
       }
+    },
+    "update_member_profile": {
+      "annotations": {
+        "readOnlyHint": false,
+        "openWorldHint": false,
+        "destructiveHint": true
+      },
+      "justifications": {
+        "read_only_justification": "Updates only the authenticated person’s shared phone and disability details.",
+        "open_world_justification": "Changes records only in the connected XRCVC Library service.",
+        "destructive_justification": "Overwrites the explicitly selected existing contact fields; omitted fields remain unchanged."
+      }
     }
   },
   "test_cases": [
@@ -1523,7 +1535,7 @@
       "user_prompt": "Add the selected requestable XRCVC Library item to my own cart, then show me the updated cart.",
       "file_attachment_urls": null,
       "tools_triggered": "add_member_cart_item, get_member_cart",
-      "expected_output": "Confirms the selected item and required option, adds it only to the authenticated Membership ID's cart, and verifies the updated cart.",
+      "expected_output": "Confirms the selected item and required option, adds it only to the authenticated Membership ID's cart, and verifies the updated cart. Creation and checkout, when separately requested, wait for server-confirmed numbers and links rather than treating the cart as a submitted request.",
       "expected_output_url": null
     },
     {
@@ -1531,15 +1543,15 @@
       "user_prompt": "As Staff, create this request for the selected member and update it to the allowed next lifecycle status after I confirm both actions.",
       "file_attachment_urls": null,
       "tools_triggered": "get_authenticated_identity, create_admin_request, get_admin_request, update_admin_request",
-      "expected_output": "Uses the selected beneficiary, obtains required inputs and confirmation, creates and verifies the request, then applies only an allowed update while refusing deletion.",
+      "expected_output": "Uses the selected beneficiary, obtains required inputs and confirmation, creates and verifies the request, then applies only an allowed update while refusing deletion. Announces creation for the exact full name and Membership ID while waiting and uses the server-assigned saved number; a lost response prompts a scoped record check rather than automatic resubmission.",
       "expected_output_url": null
     },
     {
-      "description": "Update an administrative catalog record.",
-      "user_prompt": "As an authorized Admin, review and update the selected catalog record, then verify the saved result.",
+      "description": "Update the authenticated person’s own contact details.",
+      "user_prompt": "Review my own XRCVC phone and disability details, update only the fields I specify, then verify the saved contact details.",
       "file_attachment_urls": null,
-      "tools_triggered": "get_authenticated_identity, get_admin_catalog_item, update_admin_catalog_item",
-      "expected_output": "Retrieves the exact record, summarizes and confirms the intended fields, performs the authorized update, and verifies the resulting catalog state.",
+      "tools_triggered": "get_authenticated_identity, get_member_profile, update_member_profile",
+      "expected_output": "Uses only the signed-in person’s profile, accepts the five supported contact fields with current choices, preserves omitted fields and identity/roles, waits for confirmation, and verifies the saved contact details without claiming welcome email delivery.",
       "expected_output_url": null
     }
   ],

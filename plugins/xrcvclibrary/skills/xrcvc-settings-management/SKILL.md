@@ -1,6 +1,6 @@
 ---
 name: xrcvc-settings-management
-description: Update XRCVC Library accessibility, report, Developer Mode, or AI settings through role-authorized MCP tools. Use when a user explicitly asks to change settings; do not use merely to explain settings documentation.
+description: Update the signed-in person’s XRCVC Library phone/disability details or role-authorized accessibility, report, Testing Mode, and AI settings. Use for explicit profile or settings changes; do not use for another person’s profile or documentation alone.
 ---
 
 # Manage XRCVC Library Settings
@@ -28,3 +28,9 @@ Use `get_authenticated_identity` before any mutation. Membership ID remains the 
 - Never target another Membership ID through the self-scoped accessibility tool, even if a client schema exposes an optional target parameter.
 - Do not claim a secret was unchanged, stored, or removed unless the server explicitly reports that outcome.
 - Clearly distinguish successful mutation, role denial, validation failure, and unverified post-write state.
+
+## Own contact details
+
+- Every authenticated role may use `get_member_profile` and `update_member_profile` for its own shared phone and disability details. The server chooses the Membership ID; do not supply a target or use an administrative directory mutation for a self-service edit.
+- Accepted update fields are `phone`, `phoneCountryCode`, `phoneDialCode`, `phoneNationalNumber` and `disabilityType`. Read the live schema for accepted country/disability choices and the ten-digit national-number rule; omitted fields remain unchanged. Names, emails, roles, status, membership linkage and verification are not editable through this tool.
+- Review the exact requested changes, await the saved response and verify with `get_member_profile` when useful. Ordinary contact edits send no welcome or request/order email. Do not alter Testing Mode, verification or organization-wide settings merely to work around a failed request.

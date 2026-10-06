@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented here.
 
+## 1.0.4 - 2026-10-06
+
+- Updated all fifteen page/workflow skills for server-confirmed creation, scoped uncertain-response review, simultaneous legitimate records and role-safe saved-result verification.
+- Added pending request/order communication with on-behalf full name and Membership ID, server-assigned numbers/links, 1–2,000 character reasons and the 249-item atomic checkout limit.
+- Added own phone/disability profile updates and the Admin/Developer Email and Account Security report; aligned the inventory to 122 MCP tools and 43 mutations.
+- Synchronized portable, Claude, Claude Marketplace and ChatGPT/Codex base versions to 1.0.4, and added the local cachebuster fallback for environments without the bundled helper.
+- Deployed and read back MCP server 0.2.2 in `xrcvc-library`, `asia-south1`; live initialization includes pending-save, beneficiary, safe-retry and target-versus-credential guidance. Public `tools/list` returns 122 tools, including 43 mutations, and matches every submitted safety annotation.
+- Validation passed: all fifteen skill entrypoints, package/version/role/privacy checks, three release-helper tests, 25 focused MCP tests and generated-reference freshness. Created and integrity-checked ChatGPT, Codex/portable and Claude 1.0.4 archives; every packaged skill file matches source. The ChatGPT archive preserves the previous registered plugin/app identity and does not introduce a duplicate direct MCP binding.
+- Archive paths, checksums and version evidence are recorded in `release-archives/plugin-release-1.0.4.json` and `SHA256SUMS-1.0.4.txt`. Source changes remain uncommitted; no marketplace/store publication or installed-host reload/upload was performed. Installed skills require a host update/reload; live function version, prepared package and host installation are separate evidence surfaces.
+
 ## 1.0.3 - 2026-09-24
 
 - Updated Member and Admin cart guidance for per-item added date, time, and actor information, including legacy items with missing attribution. Per-item last-update fields are no longer part of the response.

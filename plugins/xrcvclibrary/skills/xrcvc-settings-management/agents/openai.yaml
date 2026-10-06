@@ -1,10 +1,10 @@
 interface:
-  display_name: "Manage XRCVC Settings"
-  short_description: "Update role-authorized library settings"
+  display_name: "Manage XRCVC Profile and Settings"
+  short_description: "Update your contact details and library settings"
   icon_small: "./assets/xrcvc-library-icon.png"
   icon_large: "./assets/xrcvc-library-logo.png"
   brand_color: "#E8601C"
-  default_prompt: "Use $xrcvc-settings-management to update the appropriate XRCVC Library settings for my authenticated role."
+  default_prompt: "Use $xrcvc-settings-management to update my XRCVC Library contact details or the settings allowed for my authenticated role."
 dependencies:
   tools:
     - type: "mcp"

@@ -27,3 +27,7 @@ Use the public documentation Markdown supplied by the API and MCP server. Explai
 - Cite or link the returned documentation section when available, distinguish documented behavior from live account data, and state the role/audience of the manual.
 - Do not invent manual sections, policy rules, or status transitions. If the documentation does not answer the question, say so.
 - Documentation is public; do not require authentication merely to explain it.
+
+## Creation progress and saved record pages
+
+For current request/order guidance, distinguish the website's focused loading dialog from the selected AI host's progress display. Member messages refer to the person's own request/order; Admin dialogs identify the selected full name and Membership ID. The website opens the saved request/order URL only after server confirmation and preserves entered details after a failure. Retrieve the current manual section for its exact navigation and conditions; a documented flow or loading indicator does not prove that an individual request was saved. Use transaction detail for the user's actual result.

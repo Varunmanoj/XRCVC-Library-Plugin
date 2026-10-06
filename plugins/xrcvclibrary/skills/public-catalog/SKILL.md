@@ -42,3 +42,7 @@ Use the XRCVC Library MCP server as the source of truth. This skill is public: d
 - Explain why each item matches, including material format and known subject/topic or diagram-type limits.
 - Treat absent fields as unknown. Catalog inclusion does not guarantee availability or requestability; report the returned status instead.
 - Never expose Admin-only operational fields unless the user explicitly requested and is authorized for that analysis.
+
+## Moving from catalog review to a request
+
+A catalog match is a selection, not a saved request. For creation, pass the selected returned resource and required format/type to the appropriate transaction skill, which waits for a server-confirmed number and saved link. If submission fails while current catalog detail remains requestable, do not claim the item is defective or change its Requestable setting; distinguish the returned submission guidance from current catalog configuration.

@@ -40,3 +40,7 @@ Use authenticated XRCVC Library MCP Markdown tools. The server determines the ro
 - Separate actions due now, upcoming work, completed/recent activity, and informational history.
 - Preserve task type, status, IDs, dates, and direct links exactly as returned; state the applicable time window.
 - State clearly whether the view is the bearer’s own Member data or the role-authorized Admin task dataset.
+
+## Creation and current task evidence
+
+A pending website/tool save is not yet a saved request, order or task. Use returned transaction numbers and dates when identifying activity; concurrent requests for the same title can belong to different people and must not be merged. Tasks and Recent Activity are scoped views, not a complete submission-error or delivery log. For an uncertain save, route to the appropriate transaction skill and verify the saved record before recommending another creation call.

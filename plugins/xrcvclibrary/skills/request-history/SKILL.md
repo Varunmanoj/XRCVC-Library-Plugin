@@ -43,3 +43,7 @@ For a list of archived requests, use Member Archives or Admin Archives. Never se
 - In member answers, present only the returned member link.
 - In administrative answers, label both links: the member link requires the target member's active session; the Admin Console link requires existing Staff/Admin/Developer application authorization.
 - `adminMembershipId` is the intended human-readable updater identifier and may be shown in Member or Admin answers. Never reconstruct or expose `userId`, `firebaseUUID`, `adminUID`, or other Firebase identity fields from member output.
+
+## Server-assigned creation numbers
+
+A request number is a returned record identifier, not a creation timestamp or chronological sequence. Use `requestDate` and actual history entries to order events, including simultaneous requests for the same catalog item. For an uncertain creation response, a matching authorized saved record can confirm the outcome; do not create a replacement request from this history-review workflow or infer success from a cart or request-number pattern.

@@ -14,7 +14,7 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 - If `/auth/me` reports **Staff, Admin, or Developer** and the user has not already explicitly selected self-scope or all-member scope, ask exactly: **“Do you want the cart, requests, or orders for your logged-in Membership ID, or the complete role-authorized Admin list for all Membership IDs?”**
 - For Staff, Admin, or Developer, stop after asking that question. Apart from `/auth/me`, do not call a Member or Admin cart/request/order tool and do not display the signed-in person's current cart, requests, or orders until the user chooses a view.
 - If Staff, Admin, or Developer chooses their logged-in Membership ID, use only the self-scoped Member routes in this skill. If they choose all Membership IDs, hand off to the Admin Transactions skill and use its Admin routes.
-- Do not repeat the choice when the user already clearly asked for **their own/logged-in Membership ID** or for **all Membership IDs/the complete Admin list**. Server authorization remains decisive.
+- Do not repeat the choice when the user already clearly asked for **their own/logged-in Membership ID**, **all Membership IDs/the complete Admin list**, or for an **explicitly selected on-behalf beneficiary**. A selected on-behalf action establishes the Admin transaction audience; Member tools remain self-scoped and server authorization remains decisive.
 
 ## Allowed member scope
 
@@ -82,3 +82,11 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 - If authentication is required, direct the user to the host's XRCVC OAuth connection flow. Installation alone does not authenticate an account.
 - Distinguish a mutation accepted by the server from a verified post-write state. Never claim that a cart item, request, or order was created until the tool returns success.
 - A successful request or order response must name the actual requested catalog items and their returned request details. Never use the pre-submit cart alone as proof of what the server created.
+
+## Waiting for request and order creation
+
+- Before an authorized creation call, say **Creating your request, please wait** or **Creating your order, please wait**. Explain that the saved details will be available after the server responds; use the host's progress display when available and do not invent a percentage or announce success early.
+- Let the server assign the request/order number and saved identity. Use only accepted catalog options and a reason of 1–2,000 characters; never generate a number, supply an actor/status snapshot, or inspect other members' request numbers.
+- Orders submit at most 249 saved cart items. The order, generated requests and submitted-cart removal save together. A failed save preserves the cart; cart emptiness by itself does not prove that this call created an order.
+- Keep one creation call pending at a time for the selected submission. If the response is lost or times out, check the appropriate self-scoped request/order list and any returned saved number before considering another call. Report an uncertain outcome when a matching saved record cannot be established; do not automatically repeat creation.
+- After confirmation, provide the returned saved request/order URL and itemized details. Concurrent users may legitimately request the same item; distinguish records by their returned IDs, never by title or numerical sequence alone.

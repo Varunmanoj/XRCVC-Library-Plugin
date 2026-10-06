@@ -15,7 +15,7 @@ Use this checklist after the canonical MCP deployment and public policy routes a
 - Support: `https://console.library.xrcvc.org/plugin-support`
 - Compact icon: `plugins/xrcvclibrary/assets/xrcvc-library-icon.png`
 - Marketplace logo: `plugins/xrcvclibrary/assets/xrcvc-library-logo.png`
-- Submission import: `chatgpt-app-submission.json` (121 tools, ten positive tests, and five negative tests)
+- Submission import: `chatgpt-app-submission.json` (122 tools, ten positive tests, and five negative tests)
 
 The MCP server is registered in ChatGPT Developer Mode as **XRCVC Library**. Its real `plugin_asdk_app…` identifier is stored in `plugins/xrcvclibrary/.app.json` and referenced from `.codex-plugin/plugin.json`. Complete OAuth, rerun `python3 scripts/validate_package.py`, reinstall the local plugin, and pass the fresh-chat test matrix before submitting for review. The Marketplace submission itself continues to use the canonical MCP Server URL above.
 
@@ -61,8 +61,8 @@ For Anthropic community-marketplace review, submit from `https://claude.ai/admin
 6. Explain one of my request histories, including each updater, status, date, and ready-state collection location, without exposing Firebase UID fields.
 7. As a Member, list Membership ID reservations, inspect one selected shared profile, confirm internal sign-in/security/linked-login/Admin Console fields are absent, and do not modify any Membership ID record or access the user-account directory.
 8. Add a requestable catalog item to my own cart, show the resulting cart, and do not accept a different Membership ID.
-9. As Staff, create a request on behalf of a selected member and update its allowed lifecycle status, but refuse every delete operation.
-10. As Admin, review one catalog update and one Membership ID update, ask before executing each write, then verify the resulting records.
+9. As Staff, create a request on behalf of a selected member. Name the full name and Membership ID while waiting, show the server-assigned number and saved link, verify the result, and refuse every delete operation. If the response is lost, check scoped records before another attempt.
+10. Review and update only my own phone/disability details through `update_member_profile`, preserve omitted fields and identity/roles, wait for the saved response and verify the returned contact details.
 
 ## Negative and boundary test prompts
 
@@ -87,3 +87,12 @@ After one successful authorization, verify protected tools without another OAuth
 4. A new Claude session after its one-time product-specific authorization.
 
 If a product deliberately uses a separate credential store, record one initial login for that product as expected. Reauthentication for every conversation is a failure. Capture only event categories and timestamps; never place a Membership ID, access token, refresh token, or authorization header in submission evidence.
+
+## Submission repair review cases
+
+- Delay a request/order response in a controlled test. Expect pending communication, an explicit on-behalf full name/Membership ID, no early success and no duplicate retry while waiting. Confirm the returned saved number/link after completion.
+- Return an uncertain timeout. Expect a role-scoped saved-record review and an uncertainty statement when no definite match is established, rather than automatic creation or cleanup.
+- Use the backend emulator harness for two checkouts against one synthetic cart and simultaneous synthetic submissions for different users. Expect one order for that cart, distinct saved IDs, correct beneficiaries and generated-request links, and no overwriting or partial clearing. A plugin preview is not concurrency proof.
+- Inspect `email-account-security` as Admin/Developer with omitted and explicit dates. Expect all saved accounts versus a last-sign-in filter, stated truncation, and refusal for Member/Staff.
+
+Validate source and each archive separately. After installing/reloading in a supported host, check its displayed plugin version and re-fetch MCP initialization/tools; an archive or live function deployment alone does not update cached host skills.

@@ -112,7 +112,7 @@ EXPECTED_CHATGPT_TOOLS = {
 MUTATION_TOOL_NAMES = {
     "create_admin_catalog_item", "update_admin_catalog_item", "delete_admin_catalog_item",
     "create_admin_taxonomy_item", "update_admin_taxonomy_item", "delete_admin_taxonomy_item",
-    "create_admin_user", "update_admin_user", "delete_admin_user",
+    "create_admin_user", "update_admin_user", "delete_admin_user", "update_member_profile",
     "create_admin_membership_id", "update_admin_membership_id", "delete_admin_membership_id",
     "create_admin_membership_profile", "update_admin_membership_profile", "delete_admin_membership_profile",
     "add_member_cart_item", "remove_member_cart_item", "clear_member_cart",
@@ -423,7 +423,7 @@ def validate() -> None:
     settings_management = (PLUGIN_ROOT / "skills" / "xrcvc-settings-management" / "SKILL.md").read_text(encoding="utf-8")
     for tool_name in (
         "update_accessibility_settings", "update_report_defaults",
-        "update_developer_settings", "update_ai_settings",
+        "update_developer_settings", "update_ai_settings", "update_member_profile",
     ):
         assert tool_name in settings_management, f"xrcvc-settings-management must explain {tool_name}"
     assert "Omit any optional target Membership ID" in settings_management

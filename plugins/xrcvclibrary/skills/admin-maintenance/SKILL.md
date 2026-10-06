@@ -35,3 +35,7 @@ These tools can permanently delete or reclassify data. Use `get_authenticated_id
 - Distinguish role denial, validation failure, dependency skip, partial completion, and complete success.
 - Never report a deletion merely because the tool call was attempted; use the returned outcome and counts.
 - Do not expose Firebase UIDs, authorization headers, OAuth credentials, or secret configuration.
+
+## Submission failures are not cleanup instructions
+
+Do not rebuild reports, clear carts, classify archives or delete transaction records to repair a creation timeout or denied request. First use the authorized transaction workflow to establish the saved outcome. Concurrent requests for the same catalog item may be legitimate; only reviewed returned IDs and a separately authorized exact maintenance target set justify cleanup.

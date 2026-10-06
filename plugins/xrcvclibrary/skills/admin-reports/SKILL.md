@@ -48,3 +48,8 @@ Reports are server-authorized for Admin and Developer roles only. Start with `/a
 - Do not retrieve or summarize reports for Staff or Member roles; report the server-enforced role boundary.
 - Identify filters and dates behind every conclusion, and avoid causal claims that the report does not establish.
 - Treat an unavailable report, not found report/table, and access denial as different outcomes.
+
+## Email and Account Security and submission evidence
+
+- The current report catalog contains eleven reports. Use returned report IDs; `email-account-security` includes the `linked-accounts` table for Admin/Developer only. Without dates it includes all saved linked accounts, including accounts that have never signed in; explicit dates filter last sign-in in India time. State `dateFilterApplied` and any `truncatedMembershipCount` before claiming coverage, and preserve the returned continuation URL/filter scope on JSON pages.
+- Report totals and security snapshots do not establish whether a particular creation call succeeded. For a request/order submission question, use the selected role-authorized transaction detail and its returned number/beneficiary; concurrent submissions or later aggregate updates must not be misreported as failed writes.

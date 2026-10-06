@@ -13,7 +13,7 @@
 - Fifteen focused skills: `public-catalog`, `member-transactions`, `admin-transactions`, `member-archives`, `admin-archives`, `admin-member-directory`, `admin-catalog-management`, `xrcvc-settings-management`, `admin-maintenance`, `request-history`, `order-history`, `admin-reports`, `xrcvc-tasks-activity`, `xrcvc-library-introduction`, and `xrcvc-library-documentation`. Together they keep public research separate from role-authorized self-service, administrative CRUD, destructive maintenance, reporting, and lifecycle workflows.
 - Explicit XRCVC icon and brand-color metadata for each OpenAI/Codex skill.
 
-The plugin exposes the complete FastMCP 0.2.1 contract: 121 tools, including 42 mutations. Every authenticated role may read the Membership ID reservation/shared-profile directory; Member responses omit internal sign-in, security, linked-login, and Admin Console fields. Members may add or remove items in their own cart and create requests or orders only for themselves, but cannot mutate Membership ID records. Staff, Admin, and Developer may create and update operational records and act on behalf of members; Staff cannot delete. Admin and Developer may administer users, Membership IDs, catalog deletion, report defaults, and destructive operations, while Developer-only settings and maintenance retain their server-enforced boundary.
+The plugin exposes the complete FastMCP 0.2.2 contract: 122 tools, including 43 mutations. Every authenticated role may read the Membership ID reservation/shared-profile directory; Member responses omit internal sign-in, security, linked-login, and Admin Console fields. Members may add or remove items in their own cart and create requests or orders only for themselves, but cannot mutate Membership ID records. Staff, Admin, and Developer may create and update operational records and act on behalf of members; Staff cannot delete. Admin and Developer may administer users, Membership IDs, catalog deletion, report defaults, and destructive operations, while Developer-only settings and maintenance retain their server-enforced boundary.
 
 The introduction skill also explains the channel-independent ZeptoMail contract. API and MCP mutations retain the website workflows for standalone request creation, combined order submission, request/order status transitions, and documented account events; cart-only changes and Membership ID reservation/profile-only edits remain intentionally email-silent. It distinguishes an authoritative write from asynchronous provider acceptance and preserves the Developer Mode recipient override.
 
@@ -146,3 +146,9 @@ The OpenAI manifest exposes the Terms URL through `interface.termsOfServiceURL` 
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+## Creation release 1.0.4
+
+All fifteen page/workflow skills reflect the deployed server-confirmed request/order flow. Creation waits for the saved number/link; on-behalf messages identify the person's full name and Membership ID. Orders commit generated requests and submitted-cart removal together, support at most 249 saved items, and preserve carts after a failed save. An uncertain response requires a scoped saved-record check before another attempt. The profile/settings skill covers the self-scoped phone/disability update, and Admin Reports covers Email and Account Security.
+
+Use `python3 scripts/refresh_codex_cachebuster.py` when the bundled plugin-creator cachebuster helper is unavailable, then run `python3 scripts/validate_package.py`, the skill validators and `python3 scripts/validate_live_contract.py <saved-tools-list.json>`. Plugin manifests share base version 1.0.4; the separate deployed MCP server version is 0.2.2. Prepared source and upload archives do not prove that a host has reloaded its installed skills.

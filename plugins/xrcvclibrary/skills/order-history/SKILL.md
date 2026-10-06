@@ -43,3 +43,7 @@ For a list of archived orders, use Member Archives or Admin Archives. Never sear
 - Member answers use only returned `memberOrderUrl` and `memberRequestUrl` values.
 - Administrative answers label both order links and both links for relevant generated requests. Member links require the target member's active session; Admin Console links require existing Staff/Admin/Developer application authorization.
 - `adminMembershipId` is the intended human-readable updater identifier and may be shown in Member or Admin answers. Never reconstruct or expose Firebase UID fields from member output. A missing trigger field means the server did not attribute that order transition to a particular request.
+
+## Creation and generated-request evidence
+
+Order creation saves the parent order, generated requests and submitted-cart removal together. Subsequent fulfillment and email delivery remain separate events. Use the returned order/request IDs and dates, not numerical sequence or an empty cart, to establish creation and linkage. Multiple users can order the same catalog item; a matching title alone is not evidence of a duplicate or a shared order. An uncertain creation outcome belongs in transaction review before any resubmission.

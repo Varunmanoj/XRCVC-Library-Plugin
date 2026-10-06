@@ -32,3 +32,7 @@ Use the dedicated authenticated XRCVC Library archive tools. The server derives 
 - Distinguish an empty archive from authentication failure, access denial, and tool unavailability.
 - Never describe archive as a request/order status transition. State that the record is archived because `isArchived` is true, then report its separate real status.
 - Do not expose an Admin Console link, another Membership ID's records, or Firebase UIDs from member archive output.
+
+## Creation numbers and failed submissions
+
+Request/order numbers are server-assigned identifiers and do not establish age or chronological order. Use returned dates and stored archive fields. An uncertain recent submission is not an archive lookup by default; route it to the self-scoped transaction workflow to check saved records before another attempt, without creating a replacement from the archive page.

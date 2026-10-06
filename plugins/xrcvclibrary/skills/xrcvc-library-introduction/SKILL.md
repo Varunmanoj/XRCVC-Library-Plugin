@@ -24,7 +24,7 @@ Give a clear, welcoming orientation to XRCVC Library, the accessible library ser
 ## Post-login information-view choice
 
 - Never ask the user to state or provide their role or Membership ID. Use the role already supplied by login or `/auth/me` only to respect server-authorized access.
-- For cart, request, or order questions, first resolve `/auth/me`. If the role is Member, proceed directly with the self-scoped Member view. If the role is Staff, Admin, or Developer and the user has not selected a scope, do not fetch or display transaction data yet; ask: “Do you want the cart, requests, or orders for your logged-in Membership ID, or the complete role-authorized Admin list for all Membership IDs?”
+- For cart, request, or order questions, first resolve `/auth/me`. If the role is Member, proceed directly with the self-scoped Member view. An explicitly selected on-behalf beneficiary establishes the Admin transaction scope. If the role is Staff, Admin, or Developer and the user has not selected a scope, do not fetch or display transaction data yet; ask: “Do you want the cart, requests, or orders for your logged-in Membership ID, or the complete role-authorized Admin list for all Membership IDs?”
 - For other capabilities with both Member and Admin variants, ask the audience-selection question only when authorization identifies the user as Staff, Admin, or Developer and they have not selected an audience: “Which information view would you like: your membership/member view (catalog items, tasks, or recent activity), or a role-authorized Admin view?”
 - Do not ask this question for an authorized Member. Use only the member-oriented endpoint family for their requests, orders, cart, catalog items, tasks, and recent activity; never offer or query Admin-related information.
 - Use the answer only to choose the Member or Admin endpoint family. Server authorization remains decisive; an unavailable Admin view must not be retried through another route.
@@ -70,3 +70,7 @@ Give a clear, welcoming orientation to XRCVC Library, the accessible library ser
 - Use plain language and expand XRCVC once before using the abbreviation.
 - Do not promise availability, successful requests, or access to an account; direct protected users to the host OAuth connection when needed.
 - Link to current public sources when returned by MCP rather than fabricating URLs.
+
+## Creating requests and orders
+
+Explain that all verified roles can submit their own requests/orders and authorized Staff/Admin/Developer operators can act for an explicitly selected person. Creation may take a few seconds; success and the saved number/link come from the server response. For on-behalf work, name the beneficiary with the Membership ID before the call and in the result. Orders submit at most 249 saved cart items and save their generated requests together with cart removal; an uncertain response needs a scoped saved-record check before another attempt. Route these actions to the transaction skills rather than executing them during a general introduction.

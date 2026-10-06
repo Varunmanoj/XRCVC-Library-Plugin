@@ -1,7 +1,7 @@
 {
   "name": "xrcvclibrary",
   "displayName": "XRCVC Library",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Explore XRCVC Library and perform role-authorized catalog, membership, cart, request, order, settings, and maintenance operations.",
   "author": {
     "name": "Xavier's Resource Centre for the Visually Challenged",
@@ -11,7 +11,13 @@
   "homepage": "https://console.library.xrcvc.org/plugin-support",
   "repository": "https://github.com/Varunmanoj/XRCVC-Library-Plugin",
   "license": "MIT",
-  "keywords": ["xrcvc", "library", "catalog", "accessibility", "mcp"],
+  "keywords": [
+    "xrcvc",
+    "library",
+    "catalog",
+    "accessibility",
+    "mcp"
+  ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json"
 }

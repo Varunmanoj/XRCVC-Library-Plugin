@@ -15,6 +15,7 @@
   - `.claude-plugin/marketplace.json`, both the marketplace-level `version` and the XRCVC Library plugin entry `version`
   - `plugins/xrcvclibrary/.codex-plugin/plugin.json`, before its Codex cachebuster suffix
 - The ChatGPT/Codex manifest must use `<base-version>+codex.<14-digit-UTC-timestamp>`. The `+codex...` portion is a host cachebuster, not a separate release version, and must be refreshed with the plugin-creator cachebuster helper instead of changing the base version independently.
+- When the bundled plugin-creator helper is unavailable, use the repository equivalent `scripts/refresh_codex_cachebuster.py`; it derives the base version from the portable manifest and preserves unrelated Codex metadata.
 - Never bump or publish the ChatGPT/Codex and Claude distributions separately. A release is ready only when every manifest has the same base version and `scripts/validate_package.py` passes.
 - Keep `scripts/validate_package.py` version checks derived from the canonical portable manifest; do not hard-code a release number into separate host assertions.
 

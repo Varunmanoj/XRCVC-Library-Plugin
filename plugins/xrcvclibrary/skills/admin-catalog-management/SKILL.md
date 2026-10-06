@@ -43,3 +43,7 @@ Use the authenticated XRCVC Library MCP tools and server-enforced role checks. M
 - Do not silently broaden a single-record request into a bulk operation.
 - Present audit actors as the returned full name paired with the matching Membership ID. Never expose Firebase UIDs or credentials.
 - State whether the operation was created, updated, deleted, rejected by dependencies, denied by role, or not executed.
+
+## Requestability and submission failures
+
+Books need linked formats and Tactile Diagrams need linked diagram types before they can be requested. Review current catalog detail when diagnosing a configuration failure. A creation timeout or account denial does not justify changing the catalog's Requestable setting, disabling verification or editing transaction records; use the transaction workflow to establish the saved outcome first. Change catalog configuration only when current returned evidence and the user's authorization identify that change.

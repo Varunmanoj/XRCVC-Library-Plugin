@@ -14,7 +14,7 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 - If `/auth/me` reports **Staff, Admin, or Developer** and the user has not already explicitly selected self-scope or all-member scope, ask exactly: **“Do you want the cart, requests, or orders for your logged-in Membership ID, or the complete role-authorized Admin list for all Membership IDs?”**
 - For Staff, Admin, or Developer, stop after asking that question. Apart from `/auth/me`, do not call a Member or Admin cart/request/order tool and do not display the signed-in person's current cart, requests, or orders until the user chooses a view.
 - If Staff, Admin, or Developer chooses their logged-in Membership ID, hand off to Member Transactions and use its self-scoped Member routes. If they choose all Membership IDs, proceed with the Admin routes in this skill.
-- Do not repeat the choice when the user already clearly asked for **their own/logged-in Membership ID** or for **all Membership IDs/the complete Admin list**. Server authorization remains decisive.
+- Do not repeat the choice when the user already clearly asked for **their own/logged-in Membership ID**, **all Membership IDs/the complete Admin list**, or for an **explicitly selected on-behalf beneficiary**. A selected on-behalf action establishes the Admin transaction audience; Member tools remain self-scoped and server authorization remains decisive.
 
 ## MCP output format
 
@@ -93,3 +93,11 @@ Use authenticated XRCVC Library MCP Markdown output and server-enforced access. 
 - Do not present an operational list as a report or infer causes or performance trends that need report data.
 - A server access denial is authoritative; explain the boundary and do not try alternate routes to bypass it.
 - A successful request or order response must name the actual requested catalog items and their returned request details. Never use the pre-submit cart alone as proof of what the server created.
+
+## Waiting for on-behalf creation
+
+- Before an authorized creation call, identify the exact beneficiary as **Full Name (Membership ID)** from the selected record: **Creating a request for Full Name (Membership ID), please wait** or the equivalent order message. Preserve that beneficiary during the wait; the signed-in operator is the opener, not automatically the requested-for person.
+- Use self-scoped Member tools for an operator's own request/order and administrative tools only for the explicitly selected on-behalf target. The server assigns the number and verifies the actor and beneficiary; never generate IDs or forward client-supplied identity/status snapshots.
+- Request/order reasons contain 1–2,000 characters. One order submits at most 249 saved cart items. Its order, generated requests and submitted-cart removal save together; a failed save preserves the cart.
+- Await the creation response before giving success or opening/providing the saved record link. Use the host's progress display when available without invented percentages. The Admin website's loading dialog names the same beneficiary and Membership ID.
+- If a call times out or its response is lost, inspect the authorized target's requests/orders and any returned saved number before considering another submission. An empty cart or a similar item title is not proof of this call's outcome. Do not automatically repeat creation or delete possible duplicates; report uncertainty if a definite matching record cannot be established.
