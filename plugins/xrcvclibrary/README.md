@@ -20,3 +20,13 @@ The support page contains installation, OAuth and legacy authentication, reconne
 ## Request and order creation
 
 Creation may take a few seconds. Skills announce the pending operation, name the on-behalf beneficiary with the Membership ID, await the server-assigned saved number and link, and avoid automatic retries after an uncertain response. Orders submit at most 249 saved cart items and commit their generated requests together with submitted-cart removal. Each page skill preserves its existing role/privacy/lifecycle boundary. The signed-in person can update their own phone/disability details, and Admin/Developer reports include Email and Account Security.
+
+## Status-update guidance release 1.0.5
+
+The shared ChatGPT/Codex and Claude skills ask for the exact request/order, offer manual status choices appropriate to the item type, collect required collection/return details or rejection reasons, and offer an optional comment before saving. Books allow In Review, Issued, or Rejected; physical requests also allow Ready and Returned. Overdue is automatic. Orders use Received, In Progress, Partially Fulfilled, Partially Fulfilled Overdue, or Completed, checked against linked request states. History, member-transaction, and introduction skills route update requests to the same guidance. These instructions also apply to compatible clients that load the skill files; a connector-only installation does not load plugin skills.
+
+No Cloud Function or website change is required: existing update tools accept status, fulfillment details, and optional `remarks`. The MCP server remains 0.2.2. Fresh upload archives are prepared separately; installed-host skill reloads must be verified in those hosts.
+
+## Required creation questions release 1.0.6
+
+Shared skills collect missing item selections before cart additions/replacements and individual requests: Book format(s) and Tactile Diagram type come from the selected item's current catalog choices. Even a single available option is offered for acceptance when the user has not selected it. Individual requests require a reason; cart-only saves do not. Orders review every saved item's choices, collect one shared order reason, and require explicit final checkout confirmation. Existing valid answers are retained; unavailable options, missing configuration, ambiguous targets, and unintended replacements stop the write. This release includes the 1.0.5 status/comment guidance. Backend tools and MCP server version 0.2.2 are unchanged. Prepared archives do not establish installed-host reload or remote publication.

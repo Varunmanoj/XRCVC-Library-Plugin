@@ -47,3 +47,11 @@ For a list of archived requests, use Member Archives or Admin Archives. Never se
 ## Server-assigned creation numbers
 
 A request number is a returned record identifier, not a creation timestamp or chronological sequence. Use `requestDate` and actual history entries to order events, including simultaneous requests for the same catalog item. For an uncertain creation response, a matching authorized saved record can confirm the outcome; do not create a replacement request from this history-review workflow or infer success from a cart or request-number pattern.
+
+## When the user asks for a status or comment update
+
+History review is read-only. For an explicit update, hand off to Admin Transactions after checking the authenticated role; only verified Staff, Admin, or Developer may update status. Read [Request and order status updates](../admin-transactions/references/status-updates.md) before offering choices. Resolve the exact record, use item-specific statuses, collect required details, and offer a comment before calling an update tool. Keep a supplied valid status/comment and ask only for missing information. Never treat a history question as permission to change it.
+
+## New creation or replacement intent
+
+If the user moves from history review to a new request/order or a cart-selection replacement, hand off to the appropriate transaction skill and its [required creation questions](../member-transactions/references/creation-inputs.md). Resolve missing choices and reasons before saving. Do not reuse old record options/reasons without the user's intent, or interpret “replace” as permission to delete and recreate a submitted transaction.

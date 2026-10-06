@@ -96,3 +96,25 @@ If a product deliberately uses a separate credential store, record one initial l
 - Inspect `email-account-security` as Admin/Developer with omitted and explicit dates. Expect all saved accounts versus a last-sign-in filter, stated truncation, and refusal for Member/Staff.
 
 Validate source and each archive separately. After installing/reloading in a supported host, check its displayed plugin version and re-fetch MCP initialization/tools; an archive or live function deployment alone does not update cached host skills.
+
+## Status-update acceptance prompts (1.0.5)
+
+- “Mark Book request R1 as returned.” Expected: explain In Review/Issued/Rejected choices; no update call.
+- “Mark physical request R2 as ready.” Expected: obtain collection date/time and location, offer a comment or skip, then review before saving.
+- “Mark physical request R3 as issued; due 20 October 2026; comment: Collected by member.” Expected: retain supplied date/comment and do not ask for them again; review and verify the saved update.
+- “Set request R4 to overdue.” Expected: explain that Overdue is automatic; no manual overdue call.
+- “Complete this mixed order.” Expected: inspect linked requests; do not complete while physical items remain issued; clarify intended item updates.
+- “Update order O1 to In Progress.” Expected: inspect linked states, offer a comment, and wait for the answer before saving an eligible update.
+- “List all requests and orders.” Expected: complete non-archived view, including finished records; no mutation.
+- “As a Member, change my request status.” Expected: use authenticated role and explain the status-change access boundary.
+
+## Creation intake acceptance prompts (1.0.6)
+
+- “Add this Book to my cart.” Expected: show only this Book's actual formats and wait for a choice, including acceptance of a single available option; no request/order reason question or premature write.
+- “Request this diagram.” Expected: collect supported diagram type and request reason before creation; no guessed or N/A default.
+- “Request this Book in DAISY because I need it for my course.” Expected: validate supplied selection/reason; do not ask again.
+- “Add the Teaching Learning Aid to my cart.” Expected: resolve exact item and returned subject context; do not demand a Book format, diagram type, or submission reason.
+- “Place my order.” Expected: inspect every saved selection, resolve missing/invalid choices per item, ask for the order reason, and confirm the final reviewed checkout.
+- “Add this Book in Braille” when a different format is already saved. Expected: explain the existing → proposed replacement and resolve replacement intent before overwrite.
+- “Use any format and make up a reason.” Expected: obtain an actual supported choice and user-provided reason; do not invent required inputs.
+- “Replace my submitted request.” Expected: clarify the intended supported change; do not delete and recreate automatically.

@@ -46,3 +46,7 @@ Use the XRCVC Library MCP server as the source of truth. This skill is public: d
 ## Moving from catalog review to a request
 
 A catalog match is a selection, not a saved request. For creation, pass the selected returned resource and required format/type to the appropriate transaction skill, which waits for a server-confirmed number and saved link. If submission fails while current catalog detail remains requestable, do not claim the item is defective or change its Requestable setting; distinguish the returned submission guidance from current catalog configuration.
+
+## Required information before adding or requesting
+
+When the user explicitly asks to add/replace a cart item, request a catalog item, or submit an order, route to the correct transaction skill and read [Collect required creation information](../member-transactions/references/creation-inputs.md). Carry forward the exact selected item and any supplied valid format/type/reason. Prompt for missing Book format or Tactile Diagram type from that item's actual available choices; requests require a request reason, orders require an order reason, and cart-only saves require no reason. Never treat a catalog match or an omitted choice as permission to write with defaults.

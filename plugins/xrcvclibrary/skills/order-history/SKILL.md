@@ -47,3 +47,11 @@ For a list of archived orders, use Member Archives or Admin Archives. Never sear
 ## Creation and generated-request evidence
 
 Order creation saves the parent order, generated requests and submitted-cart removal together. Subsequent fulfillment and email delivery remain separate events. Use the returned order/request IDs and dates, not numerical sequence or an empty cart, to establish creation and linkage. Multiple users can order the same catalog item; a matching title alone is not evidence of a duplicate or a shared order. An uncertain creation outcome belongs in transaction review before any resubmission.
+
+## When the user asks for a status or comment update
+
+History review is read-only. For an explicit update, hand off to Admin Transactions after checking the authenticated role; only verified Staff, Admin, or Developer may update status. Read [Request and order status updates](../admin-transactions/references/status-updates.md) before offering choices. Resolve the exact record, use item-specific statuses, collect required details, and offer a comment before calling an update tool. Keep a supplied valid status/comment and ask only for missing information. Never treat a history question as permission to change it.
+
+## New creation or replacement intent
+
+If the user moves from history review to a new request/order or a cart-selection replacement, hand off to the appropriate transaction skill and its [required creation questions](../member-transactions/references/creation-inputs.md). Resolve missing choices and reasons before saving. Do not reuse old record options/reasons without the user's intent, or interpret “replace” as permission to delete and recreate a submitted transaction.

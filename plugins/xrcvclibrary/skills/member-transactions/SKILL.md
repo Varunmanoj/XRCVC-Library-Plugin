@@ -11,6 +11,7 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 
 - First call `/auth/me` through `get_api_output_as_markdown`. Never ask the user to state their role or type a Membership ID; use the authenticated identity and role returned by the server.
 - If `/auth/me` reports **Member**, do not ask an information-view question. Proceed directly with the requested self-scoped Member cart, requests, or orders because Members cannot access other Membership IDs' transaction data.
+- For an explicit status/comment update with an exact request/order number, that number selects the administrative update target. Use Admin Transactions and its status-update reference; skip this information-view choice.
 - If `/auth/me` reports **Staff, Admin, or Developer** and the user has not already explicitly selected self-scope or all-member scope, ask exactly: **“Do you want the cart, requests, or orders for your logged-in Membership ID, or the complete role-authorized Admin list for all Membership IDs?”**
 - For Staff, Admin, or Developer, stop after asking that question. Apart from `/auth/me`, do not call a Member or Admin cart/request/order tool and do not display the signed-in person's current cart, requests, or orders until the user chooses a view.
 - If Staff, Admin, or Developer chooses their logged-in Membership ID, use only the self-scoped Member routes in this skill. If they choose all Membership IDs, hand off to the Admin Transactions skill and use its Admin routes.
@@ -32,6 +33,9 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 - For a requested sort, pass `sort_by` and `sort_order=asc|desc` to the Member request/order Markdown or structured list tool, including archived tools after an explicit archive request. For name sorting, requests use `resourceTitle` and orders can use returned `requestedFor.name`; date and status fields also work. Preserve `is_archived` and `active_only` filters; sorting does not change their meaning. Reuse the sort and `pageInfo.nextCursor` on each structured page.
 
 ## Member mutations
+
+Before any cart add/replacement, individual request creation, or order checkout, read [Collect required creation information](references/creation-inputs.md). Ask for missing item-specific choices and reasons before writing; retain valid supplied answers, review replacements, and inspect every cart item before checkout. Do not silently select a Book format or Tactile Diagram type.
+
 
 - `add_member_cart_item` adds or replaces one requestable item in the authenticated Membership ID's own cart. Confirm the exact catalog item and required Book format or Tactile Diagram type from the live tool schema and catalog detail; never supply another Membership ID.
 - `remove_member_cart_item` removes one saved item, and `clear_member_cart` removes every saved item. Retrieve the current cart first and obtain fresh explicit confirmation immediately before either destructive operation.
@@ -90,3 +94,7 @@ Use authenticated XRCVC Library MCP Markdown output. The server, not the convers
 - Orders submit at most 249 saved cart items. The order, generated requests and submitted-cart removal save together. A failed save preserves the cart; cart emptiness by itself does not prove that this call created an order.
 - Keep one creation call pending at a time for the selected submission. If the response is lost or times out, check the appropriate self-scoped request/order list and any returned saved number before considering another call. Report an uncertain outcome when a matching saved record cannot be established; do not automatically repeat creation.
 - After confirmation, provide the returned saved request/order URL and itemized details. Concurrent users may legitimately request the same item; distinguish records by their returned IDs, never by title or numerical sequence alone.
+
+## Status and comment update requests
+
+Members can view statuses/history but cannot update request or order status. If an authenticated Staff, Admin, or Developer explicitly requests a lifecycle/comment update, hand off to Admin Transactions and read [Request and order status updates](../admin-transactions/references/status-updates.md). A supplied exact record number establishes the administrative update target; do not loop through the own/all-members viewing question. Offer the correct choices for that item's type, collect required fields, and ask whether to add a comment before writing. Member creation reasons are required and are separate from optional comments on later updates.
