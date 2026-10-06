@@ -41,6 +41,29 @@ class ReleaseHelpersTest(unittest.TestCase):
                 load("refresh_codex_cachebuster").refresh(root)
             self.assertEqual(path.read_text(), '{"name":"preserve-me"}')
 
+    def test_chatgpt_app_id_uses_app_identity_and_rejects_invalid_values(self):
+        normalize = load("build_chatgpt_archive").registered_app_id
+        self.assertEqual(normalize("plugin_asdk_app_6a86fa76513081919da915ed9b23de9b"),
+                         "asdk_app_6a86fa76513081919da915ed9b23de9b")
+        for value in ("asdk_app_a-1", "connector_123", "templated_apps_a_b"):
+            self.assertEqual(normalize(value), value)
+        for value in ("plugin_asdk_app_", "asdk_app_", "asdk_app_bad.id", "random_id"):
+            with self.assertRaises(ValueError):
+                normalize(value)
+
+    def test_chatgpt_archive_preserves_skills_icons_and_source(self):
+        source = ROOT / "plugins/xrcvclibrary"
+        app_before = (source / ".app.json").read_bytes()
+        manifest_before = (source / ".codex-plugin/plugin.json").read_bytes()
+        with TemporaryDirectory() as folder:
+            result = load("build_chatgpt_archive").build(source, Path(folder) / "upload.zip")
+            self.assertEqual(result["name"], "dev-6a86fa76513081919da915ed9b23de9b")
+            self.assertEqual(result["version"], json.loads((source / "plugin.json").read_text())["version"])
+            self.assertEqual(result["skills"], 15)
+            self.assertEqual(result["appId"], "asdk_app_6a86fa76513081919da915ed9b23de9b")
+        self.assertEqual((source / ".app.json").read_bytes(), app_before)
+        self.assertEqual((source / ".codex-plugin/plugin.json").read_bytes(), manifest_before)
+
     def test_live_contract_detects_missing_tools_and_changed_mutation_hints(self):
         validator = load("validate_live_contract").validate
         annotations = {"readOnlyHint": False, "openWorldHint": False, "destructiveHint": True}

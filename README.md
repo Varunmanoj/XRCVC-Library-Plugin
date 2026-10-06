@@ -102,7 +102,7 @@ Run `/reload-plugins`, then `/mcp` and complete the XRCVC OAuth flow when a prot
 3. Choose **Use without an account** for public catalog testing, then complete OAuth once when a protected cart, request, order, task, activity, or report tool requests more access.
 4. Validate and reinstall the plugin after any package change.
 
-The package includes `.app.json` with the real registered XRCVC ChatGPT MCP connection identifier (`plugin_asdk_app_…`) copied from the connection URL after it was created in ChatGPT developer mode. New conversations therefore resolve the same registered connection and ChatGPT-managed credential store; no Membership ID or OAuth token is stored in this repository.
+The ChatGPT website upload includes `.app.json` with the registered XRCVC app identifier (`asdk_app_…`). The plugin page URL uses `plugin_asdk_app_…`; that page identifier is not accepted in the upload’s app field. The ChatGPT archive builder removes only the page prefix and retains the registered app identity and ChatGPT-managed connection; no Membership ID or OAuth token is stored in this repository.
 
 ## Access model
 
@@ -162,3 +162,9 @@ No Cloud Function or website change is required: existing update tools accept st
 ## Required creation questions release 1.0.6
 
 Shared skills collect missing item selections before cart additions/replacements and individual requests: Book format(s) and Tactile Diagram type come from the selected item's current catalog choices. Even a single available option is offered for acceptance when the user has not selected it. Individual requests require a reason; cart-only saves do not. Orders review every saved item's choices, collect one shared order reason, and require explicit final checkout confirmation. Existing valid answers are retained; unavailable options, missing configuration, ambiguous targets, and unintended replacements stop the write. This release includes the 1.0.5 status/comment guidance. Backend tools and MCP server version 0.2.2 are unchanged. Prepared archives do not establish installed-host reload or remote publication.
+
+## ChatGPT website upload correction for 1.0.6
+
+Use `release-archives/chatgpt/xrcvc-chatgpt-personal-update-1.0.6-with-icon-fixed-identity.zip` for **Upload new version** on the existing XRCVC Library plugin page. The earlier 1.0.3–1.0.6 ChatGPT archives contain the rejected page identifier and should not be selected for a new upload. The corrected archive restores the accepted ChatGPT plugin name and app entry key from the 1.0.2 archive (`dev-6a86fa76513081919da915ed9b23de9b`) while retaining release version 1.0.6, all fifteen current skills and icon assets. The website upload uses the plain release version; its separate Codex distribution keeps its required cachebuster. `chatgpt-upload-identity.json` preserves the accepted identities for future builds. It uses the registered app connection and omits the unused `mcpServers` reference to a file not included in the ChatGPT ZIP.
+
+Rebuild future ChatGPT website uploads with `python3 scripts/build_chatgpt_archive.py release-archives/chatgpt/<filename>.zip`. The builder validates accepted app identifiers, connection references, icon assets, ZIP integrity, skill byte parity and all fifteen skill icon references against the plugin assets before replacing its output. It leaves the Codex and Claude source manifests and distributions unchanged. The corrected identity archive was accepted on the existing ChatGPT website plugin page on 6 October 2026; version 1.0.6 and all fifteen skills persisted after refresh. The plugin icon is retained. ChatGPT still shows generic cube icons in its skill list despite the bundled, documented icon settings and matching assets; that visual issue remains unresolved.
